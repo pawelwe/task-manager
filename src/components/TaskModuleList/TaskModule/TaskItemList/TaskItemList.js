@@ -3,10 +3,6 @@ import Task from './TaskItem/Task';
 import classes from './TaskItemList.css';
 
 const TaskItemList = ({ tasks, toggleTask, removeTask, moduleId }) => {
-  if(tasks.length < 1) {
-    return null;
-  }
-
   return (
     <ul className={classes.TaskItemList}>
       {tasks.map(task => {

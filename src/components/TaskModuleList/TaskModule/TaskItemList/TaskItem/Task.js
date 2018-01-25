@@ -29,9 +29,9 @@ const Task = ({
         <h5 className={classes.TaskItemList_item_header}>{name}</h5>
         <p className={classes.TaskItemList_item_info}>Priority: {priority}</p>
         <p className={classes.TaskItemList_item_info}>
-          <span className={expiration < 2 ? 'isExpiring' : ''}>
-            {expiration >= 2 && <span>Expires in: {expiration}h</span>}
-            {expiration < 2 &&
+          <span className={expiration < 31 ? 'isExpiring' : ''}>
+            {expiration >= 31 && <span>Expires in: {expiration} minutes</span>}
+            {expiration < 31 &&
               expiration > 0 && (
                 <span>
                   <img
@@ -39,7 +39,7 @@ const Task = ({
                     src={clockIcon}
                     alt="expiration-icon"
                   />
-                  Expires in: {expiration}h
+                  Expires in: {expiration} minutes
                 </span>
               )}
             {expiration <= 0 && (

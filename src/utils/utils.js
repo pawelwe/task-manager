@@ -1,9 +1,3 @@
-export const findModuleToUpdateHelper = (modules, moduleId) => {
-  return modules.filter(module => {
-    return module.id === moduleId;
-  });
-};
-
 export const findModuleToUpdateIndex = (modules, moduleId) => {
   return modules.findIndex(module => {
     return module.id === moduleId;
@@ -32,6 +26,7 @@ export const sortBy = (key, asc) => {
 };
 
 export const calculateExpiration = (creationDate, expirationPeriod) => {
-  let diff = (creationDate + Math.ceil(expirationPeriod * 60 * 60 * 1000)) - new Date().getTime();
-  return Math.ceil(diff / 360000 / 10);
+  // Calculate diff in minutes
+  let diff = (creationDate + Math.ceil(expirationPeriod * 60 * 1000)) - new Date().getTime();
+  return Math.ceil(diff / 1000 / 60);
 };

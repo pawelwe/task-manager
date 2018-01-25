@@ -41,7 +41,7 @@ const TaskModule = ({
           </span>
         </div>
         <ul className={classes.TaskList}>
-          {tasks.length < 1 && (
+          {tasks && tasks.length < 1 && (
             <li>
               <h5>No tasks in current module...</h5>
               <br />

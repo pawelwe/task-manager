@@ -1,5 +1,4 @@
 import React from 'react';
-import toastr from 'toastr';
 import classes from './AddTask.css';
 
 const AddTask = ({ addNewTask, moduleId }) => {
@@ -23,7 +22,7 @@ const AddTask = ({ addNewTask, moduleId }) => {
         type="number"
         min="1"
         max="24"
-        placeholder="Expiration date (h)"
+        placeholder="Expiration time (minutes)"
         className={classes.AddTask_input}
         ref={node => (expirationPeriod = node)}
         onKeyPress={e => {

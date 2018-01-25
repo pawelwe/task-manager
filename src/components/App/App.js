@@ -17,7 +17,40 @@ import wheelIcon from '../../images/wheel-icon.svg';
 class App extends Component {
   state = {
     taskModules: [],
+    timer: 0
   };
+
+  expiredTasksInterval = 15000;
+
+  componentDidMount() {
+    this.interval = setInterval(this.checkExpiredTasks, this.expiredTasksInterval);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
+  checkExpiredTasks = () => {
+    if (this.state.taskModules.length > 0) {
+      const sortedModules = this.state.taskModules.map((module) => {
+        return module.tasks && module.tasks.length > 0 ? {
+          ...module,
+          tasks: module.tasks.sort((a, b) => {
+            return (
+              calculateExpiration(a.creationDate, a.expirationPeriod) -
+              calculateExpiration(b.creationDate, b.expirationPeriod)
+            );
+          })
+        }: module;
+      });
+      this.setState((prevState, props) => {
+        return {
+          timer: prevState.timer + (this.expiredTasksInterval / 1000),
+          taskModules: sortedModules
+        }
+      });
+    }
+  }
 
   renderTaskModules = () => {
     const taskModules = this.state.taskModules;
