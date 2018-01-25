@@ -1,0 +1,24 @@
+.AddTask {
+  padding-top: 1.2rem;
+  border-top: 1px solid #dddddd; }
+  .AddTask_btn {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: crimson;
+    background-color: transparent; }
+  .AddTask_input {
+    display: block;
+    width: 100%;
+    background-color: #ffffff;
+    margin-right: 1rem;
+    font-size: 1.2rem;
+    padding: 0.6rem 1rem;
+    border: 1px solid #dddddd;
+    border-bottom: 0; }
+    .AddTask_input::placeholder {
+      color: #999999; }
+    .AddTask_input:first-of-type {
+      margin-top: 1rem; }
+    .AddTask_input:last-of-type {
+      border-bottom: 1px solid #dddddd;
+      margin-bottom: 1rem; }

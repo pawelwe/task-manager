@@ -1,0 +1,34 @@
+.TaskModule {
+  flex-basis: 100%;
+  margin: 0 0 5rem;
+  overflow: hidden; }
+  .TaskModule_content {
+    position: relative; }
+  .TaskModule_title {
+    font-size: 2rem;
+    font-weight: bold;
+    display: inline-block;
+    max-width: 80%;
+    word-wrap: break-word; }
+  .TaskModule_filterBox {
+    position: relative;
+    margin: 1rem 0 2rem; }
+  .TaskModule_filterDirArrow {
+    position: absolute;
+    z-index: 9;
+    right: 0;
+    top: 0;
+    font-size: 1.4rem;
+    margin-right: 3px; }
+
+@media (min-width: 768px) {
+  .TaskModule {
+    flex-basis: 33.333%; }
+    .TaskModule_content {
+      margin: 0 2rem; } }
+
+@media (min-width: 1024px) {
+  .TaskModule {
+    flex-basis: 25%; }
+    .TaskModule_content {
+      margin: 0 3rem; } }

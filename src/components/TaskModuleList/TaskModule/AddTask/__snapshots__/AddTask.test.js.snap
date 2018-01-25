@@ -1,0 +1,332 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddTask Component Snapshot 1`] = `
+ReactWrapper {
+  "length": 1,
+  Symbol(enzyme.__unrendered__): <AddTask
+    addNewTask={[Function]}
+    moduleId={1}
+/>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "function",
+    "props": Object {
+      "addNewTask": [Function],
+      "moduleId": 1,
+    },
+    "ref": null,
+    "rendered": Object {
+      "instance": <footer>
+        <input
+                placeholder="Task name"
+        />
+        <input
+                type="number"
+                min="1"
+                max="10"
+                placeholder="Priority (1-10)"
+        />
+        <input
+                type="number"
+                min="1"
+                max="24"
+                placeholder="Expiration date (h)"
+        />
+        <button
+                id="addNewTask"
+        >
+                + Add New Task
+        </button>
+</footer>,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <input
+            className={undefined}
+            placeholder="Task name"
+/>,
+          <input
+            className={undefined}
+            max="10"
+            min="1"
+            placeholder="Priority (1-10)"
+            type="number"
+/>,
+          <input
+            className={undefined}
+            max="24"
+            min="1"
+            onKeyPress={[Function]}
+            placeholder="Expiration date (h)"
+            type="number"
+/>,
+          <button
+            className={undefined}
+            id="addNewTask"
+            onClick={[Function]}
+>
+            + Add New Task
+</button>,
+        ],
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": <input
+            placeholder="Task name"
+/>,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "className": undefined,
+            "placeholder": "Task name",
+          },
+          "ref": [Function],
+          "rendered": Array [
+            undefined,
+          ],
+          "type": "input",
+        },
+        Object {
+          "instance": <input
+            type="number"
+            min="1"
+            max="10"
+            placeholder="Priority (1-10)"
+/>,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "className": undefined,
+            "max": "10",
+            "min": "1",
+            "placeholder": "Priority (1-10)",
+            "type": "number",
+          },
+          "ref": [Function],
+          "rendered": Array [
+            undefined,
+          ],
+          "type": "input",
+        },
+        Object {
+          "instance": <input
+            type="number"
+            min="1"
+            max="24"
+            placeholder="Expiration date (h)"
+/>,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "className": undefined,
+            "max": "24",
+            "min": "1",
+            "onKeyPress": [Function],
+            "placeholder": "Expiration date (h)",
+            "type": "number",
+          },
+          "ref": [Function],
+          "rendered": Array [
+            undefined,
+          ],
+          "type": "input",
+        },
+        Object {
+          "instance": <button
+            id="addNewTask"
+>
+            + Add New Task
+</button>,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "+ Add New Task",
+            "className": undefined,
+            "id": "addNewTask",
+            "onClick": [Function],
+          },
+          "ref": [Function],
+          "rendered": Array [
+            "+ Add New Task",
+          ],
+          "type": "button",
+        },
+      ],
+      "type": "footer",
+    },
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "addNewTask": [Function],
+        "moduleId": 1,
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": <footer>
+          <input
+                    placeholder="Task name"
+          />
+          <input
+                    type="number"
+                    min="1"
+                    max="10"
+                    placeholder="Priority (1-10)"
+          />
+          <input
+                    type="number"
+                    min="1"
+                    max="24"
+                    placeholder="Expiration date (h)"
+          />
+          <button
+                    id="addNewTask"
+          >
+                    + Add New Task
+          </button>
+</footer>,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <input
+              className={undefined}
+              placeholder="Task name"
+/>,
+            <input
+              className={undefined}
+              max="10"
+              min="1"
+              placeholder="Priority (1-10)"
+              type="number"
+/>,
+            <input
+              className={undefined}
+              max="24"
+              min="1"
+              onKeyPress={[Function]}
+              placeholder="Expiration date (h)"
+              type="number"
+/>,
+            <button
+              className={undefined}
+              id="addNewTask"
+              onClick={[Function]}
+>
+              + Add New Task
+</button>,
+          ],
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": <input
+              placeholder="Task name"
+/>,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "className": undefined,
+              "placeholder": "Task name",
+            },
+            "ref": [Function],
+            "rendered": Array [
+              undefined,
+            ],
+            "type": "input",
+          },
+          Object {
+            "instance": <input
+              type="number"
+              min="1"
+              max="10"
+              placeholder="Priority (1-10)"
+/>,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "className": undefined,
+              "max": "10",
+              "min": "1",
+              "placeholder": "Priority (1-10)",
+              "type": "number",
+            },
+            "ref": [Function],
+            "rendered": Array [
+              undefined,
+            ],
+            "type": "input",
+          },
+          Object {
+            "instance": <input
+              type="number"
+              min="1"
+              max="24"
+              placeholder="Expiration date (h)"
+/>,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "className": undefined,
+              "max": "24",
+              "min": "1",
+              "onKeyPress": [Function],
+              "placeholder": "Expiration date (h)",
+              "type": "number",
+            },
+            "ref": [Function],
+            "rendered": Array [
+              undefined,
+            ],
+            "type": "input",
+          },
+          Object {
+            "instance": <button
+              id="addNewTask"
+>
+              + Add New Task
+</button>,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": "+ Add New Task",
+              "className": undefined,
+              "id": "addNewTask",
+              "onClick": [Function],
+            },
+            "ref": [Function],
+            "rendered": Array [
+              "+ Add New Task",
+            ],
+            "type": "button",
+          },
+        ],
+        "type": "footer",
+      },
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

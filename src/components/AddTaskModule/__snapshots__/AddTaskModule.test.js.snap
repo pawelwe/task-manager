@@ -1,0 +1,199 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddTaskModule Component Snapshot 1`] = `
+ReactWrapper {
+  "length": 1,
+  Symbol(enzyme.__unrendered__): <AddTaskModule
+    addTaskModule={[Function]}
+/>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "function",
+    "props": Object {
+      "addTaskModule": [Function],
+    },
+    "ref": null,
+    "rendered": Object {
+      "instance": <footer
+        class="undefined"
+>
+        <input
+                placeholder="Module name..."
+        />
+        <button
+                id="addTaskModule"
+        >
+                + Add New Tasks Module
+        </button>
+</footer>,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <input
+            autoFocus={true}
+            className={undefined}
+            onKeyPress={[Function]}
+            placeholder="Module name..."
+/>,
+          <button
+            className={undefined}
+            id="addTaskModule"
+            onClick={[Function]}
+>
+            + Add New Tasks Module
+</button>,
+        ],
+        "className": "undefined",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": <input
+            placeholder="Module name..."
+/>,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "autoFocus": true,
+            "className": undefined,
+            "onKeyPress": [Function],
+            "placeholder": "Module name...",
+          },
+          "ref": [Function],
+          "rendered": Array [
+            undefined,
+          ],
+          "type": "input",
+        },
+        Object {
+          "instance": <button
+            id="addTaskModule"
+>
+            + Add New Tasks Module
+</button>,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "+ Add New Tasks Module",
+            "className": undefined,
+            "id": "addTaskModule",
+            "onClick": [Function],
+          },
+          "ref": [Function],
+          "rendered": Array [
+            "+ Add New Tasks Module",
+          ],
+          "type": "button",
+        },
+      ],
+      "type": "footer",
+    },
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "addTaskModule": [Function],
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": <footer
+          class="undefined"
+>
+          <input
+                    placeholder="Module name..."
+          />
+          <button
+                    id="addTaskModule"
+          >
+                    + Add New Tasks Module
+          </button>
+</footer>,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <input
+              autoFocus={true}
+              className={undefined}
+              onKeyPress={[Function]}
+              placeholder="Module name..."
+/>,
+            <button
+              className={undefined}
+              id="addTaskModule"
+              onClick={[Function]}
+>
+              + Add New Tasks Module
+</button>,
+          ],
+          "className": "undefined",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": <input
+              placeholder="Module name..."
+/>,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "autoFocus": true,
+              "className": undefined,
+              "onKeyPress": [Function],
+              "placeholder": "Module name...",
+            },
+            "ref": [Function],
+            "rendered": Array [
+              undefined,
+            ],
+            "type": "input",
+          },
+          Object {
+            "instance": <button
+              id="addTaskModule"
+>
+              + Add New Tasks Module
+</button>,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": "+ Add New Tasks Module",
+              "className": undefined,
+              "id": "addTaskModule",
+              "onClick": [Function],
+            },
+            "ref": [Function],
+            "rendered": Array [
+              "+ Add New Tasks Module",
+            ],
+            "type": "button",
+          },
+        ],
+        "type": "footer",
+      },
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

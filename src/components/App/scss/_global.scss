@@ -1,0 +1,71 @@
+@import './variables';
+
+:global {
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .isExpiring {
+    color: $red;
+  }
+
+  .expirationIcon {
+    max-width: 1.6rem;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 0.3rem;
+  }
+
+  .closeDialog {
+    display: inline-block;
+    padding: 0.3rem 4rem;
+    background: $white;
+    color: $accent;
+    margin: 1rem auto;
+  }
+
+  .removeBtn {
+    display: block;
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    z-index: 9;
+    right: -8px;
+    top: -4px;
+    font-size: 3.4rem;
+    transform: rotate(45deg);
+    cursor: pointer;
+    color: $accent;
+    &:after {
+      content: '+';
+      display: block;
+      line-height: 1;
+    }
+    &:hover {
+      color: lighten($accent, 25%);
+    }
+    &__small {
+      font-size: 2.2rem;
+    }
+  }
+
+  .filterArrow {
+    position: absolute;
+    z-index: 9;
+    right: 0;
+    top: 0;
+    font-size: 1.4rem;
+    margin-right: 3px;
+  }
+
+  @media (min-width: $tablet) {
+    .container {
+      &_content {
+        margin: 0 3rem;
+      }
+    }
+  }
+
+}
+
