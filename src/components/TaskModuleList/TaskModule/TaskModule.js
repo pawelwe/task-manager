@@ -15,7 +15,7 @@ const TaskModule = ({
   removeTask,
   removeTaskModule,
   sortAsc,
-  sortTasksBy,
+  tasksSortedBy,
 }) => {
   return (
     <li className={`${classes.TaskModule} fadeIn`}>
@@ -27,35 +27,35 @@ const TaskModule = ({
           className="removeBtn"
         />
         <div className={classes.TaskModule_filterBox}>
-          <strong>Sort by:</strong>
+          <strong>Sort tasks by:</strong>
           <div className={classes.TaskModule_filters}>
             <Filter
               sortBy={sortByProp}
-              text={'Priority'}
-              filter={'priority'}
+              text='Priority'
+              filter='priority'
               moduleId={moduleId}
-              sortTasksBy={sortTasksBy}
+              tasksSortedBy={tasksSortedBy}
             />
             <Filter
               sortBy={sortByExpiration}
-              text={'Expiration'}
-              filter={'expiration'}
+              text='Expiration'
+              filter='expiration'
               moduleId={moduleId}
-              sortTasksBy={sortTasksBy}
+              tasksSortedBy={tasksSortedBy}
             />
             <Filter
               sortBy={sortByProp}
-              text={'Completion'}
-              filter={'completed'}
+              text='Completion'
+              filter='completed'
               moduleId={moduleId}
-              sortTasksBy={sortTasksBy}
+              tasksSortedBy={tasksSortedBy}
             />
             <Filter
               sortBy={sortByProp}
-              text={'Creation'}
-              filter={'creationDate'}
+              text='Creation'
+              filter='creationDate'
               moduleId={moduleId}
-              sortTasksBy={sortTasksBy}
+              tasksSortedBy={tasksSortedBy}
             />
           </div>
           <span className={classes.TaskModule_filterDirArrow}>

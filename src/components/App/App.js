@@ -202,7 +202,7 @@ class App extends Component {
       id: uuid.v4(),
       tasks: [],
       sortAsc: true,
-      sortTasksBy: 'creationDate',
+      tasksSortedBy: 'creationDate',
     };
     const newTaskModules = [...taskModules, newModule];
     this.setState(
@@ -258,7 +258,7 @@ class App extends Component {
     updatedModules[moduleToUpdateIndex].sortAsc = !updatedModules[
       moduleToUpdateIndex
     ].sortAsc;
-    updatedModules[moduleToUpdateIndex].sortTasksBy = prop;
+    updatedModules[moduleToUpdateIndex].tasksSortedBy = prop;
     this.setState(
       {
         taskModules: updatedModules,
@@ -277,7 +277,7 @@ class App extends Component {
     updatedModules[moduleToUpdateIndex].sortAsc = !updatedModules[
       moduleToUpdateIndex
     ].sortAsc;
-    updatedModules[moduleToUpdateIndex].sortTasksBy = 'expiration';
+    updatedModules[moduleToUpdateIndex].tasksSortedBy = 'expiration';
     updatedModules[moduleToUpdateIndex].tasks.sort((a, b) => {
       if (updatedModules[moduleToUpdateIndex].sortAsc) {
         return (
