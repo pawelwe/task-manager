@@ -27,6 +27,8 @@ ShallowWrapper {
           onClick={[Function]}
 />,
         <section
+          className="undefined tooltip"
+          data-title="Click to toggle completion..."
           id="toggleTask"
           onClick={[Function]}
 >
@@ -36,7 +38,19 @@ ShallowWrapper {
           <p
                     className={undefined}
           >
-                    Priority: 
+                    <strong>
+                              Created:
+                    </strong>
+                     
+                    NaN undefined NaN / NaN:NaN
+          </p>
+          <p
+                    className={undefined}
+          >
+                    <strong>
+                              Priority:
+                    </strong>
+                     
           </p>
           <p
                     className={undefined}
@@ -81,7 +95,19 @@ ShallowWrapper {
             <p
               className={undefined}
 >
-              Priority: 
+              <strong>
+                            Created:
+              </strong>
+               
+              NaN undefined NaN / NaN:NaN
+</p>,
+            <p
+              className={undefined}
+>
+              <strong>
+                            Priority:
+              </strong>
+               
 </p>,
             <p
               className={undefined}
@@ -93,6 +119,8 @@ ShallowWrapper {
               </span>
 </p>,
           ],
+          "className": "undefined tooltip",
+          "data-title": "Click to toggle completion...",
           "id": "toggleTask",
           "onClick": [Function],
         },
@@ -116,14 +144,60 @@ ShallowWrapper {
             "nodeType": "host",
             "props": Object {
               "children": Array [
-                "Priority: ",
+                <strong>
+                  Created:
+</strong>,
+                " ",
+                "NaN undefined NaN / NaN:NaN",
+              ],
+              "className": undefined,
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "Created:",
+                },
+                "ref": null,
+                "rendered": "Created:",
+                "type": "strong",
+              },
+              " ",
+              "NaN undefined NaN / NaN:NaN",
+            ],
+            "type": "p",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <strong>
+                  Priority:
+</strong>,
+                " ",
                 undefined,
               ],
               "className": undefined,
             },
             "ref": null,
             "rendered": Array [
-              "Priority: ",
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "Priority:",
+                },
+                "ref": null,
+                "rendered": "Priority:",
+                "type": "strong",
+              },
+              " ",
               undefined,
             ],
             "type": "p",
@@ -182,6 +256,8 @@ ShallowWrapper {
             onClick={[Function]}
 />,
           <section
+            className="undefined tooltip"
+            data-title="Click to toggle completion..."
             id="toggleTask"
             onClick={[Function]}
 >
@@ -191,7 +267,19 @@ ShallowWrapper {
             <p
                         className={undefined}
             >
-                        Priority: 
+                        <strong>
+                                    Created:
+                        </strong>
+                         
+                        NaN undefined NaN / NaN:NaN
+            </p>
+            <p
+                        className={undefined}
+            >
+                        <strong>
+                                    Priority:
+                        </strong>
+                         
             </p>
             <p
                         className={undefined}
@@ -236,7 +324,19 @@ ShallowWrapper {
               <p
                 className={undefined}
 >
-                Priority: 
+                <strong>
+                                Created:
+                </strong>
+                 
+                NaN undefined NaN / NaN:NaN
+</p>,
+              <p
+                className={undefined}
+>
+                <strong>
+                                Priority:
+                </strong>
+                 
 </p>,
               <p
                 className={undefined}
@@ -248,6 +348,8 @@ ShallowWrapper {
                 </span>
 </p>,
             ],
+            "className": "undefined tooltip",
+            "data-title": "Click to toggle completion...",
             "id": "toggleTask",
             "onClick": [Function],
           },
@@ -271,14 +373,60 @@ ShallowWrapper {
               "nodeType": "host",
               "props": Object {
                 "children": Array [
-                  "Priority: ",
+                  <strong>
+                    Created:
+</strong>,
+                  " ",
+                  "NaN undefined NaN / NaN:NaN",
+                ],
+                "className": undefined,
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Created:",
+                  },
+                  "ref": null,
+                  "rendered": "Created:",
+                  "type": "strong",
+                },
+                " ",
+                "NaN undefined NaN / NaN:NaN",
+              ],
+              "type": "p",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <strong>
+                    Priority:
+</strong>,
+                  " ",
                   undefined,
                 ],
                 "className": undefined,
               },
               "ref": null,
               "rendered": Array [
-                "Priority: ",
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Priority:",
+                  },
+                  "ref": null,
+                  "rendered": "Priority:",
+                  "type": "strong",
+                },
+                " ",
                 undefined,
               ],
               "type": "p",

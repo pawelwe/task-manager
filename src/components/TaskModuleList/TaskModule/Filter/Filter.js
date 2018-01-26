@@ -1,18 +1,18 @@
 import React from 'react';
 import classes from './Filter.css';
 
-const PriorityFilter = ({ sortBy, moduleId, filter }) => {
+const Filter = ({ sortBy, moduleId, filter, text, sortTasksBy }) => {
   return (
     <button
       id="filter"
       onClick={() => {
-        sortBy(moduleId);
+        sortBy(moduleId, filter);
       }}
-      className={classes.Filter}
+      className={`${classes.Filter} ${sortTasksBy === filter ? classes.isActive : ''}`}
     >
-      Sort by {filter}
+      {text}
     </button>
   );
 };
 
-export default PriorityFilter;
+export default Filter;

@@ -1,13 +1,34 @@
 @import '../../../App/scss/variables';
 
 .Filter {
-  display: block;
+  flex-basis: 50%;
   font-size: 1.1rem;
   padding: 0;
-  margin: 0 2rem 0.4rem 0;
+  margin: 1rem 0;
   font-weight: bold;
   color: $accent;
   text-align: left;
   background-color: transparent;
   appearance: none;
+
+  &:last-of-type {
+    margin-right: 0;
+  }
+  &:hover {
+    color: lighten($accent, 25%);
+  }
+}
+
+.isActive {
+  &:after {
+    content: '«';
+    margin-left: 5px;
+  }
+}
+
+@media (min-width: $tablet) {
+  .Filter {
+    flex-basis: 40%;
+    margin: 0 1rem 0.4rem 0;
+  }
 }

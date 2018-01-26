@@ -32,9 +32,9 @@ describe('App Component', () => {
     expect(instance.renderTaskModules().props.taskModules[0].title).toEqual(moduleName);
   })
 
-  it('handleSortByPriority method', () => {
+  it('handleSortByProp method', () => {
     instance.handleAddTask(moduleId, 'Task 2', 1, 1);
-    expect(instance.handleSortByPriority(moduleId)[0].tasks[0].priority).toEqual(10);
+    expect(instance.handleSortByProp(moduleId, 'priority')[0].tasks[0].priority).toEqual(10);
   })
 
   it('handleSortByExpiration method', () => {

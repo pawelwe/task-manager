@@ -1,13 +1,16 @@
+@import './variables';
+
 html {
   font-size: 12px;
 }
 
 body {
-  padding: 1rem;
+  padding: 0;
   background: $white;
   color: $black;
   font-family: 'Source Code Pro', Arial, Helvetica, 'sans-serif';
   font-size: 1.8rem;
+  font-weight: 100;
 }
 
 h1 {
@@ -23,16 +26,33 @@ h4 {
   font-size: 2.8rem;
 }
 
-h1,
+h5 {
+  font-size: 1.5rem;
+}
+
+h1 {
+  font-weight: 700;
+}
+
 h2,
 h3,
-h4 {
+h4,
+h5 {
+  font-weight: 500;
   margin-bottom: 1.4rem;
+}
+
+p {
+  font-size: 1.4rem;
 }
 
 button,
 input {
   font-family: inherit;
+}
+
+strong {
+  font-weight: bold;
 }
 
 @media (min-width: $tablet) {
@@ -43,4 +63,9 @@ input {
   body {
     background: $light-gray;
   }
+
+  p {
+    font-size: 1.2rem;
+  }
+
 }

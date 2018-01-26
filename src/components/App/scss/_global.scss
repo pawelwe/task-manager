@@ -59,6 +59,29 @@
     margin-right: 3px;
   }
 
+  .tooltip {
+    position: relative;
+    &:after {
+      content: attr(data-title);
+      display: inline-block;
+      transition: opacity 450ms;
+      text-align: right;
+      opacity: 0;
+      max-width: 45%;
+      color: #333;
+      position: absolute;
+      right: -5rem;
+      bottom: 0;
+      z-index: +1;
+      box-shadow: 0;
+      font-size: .9rem;
+      background-color: $light-gray;
+    }
+    &:hover:after {
+      opacity: 1;
+    }
+  }
+
   @media (min-width: $tablet) {
     .container {
       &_content {

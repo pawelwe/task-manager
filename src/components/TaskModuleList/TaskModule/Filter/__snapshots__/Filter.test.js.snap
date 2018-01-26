@@ -3,7 +3,7 @@
 exports[`Filter Component Snapshot 1`] = `
 ReactWrapper {
   "length": 1,
-  Symbol(enzyme.__unrendered__): <PriorityFilter
+  Symbol(enzyme.__unrendered__): <Filter
     sortBy={[Function]}
 />,
   Symbol(enzyme.__renderer__): Object {
@@ -25,23 +25,19 @@ ReactWrapper {
     "rendered": Object {
       "instance": <button
         id="filter"
->
-        Sort by 
-</button>,
+        class="undefined undefined"
+/>,
       "key": undefined,
       "nodeType": "host",
       "props": Object {
-        "children": Array [
-          "Sort by ",
-          undefined,
-        ],
-        "className": undefined,
+        "children": undefined,
+        "className": "undefined undefined",
         "id": "filter",
         "onClick": [Function],
       },
       "ref": null,
       "rendered": Array [
-        "Sort by ",
+        undefined,
       ],
       "type": "button",
     },
@@ -59,23 +55,19 @@ ReactWrapper {
       "rendered": Object {
         "instance": <button
           id="filter"
->
-          Sort by 
-</button>,
+          class="undefined undefined"
+/>,
         "key": undefined,
         "nodeType": "host",
         "props": Object {
-          "children": Array [
-            "Sort by ",
-            undefined,
-          ],
-          "className": undefined,
+          "children": undefined,
+          "className": "undefined undefined",
           "id": "filter",
           "onClick": [Function],
         },
         "ref": null,
         "rendered": Array [
-          "Sort by ",
+          undefined,
         ],
         "type": "button",
       },

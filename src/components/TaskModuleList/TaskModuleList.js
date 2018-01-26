@@ -8,7 +8,7 @@ const TaskModuleList = ({
   toggleTask,
   removeTask,
   removeTaskModule,
-  sortByPriority,
+  sortByProp,
   sortByExpiration,
 }) => {
   return (
@@ -23,7 +23,7 @@ const TaskModuleList = ({
             removeTask={removeTask}
             removeTaskModule={removeTaskModule}
             {...module}
-            sortByPriority={sortByPriority}
+            sortByProp={sortByProp}
             sortByExpiration={sortByExpiration}
           />
         );

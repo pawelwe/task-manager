@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import throttle from 'lodash.throttle';
 import uuid from 'uuid';
 import toastr from 'toastr';
 import {
@@ -17,14 +18,17 @@ import wheelIcon from '../../images/wheel-icon.svg';
 class App extends Component {
   state = {
     taskModules: [],
-    timer: 0
+    timer: 0,
   };
 
   expiredTasksInterval = 15000;
 
   componentDidMount() {
     this.handleLoadState();
-    this.interval = setInterval(this.checkExpiredTasks, this.expiredTasksInterval);
+    this.interval = setInterval(
+      this.checkExpiredTasks,
+      this.expiredTasksInterval,
+    );
   }
 
   componentWillUnmount() {
@@ -33,35 +37,46 @@ class App extends Component {
 
   checkExpiredTasks = () => {
     if (this.state.taskModules.length > 0) {
-      const sortedModules = this.state.taskModules.map((module) => {
-        return module.tasks && module.tasks.length > 0 ? {
-          ...module,
-          tasks: module.tasks.sort((a, b) => {
-            return (
-              calculateExpiration(a.creationDate, a.expirationPeriod) -
-              calculateExpiration(b.creationDate, b.expirationPeriod)
-            );
-          })
-        }: module;
+      const sortedModules = this.state.taskModules.map(module => {
+        return module.tasks && module.tasks.length > 0
+          ? {
+              ...module,
+              tasks: module.tasks.sort((a, b) => {
+                return (
+                  calculateExpiration(a.creationDate, a.expirationPeriod) -
+                  calculateExpiration(b.creationDate, b.expirationPeriod)
+                );
+              }),
+            }
+          : module;
       });
       this.setState((prevState, props) => {
         return {
-          timer: prevState.timer + (this.expiredTasksInterval / 1000),
-          taskModules: sortedModules
-        }
+          timer: prevState.timer + this.expiredTasksInterval / 1000,
+          taskModules: sortedModules,
+        };
       });
     }
-  }
+  };
 
   handleSaveState() {
-    try {
-      const taskManagerApp = JSON.stringify(Object.assign({}, { taskModules: this.state.taskModules }));
-      localStorage.setItem('taskManagerApp', taskManagerApp);
-      console.info('Task Manager App State saved...');
-      return taskManagerApp;
-    } catch (err) {
-      console.warn(err);
-    }
+    const handleSavingToStorage = () => {
+      try {
+        const taskManagerApp = JSON.stringify(
+          Object.assign({}, { taskModules: this.state.taskModules }),
+        );
+        localStorage.setItem('taskManagerApp', taskManagerApp);
+        console.info('Task Manager App State saved...');
+        return taskManagerApp;
+      } catch (err) {
+        console.warn(err);
+      }
+    };
+    const throttledHandleSavingToStorage = throttle(
+      handleSavingToStorage,
+      1000,
+    );
+    return throttledHandleSavingToStorage();
   }
 
   handleLoadState() {
@@ -71,7 +86,7 @@ class App extends Component {
         return undefined;
       }
       this.setState({
-        taskModules: taskManagerApp.taskModules
+        taskModules: taskManagerApp.taskModules,
       });
       console.info('Task Manager App State loaded...');
       return taskManagerApp;
@@ -97,8 +112,8 @@ class App extends Component {
         toggleTask={this.handleToggleTask}
         removeTask={this.handleRemoveTask}
         removeTaskModule={this.handleRemoveTaskModule}
-        sortByPriority={this.handleSortByPriority}
         sortByExpiration={this.handleSortByExpiration}
+        sortByProp={this.handleSortByProp}
       />
     );
   };
@@ -122,9 +137,12 @@ class App extends Component {
       expirationPeriod: parseInt(expirationPeriod, 10),
     };
     updatedModules[moduleToUpdateIndex].tasks.push(newTask);
-    this.setState({
-      taskModules: updatedModules,
-    }, () => this.handleSaveState());
+    this.setState(
+      {
+        taskModules: updatedModules,
+      },
+      () => this.handleSaveState(),
+    );
     return updatedModules;
   };
 
@@ -140,9 +158,12 @@ class App extends Component {
       return task.id !== taskId;
     });
     updatedModules[moduleToUpdateIndex].tasks = updatedModuleTasks;
-    this.setState({
-      taskModules: updatedModules,
-    }, () => this.handleSaveState());
+    this.setState(
+      {
+        taskModules: updatedModules,
+      },
+      () => this.handleSaveState(),
+    );
     return updatedModules;
   };
 
@@ -161,9 +182,12 @@ class App extends Component {
       taskToUpdateIndex
     ].completed = !updatedModules[moduleToUpdateIndex].tasks[taskToUpdateIndex]
       .completed;
-    this.setState({
-      taskModules: updatedModules,
-    }, () => this.handleSaveState());
+    this.setState(
+      {
+        taskModules: updatedModules,
+      },
+      () => this.handleSaveState(),
+    );
     return updatedModules;
   };
 
@@ -178,11 +202,15 @@ class App extends Component {
       id: uuid.v4(),
       tasks: [],
       sortAsc: true,
+      sortTasksBy: 'creationDate',
     };
     const newTaskModules = [...taskModules, newModule];
-    this.setState({
-      taskModules: newTaskModules,
-    }, () => this.handleSaveState());
+    this.setState(
+      {
+        taskModules: newTaskModules,
+      },
+      () => this.handleSaveState(),
+    );
     return newTaskModules;
   };
 
@@ -199,9 +227,12 @@ class App extends Component {
       tapToDismiss: false,
       onclick() {
         toastr.clear();
-        that.setState({
-          taskModules: updatedModules,
-        }, () => that.handleSaveState());
+        that.setState(
+          {
+            taskModules: updatedModules,
+          },
+          () => that.handleSaveState(),
+        );
       },
       onCloseClick() {
         toastr.clear();
@@ -215,21 +246,25 @@ class App extends Component {
     return updatedModules;
   };
 
-  handleSortByPriority = moduleId => {
+  handleSortByProp = (moduleId, prop) => {
     const updatedModules = [...this.state.taskModules];
     const moduleToUpdateIndex = findModuleToUpdateIndex(
       updatedModules,
       moduleId,
     );
     updatedModules[moduleToUpdateIndex].tasks.sort(
-      sortBy('priority', updatedModules[moduleToUpdateIndex].sortAsc),
+      sortBy(prop, updatedModules[moduleToUpdateIndex].sortAsc),
     );
     updatedModules[moduleToUpdateIndex].sortAsc = !updatedModules[
       moduleToUpdateIndex
     ].sortAsc;
-    this.setState({
-      taskModules: updatedModules,
-    });
+    updatedModules[moduleToUpdateIndex].sortTasksBy = prop;
+    this.setState(
+      {
+        taskModules: updatedModules,
+      },
+      () => this.handleSaveState(),
+    );
     return updatedModules;
   };
 
@@ -242,6 +277,7 @@ class App extends Component {
     updatedModules[moduleToUpdateIndex].sortAsc = !updatedModules[
       moduleToUpdateIndex
     ].sortAsc;
+    updatedModules[moduleToUpdateIndex].sortTasksBy = 'expiration';
     updatedModules[moduleToUpdateIndex].tasks.sort((a, b) => {
       if (updatedModules[moduleToUpdateIndex].sortAsc) {
         return (
@@ -255,9 +291,12 @@ class App extends Component {
         );
       }
     });
-    this.setState({
-      taskModules: updatedModules,
-    });
+    this.setState(
+      {
+        taskModules: updatedModules,
+      },
+      () => this.handleSaveState(),
+    );
     return updatedModules;
   };
 

@@ -34,16 +34,41 @@ ShallowWrapper {
         <div
                 className={undefined}
         >
-                <PriorityFilter
-                        filter="Priority"
-                        moduleId={undefined}
-                        sortBy={undefined}
-                />
-                <PriorityFilter
-                        filter="Expiration"
-                        moduleId={undefined}
-                        sortBy={undefined}
-                />
+                <strong>
+                        Sort by:
+                </strong>
+                <div
+                        className={undefined}
+                >
+                        <Filter
+                                filter="priority"
+                                moduleId={undefined}
+                                sortBy={undefined}
+                                sortTasksBy={undefined}
+                                text="Priority"
+                        />
+                        <Filter
+                                filter="expiration"
+                                moduleId={undefined}
+                                sortBy={undefined}
+                                sortTasksBy={undefined}
+                                text="Expiration"
+                        />
+                        <Filter
+                                filter="completed"
+                                moduleId={undefined}
+                                sortBy={undefined}
+                                sortTasksBy={undefined}
+                                text="Completion"
+                        />
+                        <Filter
+                                filter="creationDate"
+                                moduleId={undefined}
+                                sortBy={undefined}
+                                sortTasksBy={undefined}
+                                text="Creation"
+                        />
+                </div>
                 <span
                         className={undefined}
                 >
@@ -54,9 +79,9 @@ ShallowWrapper {
                 className={undefined}
         >
                 <li>
-                        <h5>
+                        <p>
                                 No tasks in current module...
-                        </h5>
+                        </p>
                         <br />
                 </li>
                 <TaskItemList
@@ -91,16 +116,41 @@ ShallowWrapper {
           <div
             className={undefined}
 >
-            <PriorityFilter
-                        filter="Priority"
-                        moduleId={undefined}
-                        sortBy={undefined}
-            />
-            <PriorityFilter
-                        filter="Expiration"
-                        moduleId={undefined}
-                        sortBy={undefined}
-            />
+            <strong>
+                        Sort by:
+            </strong>
+            <div
+                        className={undefined}
+            >
+                        <Filter
+                                    filter="priority"
+                                    moduleId={undefined}
+                                    sortBy={undefined}
+                                    sortTasksBy={undefined}
+                                    text="Priority"
+                        />
+                        <Filter
+                                    filter="expiration"
+                                    moduleId={undefined}
+                                    sortBy={undefined}
+                                    sortTasksBy={undefined}
+                                    text="Expiration"
+                        />
+                        <Filter
+                                    filter="completed"
+                                    moduleId={undefined}
+                                    sortBy={undefined}
+                                    sortTasksBy={undefined}
+                                    text="Completion"
+                        />
+                        <Filter
+                                    filter="creationDate"
+                                    moduleId={undefined}
+                                    sortBy={undefined}
+                                    sortTasksBy={undefined}
+                                    text="Creation"
+                        />
+            </div>
             <span
                         className={undefined}
             >
@@ -111,9 +161,9 @@ ShallowWrapper {
             className={undefined}
 >
             <li>
-                        <h5>
+                        <p>
                                     No tasks in current module...
-                        </h5>
+                        </p>
                         <br />
             </li>
             <TaskItemList
@@ -163,16 +213,41 @@ ShallowWrapper {
           "nodeType": "host",
           "props": Object {
             "children": Array [
-              <PriorityFilter
-                filter="Priority"
-                moduleId={undefined}
-                sortBy={undefined}
-/>,
-              <PriorityFilter
-                filter="Expiration"
-                moduleId={undefined}
-                sortBy={undefined}
-/>,
+              <strong>
+                Sort by:
+</strong>,
+              <div
+                className={undefined}
+>
+                <Filter
+                                filter="priority"
+                                moduleId={undefined}
+                                sortBy={undefined}
+                                sortTasksBy={undefined}
+                                text="Priority"
+                />
+                <Filter
+                                filter="expiration"
+                                moduleId={undefined}
+                                sortBy={undefined}
+                                sortTasksBy={undefined}
+                                text="Expiration"
+                />
+                <Filter
+                                filter="completed"
+                                moduleId={undefined}
+                                sortBy={undefined}
+                                sortTasksBy={undefined}
+                                text="Completion"
+                />
+                <Filter
+                                filter="creationDate"
+                                moduleId={undefined}
+                                sortBy={undefined}
+                                sortTasksBy={undefined}
+                                text="Creation"
+                />
+</div>,
               <span
                 className={undefined}
 >
@@ -186,28 +261,115 @@ ShallowWrapper {
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "function",
+              "nodeType": "host",
               "props": Object {
-                "filter": "Priority",
-                "moduleId": undefined,
-                "sortBy": undefined,
+                "children": "Sort by:",
               },
               "ref": null,
-              "rendered": null,
-              "type": [Function],
+              "rendered": "Sort by:",
+              "type": "strong",
             },
             Object {
               "instance": null,
               "key": undefined,
-              "nodeType": "function",
+              "nodeType": "host",
               "props": Object {
-                "filter": "Expiration",
-                "moduleId": undefined,
-                "sortBy": undefined,
+                "children": Array [
+                  <Filter
+                    filter="priority"
+                    moduleId={undefined}
+                    sortBy={undefined}
+                    sortTasksBy={undefined}
+                    text="Priority"
+/>,
+                  <Filter
+                    filter="expiration"
+                    moduleId={undefined}
+                    sortBy={undefined}
+                    sortTasksBy={undefined}
+                    text="Expiration"
+/>,
+                  <Filter
+                    filter="completed"
+                    moduleId={undefined}
+                    sortBy={undefined}
+                    sortTasksBy={undefined}
+                    text="Completion"
+/>,
+                  <Filter
+                    filter="creationDate"
+                    moduleId={undefined}
+                    sortBy={undefined}
+                    sortTasksBy={undefined}
+                    text="Creation"
+/>,
+                ],
+                "className": undefined,
               },
               "ref": null,
-              "rendered": null,
-              "type": [Function],
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "function",
+                  "props": Object {
+                    "filter": "priority",
+                    "moduleId": undefined,
+                    "sortBy": undefined,
+                    "sortTasksBy": undefined,
+                    "text": "Priority",
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "function",
+                  "props": Object {
+                    "filter": "expiration",
+                    "moduleId": undefined,
+                    "sortBy": undefined,
+                    "sortTasksBy": undefined,
+                    "text": "Expiration",
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "function",
+                  "props": Object {
+                    "filter": "completed",
+                    "moduleId": undefined,
+                    "sortBy": undefined,
+                    "sortTasksBy": undefined,
+                    "text": "Completion",
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "function",
+                  "props": Object {
+                    "filter": "creationDate",
+                    "moduleId": undefined,
+                    "sortBy": undefined,
+                    "sortTasksBy": undefined,
+                    "text": "Creation",
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+              ],
+              "type": "div",
             },
             Object {
               "instance": null,
@@ -231,9 +393,9 @@ ShallowWrapper {
           "props": Object {
             "children": Array [
               <li>
-                <h5>
+                <p>
                                 No tasks in current module...
-                </h5>
+                </p>
                 <br />
 </li>,
               <TaskItemList
@@ -253,9 +415,9 @@ ShallowWrapper {
               "nodeType": "host",
               "props": Object {
                 "children": Array [
-                  <h5>
+                  <p>
                     No tasks in current module...
-</h5>,
+</p>,
                   <br />,
                 ],
               },
@@ -270,7 +432,7 @@ ShallowWrapper {
                   },
                   "ref": null,
                   "rendered": "No tasks in current module...",
-                  "type": "h5",
+                  "type": "p",
                 },
                 Object {
                   "instance": null,
@@ -338,16 +500,41 @@ ShallowWrapper {
           <div
                     className={undefined}
           >
-                    <PriorityFilter
-                              filter="Priority"
-                              moduleId={undefined}
-                              sortBy={undefined}
-                    />
-                    <PriorityFilter
-                              filter="Expiration"
-                              moduleId={undefined}
-                              sortBy={undefined}
-                    />
+                    <strong>
+                              Sort by:
+                    </strong>
+                    <div
+                              className={undefined}
+                    >
+                              <Filter
+                                        filter="priority"
+                                        moduleId={undefined}
+                                        sortBy={undefined}
+                                        sortTasksBy={undefined}
+                                        text="Priority"
+                              />
+                              <Filter
+                                        filter="expiration"
+                                        moduleId={undefined}
+                                        sortBy={undefined}
+                                        sortTasksBy={undefined}
+                                        text="Expiration"
+                              />
+                              <Filter
+                                        filter="completed"
+                                        moduleId={undefined}
+                                        sortBy={undefined}
+                                        sortTasksBy={undefined}
+                                        text="Completion"
+                              />
+                              <Filter
+                                        filter="creationDate"
+                                        moduleId={undefined}
+                                        sortBy={undefined}
+                                        sortTasksBy={undefined}
+                                        text="Creation"
+                              />
+                    </div>
                     <span
                               className={undefined}
                     >
@@ -358,9 +545,9 @@ ShallowWrapper {
                     className={undefined}
           >
                     <li>
-                              <h5>
+                              <p>
                                         No tasks in current module...
-                              </h5>
+                              </p>
                               <br />
                     </li>
                     <TaskItemList
@@ -395,16 +582,41 @@ ShallowWrapper {
             <div
               className={undefined}
 >
-              <PriorityFilter
-                            filter="Priority"
-                            moduleId={undefined}
-                            sortBy={undefined}
-              />
-              <PriorityFilter
-                            filter="Expiration"
-                            moduleId={undefined}
-                            sortBy={undefined}
-              />
+              <strong>
+                            Sort by:
+              </strong>
+              <div
+                            className={undefined}
+              >
+                            <Filter
+                                          filter="priority"
+                                          moduleId={undefined}
+                                          sortBy={undefined}
+                                          sortTasksBy={undefined}
+                                          text="Priority"
+                            />
+                            <Filter
+                                          filter="expiration"
+                                          moduleId={undefined}
+                                          sortBy={undefined}
+                                          sortTasksBy={undefined}
+                                          text="Expiration"
+                            />
+                            <Filter
+                                          filter="completed"
+                                          moduleId={undefined}
+                                          sortBy={undefined}
+                                          sortTasksBy={undefined}
+                                          text="Completion"
+                            />
+                            <Filter
+                                          filter="creationDate"
+                                          moduleId={undefined}
+                                          sortBy={undefined}
+                                          sortTasksBy={undefined}
+                                          text="Creation"
+                            />
+              </div>
               <span
                             className={undefined}
               >
@@ -415,9 +627,9 @@ ShallowWrapper {
               className={undefined}
 >
               <li>
-                            <h5>
+                            <p>
                                           No tasks in current module...
-                            </h5>
+                            </p>
                             <br />
               </li>
               <TaskItemList
@@ -467,16 +679,41 @@ ShallowWrapper {
             "nodeType": "host",
             "props": Object {
               "children": Array [
-                <PriorityFilter
-                  filter="Priority"
-                  moduleId={undefined}
-                  sortBy={undefined}
-/>,
-                <PriorityFilter
-                  filter="Expiration"
-                  moduleId={undefined}
-                  sortBy={undefined}
-/>,
+                <strong>
+                  Sort by:
+</strong>,
+                <div
+                  className={undefined}
+>
+                  <Filter
+                                    filter="priority"
+                                    moduleId={undefined}
+                                    sortBy={undefined}
+                                    sortTasksBy={undefined}
+                                    text="Priority"
+                  />
+                  <Filter
+                                    filter="expiration"
+                                    moduleId={undefined}
+                                    sortBy={undefined}
+                                    sortTasksBy={undefined}
+                                    text="Expiration"
+                  />
+                  <Filter
+                                    filter="completed"
+                                    moduleId={undefined}
+                                    sortBy={undefined}
+                                    sortTasksBy={undefined}
+                                    text="Completion"
+                  />
+                  <Filter
+                                    filter="creationDate"
+                                    moduleId={undefined}
+                                    sortBy={undefined}
+                                    sortTasksBy={undefined}
+                                    text="Creation"
+                  />
+</div>,
                 <span
                   className={undefined}
 >
@@ -490,28 +727,115 @@ ShallowWrapper {
               Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "function",
+                "nodeType": "host",
                 "props": Object {
-                  "filter": "Priority",
-                  "moduleId": undefined,
-                  "sortBy": undefined,
+                  "children": "Sort by:",
                 },
                 "ref": null,
-                "rendered": null,
-                "type": [Function],
+                "rendered": "Sort by:",
+                "type": "strong",
               },
               Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "function",
+                "nodeType": "host",
                 "props": Object {
-                  "filter": "Expiration",
-                  "moduleId": undefined,
-                  "sortBy": undefined,
+                  "children": Array [
+                    <Filter
+                      filter="priority"
+                      moduleId={undefined}
+                      sortBy={undefined}
+                      sortTasksBy={undefined}
+                      text="Priority"
+/>,
+                    <Filter
+                      filter="expiration"
+                      moduleId={undefined}
+                      sortBy={undefined}
+                      sortTasksBy={undefined}
+                      text="Expiration"
+/>,
+                    <Filter
+                      filter="completed"
+                      moduleId={undefined}
+                      sortBy={undefined}
+                      sortTasksBy={undefined}
+                      text="Completion"
+/>,
+                    <Filter
+                      filter="creationDate"
+                      moduleId={undefined}
+                      sortBy={undefined}
+                      sortTasksBy={undefined}
+                      text="Creation"
+/>,
+                  ],
+                  "className": undefined,
                 },
                 "ref": null,
-                "rendered": null,
-                "type": [Function],
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "function",
+                    "props": Object {
+                      "filter": "priority",
+                      "moduleId": undefined,
+                      "sortBy": undefined,
+                      "sortTasksBy": undefined,
+                      "text": "Priority",
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "function",
+                    "props": Object {
+                      "filter": "expiration",
+                      "moduleId": undefined,
+                      "sortBy": undefined,
+                      "sortTasksBy": undefined,
+                      "text": "Expiration",
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "function",
+                    "props": Object {
+                      "filter": "completed",
+                      "moduleId": undefined,
+                      "sortBy": undefined,
+                      "sortTasksBy": undefined,
+                      "text": "Completion",
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "function",
+                    "props": Object {
+                      "filter": "creationDate",
+                      "moduleId": undefined,
+                      "sortBy": undefined,
+                      "sortTasksBy": undefined,
+                      "text": "Creation",
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                ],
+                "type": "div",
               },
               Object {
                 "instance": null,
@@ -535,9 +859,9 @@ ShallowWrapper {
             "props": Object {
               "children": Array [
                 <li>
-                  <h5>
+                  <p>
                                     No tasks in current module...
-                  </h5>
+                  </p>
                   <br />
 </li>,
                 <TaskItemList
@@ -557,9 +881,9 @@ ShallowWrapper {
                 "nodeType": "host",
                 "props": Object {
                   "children": Array [
-                    <h5>
+                    <p>
                       No tasks in current module...
-</h5>,
+</p>,
                     <br />,
                   ],
                 },
@@ -574,7 +898,7 @@ ShallowWrapper {
                     },
                     "ref": null,
                     "rendered": "No tasks in current module...",
-                    "type": "h5",
+                    "type": "p",
                   },
                   Object {
                     "instance": null,

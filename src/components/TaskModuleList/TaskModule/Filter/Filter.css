@@ -1,10 +1,24 @@
+@charset "UTF-8";
 .Filter {
-  display: block;
+  flex-basis: 50%;
   font-size: 1.1rem;
   padding: 0;
-  margin: 0 2rem 0.4rem 0;
+  margin: 1rem 0;
   font-weight: bold;
   color: crimson;
   text-align: left;
   background-color: transparent;
   appearance: none; }
+  .Filter:last-of-type {
+    margin-right: 0; }
+  .Filter:hover {
+    color: #f37c94; }
+
+.isActive:after {
+  content: '«';
+  margin-left: 5px; }
+
+@media (min-width: 768px) {
+  .Filter {
+    flex-basis: 40%;
+    margin: 0 1rem 0.4rem 0; } }

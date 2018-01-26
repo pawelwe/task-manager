@@ -41,7 +41,9 @@ const AddTask = ({ addNewTask, moduleId }) => {
             priority.value,
             expirationPeriod.value,
           );
-          taskName.value = priority.value = expirationPeriod.value = '';
+          if (taskName.value && priority.value && expirationPeriod.value) {
+            taskName.value = priority.value = expirationPeriod.value = '';
+          }
         }}
         className={classes.AddTask_btn}
       >

@@ -171,6 +171,26 @@ button::-moz-focus-inner {
   font-size: 1.4rem;
   margin-right: 3px; }
 
+:global .tooltip {
+  position: relative; }
+  :global .tooltip:after {
+    content: attr(data-title);
+    display: inline-block;
+    transition: opacity 450ms;
+    text-align: right;
+    opacity: 0;
+    max-width: 45%;
+    color: #333;
+    position: absolute;
+    right: -5rem;
+    bottom: 0;
+    z-index: +1;
+    box-shadow: 0;
+    font-size: .9rem;
+    background-color: #eeeeee; }
+  :global .tooltip:hover:after {
+    opacity: 1; }
+
 @media (min-width: 768px) {
   :global .container_content {
     margin: 0 3rem; } }
@@ -200,11 +220,12 @@ html {
   font-size: 12px; }
 
 body {
-  padding: 1rem;
+  padding: 0;
   background: #ffffff;
   color: #000000;
   font-family: 'Source Code Pro', Arial, Helvetica, 'sans-serif';
-  font-size: 1.8rem; }
+  font-size: 1.8rem;
+  font-weight: 100; }
 
 h1 {
   font-size: 3.5rem; }
@@ -216,21 +237,36 @@ h3,
 h4 {
   font-size: 2.8rem; }
 
-h1,
+h5 {
+  font-size: 1.5rem; }
+
+h1 {
+  font-weight: 700; }
+
 h2,
 h3,
-h4 {
+h4,
+h5 {
+  font-weight: 500;
   margin-bottom: 1.4rem; }
+
+p {
+  font-size: 1.4rem; }
 
 button,
 input {
   font-family: inherit; }
 
+strong {
+  font-weight: bold; }
+
 @media (min-width: 768px) {
   html {
     font-size: 10px; }
   body {
-    background: #eeeeee; } }
+    background: #eeeeee; }
+  p {
+    font-size: 1.2rem; } }
 
 :global {
   /*Additional properties for button version
@@ -416,20 +452,19 @@ input {
     :global #toast-container > div.rtl {
       padding: 15px 50px 15px 15px; } }
 
-.App_header {
-  text-align: center;
-  margin-bottom: 5rem; }
-
-.App_logo {
-  display: inline-block;
-  vertical-align: middle;
-  max-width: 4rem;
-  margin-right: 0.6rem;
-  margin-top: -5px; }
-
-@media (min-width: 768px) {
-  .App {
-    padding: 2rem; } }
+.App {
+  padding: 2rem 1rem; }
+  .App_header {
+    margin-bottom: 5rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    text-align: center; }
+  .App_logo {
+    display: inline-block;
+    vertical-align: middle;
+    max-width: 4rem;
+    margin-right: 0.6rem;
+    margin-top: -5px; }
 
 @media (min-width: 1024px) {
   .App {

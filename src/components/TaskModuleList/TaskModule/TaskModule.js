@@ -10,11 +10,12 @@ const TaskModule = ({
   addNewTask,
   toggleTask,
   moduleId,
-  sortByPriority,
+  sortByProp,
   sortByExpiration,
   removeTask,
   removeTaskModule,
   sortAsc,
+  sortTasksBy,
 }) => {
   return (
     <li className={`${classes.TaskModule} fadeIn`}>
@@ -26,27 +27,49 @@ const TaskModule = ({
           className="removeBtn"
         />
         <div className={classes.TaskModule_filterBox}>
-          <Filter
-            sortBy={sortByPriority}
-            filter={'Priority'}
-            moduleId={moduleId}
-          />
-          <Filter
-            sortBy={sortByExpiration}
-            filter={'Expiration'}
-            moduleId={moduleId}
-          />
+          <strong>Sort by:</strong>
+          <div className={classes.TaskModule_filters}>
+            <Filter
+              sortBy={sortByProp}
+              text={'Priority'}
+              filter={'priority'}
+              moduleId={moduleId}
+              sortTasksBy={sortTasksBy}
+            />
+            <Filter
+              sortBy={sortByExpiration}
+              text={'Expiration'}
+              filter={'expiration'}
+              moduleId={moduleId}
+              sortTasksBy={sortTasksBy}
+            />
+            <Filter
+              sortBy={sortByProp}
+              text={'Completion'}
+              filter={'completed'}
+              moduleId={moduleId}
+              sortTasksBy={sortTasksBy}
+            />
+            <Filter
+              sortBy={sortByProp}
+              text={'Creation'}
+              filter={'creationDate'}
+              moduleId={moduleId}
+              sortTasksBy={sortTasksBy}
+            />
+          </div>
           <span className={classes.TaskModule_filterDirArrow}>
             {sortAsc ? '↑' : '↓'}
           </span>
         </div>
         <ul className={classes.TaskList}>
-          {tasks && tasks.length < 1 && (
-            <li>
-              <h5>No tasks in current module...</h5>
-              <br />
-            </li>
-          )}
+          {tasks &&
+            tasks.length < 1 && (
+              <li>
+                <p>No tasks in current module...</p>
+                <br />
+              </li>
+            )}
           <TaskItemList
             tasks={tasks}
             toggleTask={toggleTask}

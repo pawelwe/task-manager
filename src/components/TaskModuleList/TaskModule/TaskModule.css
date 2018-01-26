@@ -12,7 +12,13 @@
     word-wrap: break-word; }
   .TaskModule_filterBox {
     position: relative;
-    margin: 1rem 0 2rem; }
+    margin: 1rem 0 2rem;
+    font-size: 1.2rem; }
+  .TaskModule_filters {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin: 0.6rem 0; }
   .TaskModule_filterDirArrow {
     position: absolute;
     z-index: 9;
