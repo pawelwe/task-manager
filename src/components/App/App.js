@@ -23,6 +23,7 @@ class App extends Component {
   expiredTasksInterval = 15000;
 
   componentDidMount() {
+    this.handleLoadState();
     this.interval = setInterval(this.checkExpiredTasks, this.expiredTasksInterval);
   }
 
@@ -49,6 +50,33 @@ class App extends Component {
           taskModules: sortedModules
         }
       });
+    }
+  }
+
+  handleSaveState() {
+    try {
+      const taskManagerApp = JSON.stringify(Object.assign({}, { taskModules: this.state.taskModules }));
+      localStorage.setItem('taskManagerApp', taskManagerApp);
+      console.info('Task Manager App State saved...');
+      return taskManagerApp;
+    } catch (err) {
+      console.warn(err);
+    }
+  }
+
+  handleLoadState() {
+    try {
+      const taskManagerApp = JSON.parse(localStorage.getItem('taskManagerApp'));
+      if (taskManagerApp === null) {
+        return undefined;
+      }
+      this.setState({
+        taskModules: taskManagerApp.taskModules
+      });
+      console.info('Task Manager App State loaded...');
+      return taskManagerApp;
+    } catch (err) {
+      return undefined;
     }
   }
 
@@ -96,7 +124,7 @@ class App extends Component {
     updatedModules[moduleToUpdateIndex].tasks.push(newTask);
     this.setState({
       taskModules: updatedModules,
-    });
+    }, () => this.handleSaveState());
     return updatedModules;
   };
 
@@ -114,7 +142,7 @@ class App extends Component {
     updatedModules[moduleToUpdateIndex].tasks = updatedModuleTasks;
     this.setState({
       taskModules: updatedModules,
-    });
+    }, () => this.handleSaveState());
     return updatedModules;
   };
 
@@ -135,7 +163,7 @@ class App extends Component {
       .completed;
     this.setState({
       taskModules: updatedModules,
-    });
+    }, () => this.handleSaveState());
     return updatedModules;
   };
 
@@ -154,7 +182,7 @@ class App extends Component {
     const newTaskModules = [...taskModules, newModule];
     this.setState({
       taskModules: newTaskModules,
-    });
+    }, () => this.handleSaveState());
     return newTaskModules;
   };
 
@@ -173,7 +201,7 @@ class App extends Component {
         toastr.clear();
         that.setState({
           taskModules: updatedModules,
-        });
+        }, () => that.handleSaveState());
       },
       onCloseClick() {
         toastr.clear();

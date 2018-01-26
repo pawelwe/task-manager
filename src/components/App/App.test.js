@@ -8,7 +8,7 @@ describe('App Component', () => {
   const moduleName = 'Module 1';
   const taskName = 'Task 1';
   let moduleId = null;
-  let taskId = null
+  let taskId = null;
 
   it('Snapshot', () => {
     expect(wrapper).toMatchSnapshot();
