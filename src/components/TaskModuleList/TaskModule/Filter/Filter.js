@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './Filter.css';
+import classes from './Filter.scss';
 
 const Filter = ({ sortBy, moduleId, filter, text, tasksSortedBy }) => {
   return (

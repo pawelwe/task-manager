@@ -1,6 +1,6 @@
 import React from 'react';
 import Task from './TaskItem/Task';
-import classes from './TaskItemList.css';
+import classes from './TaskItemList.scss';
 
 const TaskItemList = ({ tasks, toggleTask, removeTask, moduleId }) => {
   return (

@@ -1,0 +1,37 @@
+.Alert {
+  display: block;
+  max-width: 300px;
+  position: fixed;
+  z-index: 99;
+  left: 30px;
+  top: 30px;
+  box-shadow: 5px 5px 5px rgba(0,0,0, .1);
+  padding: 2rem 5rem;;
+  transition: all 350ms ease-out;
+  background-color: $white;
+
+  &_removeBtn {
+    display: block;
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+    z-index: 9;
+    right: 0;
+    top: 0;
+    font-size: 3.4rem;
+    transform: rotate(45deg);
+    cursor: pointer;
+    color: $accent;
+    &:after {
+      content: '+';
+      display: block;
+      line-height: 1;
+    }
+    &:hover {
+      color: lighten($accent, 25%);
+    }
+    &__small {
+      font-size: 2.2rem;
+    }
+  }
+}

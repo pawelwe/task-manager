@@ -17,179 +17,8 @@ ShallowWrapper {
     "key": undefined,
     "nodeType": "host",
     "props": Object {
-      "children": <ErrorBoundary>
-        <header
-                className={undefined}
-        >
-                <h1>
-                        <img
-                                alt="wheel-icon"
-                                className={undefined}
-                                src="wheel-icon.svg"
-                        />
-                        Task Manager
-                </h1>
-        </header>
-        <div
-                className="container container_content"
-        >
-                <h5>
-                        No task modules...
-                </h5>
-                <br />
-        </div>
-        <AddTaskModule
-                addTaskModule={[Function]}
-        />
-</ErrorBoundary>,
-      "className": "undefined container",
-    },
-    "ref": null,
-    "rendered": Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "class",
-      "props": Object {
-        "children": Array [
-          <header
-            className={undefined}
->
-            <h1>
-                        <img
-                                    alt="wheel-icon"
-                                    className={undefined}
-                                    src="wheel-icon.svg"
-                        />
-                        Task Manager
-            </h1>
-</header>,
-          <div
-            className="container container_content"
->
-            <h5>
-                        No task modules...
-            </h5>
-            <br />
-</div>,
-          <AddTaskModule
-            addTaskModule={[Function]}
-/>,
-        ],
-      },
-      "ref": null,
-      "rendered": Array [
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": <h1>
-              <img
-                            alt="wheel-icon"
-                            className={undefined}
-                            src="wheel-icon.svg"
-              />
-              Task Manager
-</h1>,
-            "className": undefined,
-          },
-          "ref": null,
-          "rendered": Object {
-            "instance": null,
-            "key": undefined,
-            "nodeType": "host",
-            "props": Object {
-              "children": Array [
-                <img
-                  alt="wheel-icon"
-                  className={undefined}
-                  src="wheel-icon.svg"
-/>,
-                "Task Manager",
-              ],
-            },
-            "ref": null,
-            "rendered": Array [
-              Object {
-                "instance": null,
-                "key": undefined,
-                "nodeType": "host",
-                "props": Object {
-                  "alt": "wheel-icon",
-                  "className": undefined,
-                  "src": "wheel-icon.svg",
-                },
-                "ref": null,
-                "rendered": null,
-                "type": "img",
-              },
-              "Task Manager",
-            ],
-            "type": "h1",
-          },
-          "type": "header",
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "host",
-          "props": Object {
-            "children": Array [
-              <h5>
-                No task modules...
-</h5>,
-              <br />,
-            ],
-            "className": "container container_content",
-          },
-          "ref": null,
-          "rendered": Array [
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {
-                "children": "No task modules...",
-              },
-              "ref": null,
-              "rendered": "No task modules...",
-              "type": "h5",
-            },
-            Object {
-              "instance": null,
-              "key": undefined,
-              "nodeType": "host",
-              "props": Object {},
-              "ref": null,
-              "rendered": null,
-              "type": "br",
-            },
-          ],
-          "type": "div",
-        },
-        Object {
-          "instance": null,
-          "key": undefined,
-          "nodeType": "function",
-          "props": Object {
-            "addTaskModule": [Function],
-          },
-          "ref": null,
-          "rendered": null,
-          "type": [Function],
-        },
-      ],
-      "type": [Function],
-    },
-    "type": "div",
-  },
-  Symbol(enzyme.__nodes__): Array [
-    Object {
-      "instance": null,
-      "key": undefined,
-      "nodeType": "host",
-      "props": Object {
-        "children": <ErrorBoundary>
+      "children": Array [
+        <ErrorBoundary>
           <header
                     className={undefined}
           >
@@ -214,10 +43,24 @@ ShallowWrapper {
                     addTaskModule={[Function]}
           />
 </ErrorBoundary>,
-        "className": "undefined container",
-      },
-      "ref": null,
-      "rendered": Object {
+        <Modal
+          id="deleteModuleModal"
+          show={false}
+          toggle={[Function]}
+>
+          <DeleteTaskModuleDialog
+                    confirmModuleDeletion={[Function]}
+                    hideModal={[Function]}
+                    modalId="deleteModuleModal"
+                    moduleToDeleteId={null}
+          />
+</Modal>,
+      ],
+      "className": "undefined container",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
         "instance": null,
         "key": undefined,
         "nodeType": "class",
@@ -353,6 +196,259 @@ ShallowWrapper {
         ],
         "type": [Function],
       },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "children": <DeleteTaskModuleDialog
+            confirmModuleDeletion={[Function]}
+            hideModal={[Function]}
+            modalId="deleteModuleModal"
+            moduleToDeleteId={null}
+/>,
+          "id": "deleteModuleModal",
+          "show": false,
+          "toggle": [Function],
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "confirmModuleDeletion": [Function],
+            "hideModal": [Function],
+            "modalId": "deleteModuleModal",
+            "moduleToDeleteId": null,
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        "type": [Function],
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <ErrorBoundary>
+            <header
+                        className={undefined}
+            >
+                        <h1>
+                                    <img
+                                                alt="wheel-icon"
+                                                className={undefined}
+                                                src="wheel-icon.svg"
+                                    />
+                                    Task Manager
+                        </h1>
+            </header>
+            <div
+                        className="container container_content"
+            >
+                        <h5>
+                                    No task modules...
+                        </h5>
+                        <br />
+            </div>
+            <AddTaskModule
+                        addTaskModule={[Function]}
+            />
+</ErrorBoundary>,
+          <Modal
+            id="deleteModuleModal"
+            show={false}
+            toggle={[Function]}
+>
+            <DeleteTaskModuleDialog
+                        confirmModuleDeletion={[Function]}
+                        hideModal={[Function]}
+                        modalId="deleteModuleModal"
+                        moduleToDeleteId={null}
+            />
+</Modal>,
+        ],
+        "className": "undefined container",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": Array [
+              <header
+                className={undefined}
+>
+                <h1>
+                                <img
+                                                alt="wheel-icon"
+                                                className={undefined}
+                                                src="wheel-icon.svg"
+                                />
+                                Task Manager
+                </h1>
+</header>,
+              <div
+                className="container container_content"
+>
+                <h5>
+                                No task modules...
+                </h5>
+                <br />
+</div>,
+              <AddTaskModule
+                addTaskModule={[Function]}
+/>,
+            ],
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <h1>
+                  <img
+                                    alt="wheel-icon"
+                                    className={undefined}
+                                    src="wheel-icon.svg"
+                  />
+                  Task Manager
+</h1>,
+                "className": undefined,
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": Array [
+                    <img
+                      alt="wheel-icon"
+                      className={undefined}
+                      src="wheel-icon.svg"
+/>,
+                    "Task Manager",
+                  ],
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "alt": "wheel-icon",
+                      "className": undefined,
+                      "src": "wheel-icon.svg",
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": "img",
+                  },
+                  "Task Manager",
+                ],
+                "type": "h1",
+              },
+              "type": "header",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <h5>
+                    No task modules...
+</h5>,
+                  <br />,
+                ],
+                "className": "container container_content",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "No task modules...",
+                  },
+                  "ref": null,
+                  "rendered": "No task modules...",
+                  "type": "h5",
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {},
+                  "ref": null,
+                  "rendered": null,
+                  "type": "br",
+                },
+              ],
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "addTaskModule": [Function],
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+          ],
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "children": <DeleteTaskModuleDialog
+              confirmModuleDeletion={[Function]}
+              hideModal={[Function]}
+              modalId="deleteModuleModal"
+              moduleToDeleteId={null}
+/>,
+            "id": "deleteModuleModal",
+            "show": false,
+            "toggle": [Function],
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "confirmModuleDeletion": [Function],
+              "hideModal": [Function],
+              "modalId": "deleteModuleModal",
+              "moduleToDeleteId": null,
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "type": [Function],
+        },
+      ],
       "type": "div",
     },
   ],

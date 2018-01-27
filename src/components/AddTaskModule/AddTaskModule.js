@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './AddTaskModule.css';
+import classes from './AddTaskModule.scss';
 
 const AddTaskModule = ({ addTaskModule }) => {
   let input, confirm;

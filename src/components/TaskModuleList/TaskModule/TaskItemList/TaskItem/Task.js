@@ -1,7 +1,7 @@
 import React from 'react';
 import clockIcon from '../../../../../images/clock-icon.svg';
 import { calculateExpiration } from '../../../../../utils/utils';
-import classes from './Task.css';
+import classes from './Task.scss';
 
 const Task = ({
   name,

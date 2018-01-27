@@ -2,7 +2,7 @@ import React from 'react';
 import AddTask from './AddTask/AddTask';
 import Filter from './Filter/Filter';
 import TaskItemList from './TaskItemList/TaskItemList';
-import classes from './TaskModule.css';
+import classes from './TaskModule.scss';
 
 const TaskModule = ({
   title,
@@ -13,9 +13,9 @@ const TaskModule = ({
   sortByProp,
   sortByExpiration,
   removeTask,
-  removeTaskModule,
   sortAsc,
   tasksSortedBy,
+  toggleModal,
 }) => {
   return (
     <li className={`${classes.TaskModule} fadeIn`}>
@@ -23,7 +23,7 @@ const TaskModule = ({
         <h4 className={classes.TaskModule_title}>{title}</h4>
         <span
           id="removeTaskModule"
-          onClick={() => removeTaskModule(moduleId)}
+          onClick={() => toggleModal('deleteModuleModal', true, moduleId)}
           className="removeBtn"
         />
         <div className={classes.TaskModule_filterBox}>
@@ -31,29 +31,29 @@ const TaskModule = ({
           <div className={classes.TaskModule_filters}>
             <Filter
               sortBy={sortByProp}
-              text='Priority'
-              filter='priority'
+              text="Priority"
+              filter="priority"
               moduleId={moduleId}
               tasksSortedBy={tasksSortedBy}
             />
             <Filter
               sortBy={sortByExpiration}
-              text='Expiration'
-              filter='expiration'
+              text="Expiration"
+              filter="expiration"
               moduleId={moduleId}
               tasksSortedBy={tasksSortedBy}
             />
             <Filter
               sortBy={sortByProp}
-              text='Completion'
-              filter='completed'
+              text="Completion"
+              filter="completed"
               moduleId={moduleId}
               tasksSortedBy={tasksSortedBy}
             />
             <Filter
               sortBy={sortByProp}
-              text='Creation'
-              filter='creationDate'
+              text="Creation"
+              filter="creationDate"
               moduleId={moduleId}
               tasksSortedBy={tasksSortedBy}
             />

@@ -5,8 +5,8 @@ ShallowWrapper {
   "length": 1,
   Symbol(enzyme.__root__): [Circular],
   Symbol(enzyme.__unrendered__): <TaskModule
-    removeTaskModule={[Function]}
     tasks={Array []}
+    toggleModal={[Function]}
 />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
@@ -35,7 +35,7 @@ ShallowWrapper {
                 className={undefined}
         >
                 <strong>
-                        Sort by:
+                        Sort tasks by:
                 </strong>
                 <div
                         className={undefined}
@@ -117,7 +117,7 @@ ShallowWrapper {
             className={undefined}
 >
             <strong>
-                        Sort by:
+                        Sort tasks by:
             </strong>
             <div
                         className={undefined}
@@ -214,7 +214,7 @@ ShallowWrapper {
           "props": Object {
             "children": Array [
               <strong>
-                Sort by:
+                Sort tasks by:
 </strong>,
               <div
                 className={undefined}
@@ -263,10 +263,10 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "host",
               "props": Object {
-                "children": "Sort by:",
+                "children": "Sort tasks by:",
               },
               "ref": null,
-              "rendered": "Sort by:",
+              "rendered": "Sort tasks by:",
               "type": "strong",
             },
             Object {
@@ -501,7 +501,7 @@ ShallowWrapper {
                     className={undefined}
           >
                     <strong>
-                              Sort by:
+                              Sort tasks by:
                     </strong>
                     <div
                               className={undefined}
@@ -583,7 +583,7 @@ ShallowWrapper {
               className={undefined}
 >
               <strong>
-                            Sort by:
+                            Sort tasks by:
               </strong>
               <div
                             className={undefined}
@@ -680,7 +680,7 @@ ShallowWrapper {
             "props": Object {
               "children": Array [
                 <strong>
-                  Sort by:
+                  Sort tasks by:
 </strong>,
                 <div
                   className={undefined}
@@ -729,10 +729,10 @@ ShallowWrapper {
                 "key": undefined,
                 "nodeType": "host",
                 "props": Object {
-                  "children": "Sort by:",
+                  "children": "Sort tasks by:",
                 },
                 "ref": null,
-                "rendered": "Sort by:",
+                "rendered": "Sort tasks by:",
                 "type": "strong",
               },
               Object {

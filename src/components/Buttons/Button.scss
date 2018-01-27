@@ -1,0 +1,12 @@
+.Button {
+  padding: .8rem 4rem;
+  border: 1px solid $light-gray;
+  margin-right: 0.6rem;
+
+  &:hover {
+    border-color: $medium-gray-3;
+  }
+  &:last-of-type {
+    margin-right: 0;
+  }
+}

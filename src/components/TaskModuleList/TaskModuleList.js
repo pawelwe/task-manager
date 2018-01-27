@@ -1,6 +1,6 @@
 import React from 'react';
 import TaskModule from './TaskModule/TaskModule';
-import classes from './TaskModuleList.css';
+import classes from './TaskModuleList.scss';
 
 const TaskModuleList = ({
   taskModules,
@@ -10,6 +10,7 @@ const TaskModuleList = ({
   removeTaskModule,
   sortByProp,
   sortByExpiration,
+  toggleModal,
 }) => {
   return (
     <ul className={`${classes.TaskModuleList}`}>
@@ -25,6 +26,7 @@ const TaskModuleList = ({
             {...module}
             sortByProp={sortByProp}
             sortByExpiration={sortByExpiration}
+            toggleModal={toggleModal}
           />
         );
       })}

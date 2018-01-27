@@ -3,15 +3,15 @@ import { shallow } from 'enzyme';
 import TaskModule from './TaskModule';
 
 describe('TaskModule Component', () => {
-  const removeTaskModule = jest.fn();
-  const wrapper = shallow(<TaskModule removeTaskModule={removeTaskModule} tasks={[]} />);
+  const toggleModal = jest.fn();
+  const wrapper = shallow(<TaskModule toggleModal={toggleModal} tasks={[]} />);
 
   it('Snapshot', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('removeTaskModule called', () => {
+  it('toggleModal called', () => {
     wrapper.find('#removeTaskModule').simulate('click');
-    expect(removeTaskModule).toHaveBeenCalled();
+    expect(toggleModal).toHaveBeenCalled();
   });
 });

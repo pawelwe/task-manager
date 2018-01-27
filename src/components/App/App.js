@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import throttle from 'lodash.throttle';
+import debounce from 'lodash.debounce';
 import uuid from 'uuid';
-import toastr from 'toastr';
 import {
   findModuleToUpdateIndex,
   sortBy,
@@ -11,17 +11,38 @@ import {
 import AddTaskModule from '../AddTaskModule/AddTaskModule';
 import TaskModuleList from '../TaskModuleList/TaskModuleList';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
+import Modal from '../Modal/Modal';
+import Alert from '../Alerts/Alert';
+import DeleteTaskModuleDialog from '../Dialogs/DeleteTaskModuleDialog';
 
-import classes from './App.css';
+import classes from './App.scss';
 import wheelIcon from '../../images/wheel-icon.svg';
 
 class App extends Component {
   state = {
     taskModules: [],
     timer: 0,
+    modals: {
+      deleteModuleModal: {
+        shown: false,
+        params: null,
+      },
+    },
+    alerts: {
+      taskInputAlert: {
+        shown: false,
+        text: 'Please correct new task fields',
+      },
+      moduleInputAlert: {
+        shown: false,
+        text: 'Please correct new module fields',
+      },
+    },
   };
 
   expiredTasksInterval = 15000;
+
+  alertDisplayTime = 4000;
 
   componentDidMount() {
     this.handleLoadState();
@@ -114,13 +135,14 @@ class App extends Component {
         removeTaskModule={this.handleRemoveTaskModule}
         sortByExpiration={this.handleSortByExpiration}
         sortByProp={this.handleSortByProp}
+        toggleModal={this.toggleModal}
       />
     );
   };
 
   handleAddTask = (moduleId, newTaskName, priority, expirationPeriod) => {
     if (!newTaskName || !priority || !expirationPeriod) {
-      toastr.info('Please correct your input!');
+      this.toggleAlert('taskInputAlert', true);
       return;
     }
     const updatedModules = [...this.state.taskModules];
@@ -193,7 +215,7 @@ class App extends Component {
 
   handleAddTaskModule = moduleName => {
     if (!moduleName) {
-      toastr.info('Please correct your input!');
+      this.toggleAlert('moduleInputAlert', true);
       return;
     }
     const taskModules = this.state.taskModules;
@@ -214,34 +236,69 @@ class App extends Component {
     return newTaskModules;
   };
 
-  handleRemoveTaskModule = moduleId => {
-    const that = this;
-    let allModules = [...that.state.taskModules];
+  toggleModal = (modalName, toggle = false, params) => {
+    const newModals = { ...this.state.modals };
+    newModals[modalName].shown = toggle;
+    if (params) {
+      newModals[modalName].params = params;
+    }
+    this.setState({
+      modals: newModals,
+    });
+  };
+
+  toggleAlert = (alertName, toggle) => {
+    console.info('toggleAlert called');
+    let newAlerts = { ...this.state.alerts };
+
+    clearTimeout(this[`${alertName}timeout`]);
+
+    // if new alert
+    if (toggle) {
+      let hideAlerts = Object.keys(newAlerts)
+        .map(key => {
+          return {
+            [key]: {
+              ...newAlerts[key],
+              shown: false,
+            },
+          };
+        })
+        .reduce((result, item) => {
+          let key = Object.keys(item)[0];
+          result[key] = item[key];
+          return result;
+        }, {});
+      newAlerts = hideAlerts;
+      console.log(newAlerts);
+    }
+
+    newAlerts[alertName].shown = toggle;
+
+    this[`${alertName}timeout`] = setTimeout(() => {
+      console.info('toggleAlert from Timeout');
+      this.toggleAlert(alertName, false);
+      clearTimeout(this[`${alertName}timeout`]);
+    }, this.alertDisplayTime);
+
+    this.setState(() => {
+      return {
+        alerts: newAlerts,
+      };
+    });
+  };
+
+  handleRemoveTaskModule = (moduleId, cb) => {
+    let allModules = [...this.state.taskModules];
     let updatedModules = allModules.filter(module => {
       return module.id !== moduleId;
     });
-    const toastrOptions = {
-      closeButton: true,
-      timeOut: 5000,
-      progressBar: true,
-      tapToDismiss: false,
-      onclick() {
-        toastr.clear();
-        that.setState(
-          {
-            taskModules: updatedModules,
-          },
-          () => that.handleSaveState(),
-        );
+    this.setState(
+      {
+        taskModules: updatedModules,
       },
-      onCloseClick() {
-        toastr.clear();
-      },
-    };
-    toastr['info'](
-      `<div><span class="CloseDialog">Yes</span></div>`,
-      `Do you really want to delete module ${moduleId}?`,
-      toastrOptions,
+      () => this.handleSaveState(),
+      cb ? cb() : false,
     );
     return updatedModules;
   };
@@ -316,6 +373,32 @@ class App extends Component {
           {this.renderTaskModules()}
           <AddTaskModule addTaskModule={this.handleAddTaskModule} />
         </ErrorBoundary>
+        <Modal
+          id="deleteModuleModal"
+          show={this.state.modals.deleteModuleModal.shown}
+          toggle={this.toggleModal}
+        >
+          <DeleteTaskModuleDialog
+            confirmModuleDeletion={this.handleRemoveTaskModule}
+            hideModal={this.toggleModal}
+            moduleToDeleteId={this.state.modals.deleteModuleModal.params}
+            modalId="deleteModuleModal"
+          />
+        </Modal>
+        <Alert
+          id="moduleInputAlert"
+          show={this.state.alerts.moduleInputAlert.shown}
+          action={this.toggleAlert}
+        >
+          <p>{this.state.alerts.moduleInputAlert.text}</p>
+        </Alert>
+        <Alert
+          id="taskInputAlert"
+          show={this.state.alerts.taskInputAlert.shown}
+          action={this.toggleAlert}
+        >
+          <p>{this.state.alerts.taskInputAlert.text}</p>
+        </Alert>
       </div>
     );
   }
