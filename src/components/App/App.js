@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import throttle from 'lodash.throttle';
-import debounce from 'lodash.debounce';
+// import debounce from 'lodash.debounce';
 import uuid from 'uuid';
 import {
   findModuleToUpdateIndex,
@@ -249,17 +249,17 @@ class App extends Component {
 
   toggleAlert = (alertName, toggle) => {
     console.info('toggleAlert called');
-    let newAlerts = { ...this.state.alerts };
+    let nextAlerts = { ...this.state.alerts };
 
-    clearTimeout(this[`${alertName}timeout`]);
+    if (this[`${alertName}timeout`]) clearTimeout(this[`${alertName}timeout`]);
 
-    // if new alert
+    // if next alert
     if (toggle) {
-      let hideAlerts = Object.keys(newAlerts)
+      let alertsToHide = Object.keys(nextAlerts)
         .map(key => {
           return {
             [key]: {
-              ...newAlerts[key],
+              ...nextAlerts[key],
               shown: false,
             },
           };
@@ -269,11 +269,11 @@ class App extends Component {
           result[key] = item[key];
           return result;
         }, {});
-      newAlerts = hideAlerts;
-      console.log(newAlerts);
+      nextAlerts = alertsToHide;
+      console.log(nextAlerts);
     }
 
-    newAlerts[alertName].shown = toggle;
+    nextAlerts[alertName].shown = toggle;
 
     this[`${alertName}timeout`] = setTimeout(() => {
       console.info('toggleAlert from Timeout');
@@ -283,7 +283,7 @@ class App extends Component {
 
     this.setState(() => {
       return {
-        alerts: newAlerts,
+        alerts: nextAlerts,
       };
     });
   };
