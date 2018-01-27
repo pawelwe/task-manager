@@ -1,8 +1,7 @@
 import React from 'react';
 import classes from './Alert.scss';
 
-const Alert = ({ show, children, action, id, zindex }) => {
-  console.log('Index:', zindex)
+const Alert = ({ show, children, action, id }) => {
   return (
     <div
       className={classes.Alert}
