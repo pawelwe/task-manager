@@ -8,7 +8,6 @@ const Alert = ({ show, children, action, id }) => {
       style={{
         left: show ? '30px' : '-320px',
         opacity: show ? '1' : '0.2',
-        zIndex: zindex,
       }}
     >
       <span
