@@ -42,15 +42,15 @@ const Task = ({
       style={{ textDecoration: completed ? 'line-through' : '' }}
     >
       <span
-        id="removeTask"
+        id='removeTask'
         onClick={() => removeTask(moduleId, id)}
         className={`removeBtn removeBtn__small`}
       />
       <section
-        id="toggleTask"
+        id='toggleTask'
         className={`${classes.TaskItemList_item_content} tooltip`}
         onClick={() => toggleTask(moduleId, id)}
-        data-title="Click to toggle completion..."
+        data-title='Click to toggle completion...'
       >
         <h5 className={classes.TaskItemList_item_header}>{name}</h5>
         <p className={classes.TaskItemList_item_info}>
@@ -71,9 +71,9 @@ const Task = ({
               expiration > 0 && (
                 <span>
                   <img
-                    className="expirationIcon"
+                    className='expirationIcon'
                     src={clockIcon}
-                    alt="expiration-icon"
+                    alt='expiration-icon'
                   />
                   Expires in: {expiration} minutes
                 </span>
@@ -81,9 +81,9 @@ const Task = ({
             {expiration <= 0 && (
               <span>
                 <img
-                  className="expirationIcon"
+                  className='expirationIcon'
                   src={clockIcon}
-                  alt="expiration-icon"
+                  alt='expiration-icon'
                 />
                 <strong>Expired!</strong>
               </span>

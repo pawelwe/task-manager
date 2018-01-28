@@ -4,7 +4,7 @@ import classes from './Filter.scss';
 const Filter = ({ sortBy, moduleId, filter, text, tasksSortedBy }) => {
   return (
     <button
-      id="filter"
+      id='filter'
       onClick={() => {
         sortBy(moduleId, filter);
       }}

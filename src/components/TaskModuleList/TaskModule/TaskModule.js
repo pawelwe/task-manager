@@ -22,38 +22,38 @@ const TaskModule = ({
       <section className={classes.TaskModule_content}>
         <h4 className={classes.TaskModule_title}>{title}</h4>
         <span
-          id="removeTaskModule"
+          id='removeTaskModule'
           onClick={() => toggleModal('deleteModuleModal', true, moduleId)}
-          className="removeBtn"
+          className='removeBtn'
         />
         <div className={classes.TaskModule_filterBox}>
           <strong>Sort tasks by:</strong>
           <div className={classes.TaskModule_filters}>
             <Filter
               sortBy={sortByProp}
-              text="Priority"
-              filter="priority"
+              text='Priority'
+              filter='priority'
               moduleId={moduleId}
               tasksSortedBy={tasksSortedBy}
             />
             <Filter
               sortBy={sortByExpiration}
-              text="Expiration"
-              filter="expiration"
+              text='Expiration'
+              filter='expiration'
               moduleId={moduleId}
               tasksSortedBy={tasksSortedBy}
             />
             <Filter
               sortBy={sortByProp}
-              text="Completion"
-              filter="completed"
+              text='Completion'
+              filter='completed'
               moduleId={moduleId}
               tasksSortedBy={tasksSortedBy}
             />
             <Filter
               sortBy={sortByProp}
-              text="Creation"
-              filter="creationDate"
+              text='Creation'
+              filter='creationDate'
               moduleId={moduleId}
               tasksSortedBy={tasksSortedBy}
             />

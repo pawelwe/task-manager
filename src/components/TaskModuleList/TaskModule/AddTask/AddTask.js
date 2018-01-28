@@ -6,23 +6,23 @@ const AddTask = ({ addNewTask, moduleId }) => {
   return (
     <footer>
       <input
-        placeholder="Task name"
+        placeholder='Task name'
         className={classes.AddTask_input}
         ref={node => (taskName = node)}
       />
       <input
-        type="number"
-        placeholder="Priority (1-10)"
-        min="1"
-        max="10"
+        type='number'
+        placeholder='Priority (1-10)'
+        min='1'
+        max='10'
         className={classes.AddTask_input}
         ref={node => (priority = node)}
       />
       <input
-        type="number"
-        min="1"
-        max="24"
-        placeholder="Expiration time (minutes)"
+        type='number'
+        min='1'
+        max='24'
+        placeholder='Expiration time (minutes)'
         className={classes.AddTask_input}
         ref={node => (expirationPeriod = node)}
         onKeyPress={e => {
@@ -32,7 +32,7 @@ const AddTask = ({ addNewTask, moduleId }) => {
         }}
       />
       <button
-        id="addNewTask"
+        id='addNewTask'
         ref={node => (confirm = node)}
         onClick={() => {
           addNewTask(

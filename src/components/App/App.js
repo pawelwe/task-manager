@@ -120,7 +120,7 @@ class App extends Component {
     const taskModules = this.state.taskModules;
     if (taskModules.length < 1) {
       return (
-        <div className="container container_content">
+        <div className='container container_content'>
           <h5>No task modules...</h5>
           <br />
         </div>
@@ -366,7 +366,7 @@ class App extends Component {
               <img
                 className={classes.App_logo}
                 src={wheelIcon}
-                alt="wheel-icon"
+                alt='wheel-icon'
               />Task Manager
             </h1>
           </header>
@@ -374,7 +374,7 @@ class App extends Component {
           <AddTaskModule addTaskModule={this.handleAddTaskModule} />
         </ErrorBoundary>
         <Modal
-          id="deleteModuleModal"
+          id='deleteModuleModal'
           show={this.state.modals.deleteModuleModal.shown}
           toggle={this.toggleModal}
         >
@@ -382,18 +382,18 @@ class App extends Component {
             confirmModuleDeletion={this.handleRemoveTaskModule}
             hideModal={this.toggleModal}
             moduleToDeleteId={this.state.modals.deleteModuleModal.params}
-            modalId="deleteModuleModal"
+            modalId='deleteModuleModal'
           />
         </Modal>
         <Alert
-          id="moduleInputAlert"
+          id='moduleInputAlert'
           show={this.state.alerts.moduleInputAlert.shown}
           action={this.toggleAlert}
         >
           <p>{this.state.alerts.moduleInputAlert.text}</p>
         </Alert>
         <Alert
-          id="taskInputAlert"
+          id='taskInputAlert'
           show={this.state.alerts.taskInputAlert.shown}
           action={this.toggleAlert}
         >

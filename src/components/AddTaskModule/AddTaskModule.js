@@ -7,7 +7,7 @@ const AddTaskModule = ({ addTaskModule }) => {
     <footer className={`${classes.AddTaskModule}`}>
       <input
         autoFocus
-        placeholder="Module name..."
+        placeholder='Module name...'
         className={classes.AddTaskModule_input}
         ref={node => (input = node)}
         onKeyPress={e => {
@@ -17,7 +17,7 @@ const AddTaskModule = ({ addTaskModule }) => {
         }}
       />
       <button
-        id="addTaskModule"
+        id='addTaskModule'
         ref={node => (confirm = node)}
         onClick={() => {
           addTaskModule(input.value);
