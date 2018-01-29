@@ -29,13 +29,35 @@ class App extends Component {
       },
     },
     alerts: {
-      taskInputAlert: {
+      addTaskInputAlert: {
         shown: false,
         text: 'Please correct new task fields',
       },
-      moduleInputAlert: {
+      addModuleInputAlert: {
         shown: false,
         text: 'Please correct new module fields',
+      },
+    },
+    validation: {
+      taskInput: {
+        taskName: {
+          error: false,
+          msg: 'Not valid name',
+        },
+        priority: {
+          error: false,
+          msg: 'Should be a number 1-10',
+        },
+        expiration: {
+          error: false,
+          msg: 'Should be a number',
+        },
+      },
+      moduleInput: {
+        moduleName: {
+          error: false,
+          msg: 'Not valid name',
+        },
       },
     },
   };
@@ -120,7 +142,7 @@ class App extends Component {
     const taskModules = this.state.taskModules;
     if (taskModules.length < 1) {
       return (
-        <div className='container container_content'>
+        <div className="container container_content">
           <h5>No task modules...</h5>
           <br />
         </div>
@@ -142,7 +164,7 @@ class App extends Component {
 
   handleAddTask = (moduleId, newTaskName, priority, expirationPeriod) => {
     if (!newTaskName || !priority || !expirationPeriod) {
-      this.toggleAlert('taskInputAlert', true);
+      this.toggleAlert('addTaskInputAlert', true);
       return;
     }
     const updatedModules = [...this.state.taskModules];
@@ -215,7 +237,7 @@ class App extends Component {
 
   handleAddTaskModule = moduleName => {
     if (!moduleName) {
-      this.toggleAlert('moduleInputAlert', true);
+      this.toggleAlert('addModuleInputAlert', true);
       return;
     }
     const taskModules = this.state.taskModules;
@@ -248,38 +270,49 @@ class App extends Component {
   };
 
   toggleAlert = (alertName, toggle) => {
-    console.info('toggleAlert called');
+    console.info('Alert:', alertName, toggle ? 'on' : 'off');
+    if (!alertName) {
+      console.warn('No alert name!');
+      return;
+    }
     let nextAlerts = { ...this.state.alerts };
 
-    if (this[`${alertName}timeout`]) clearTimeout(this[`${alertName}timeout`]);
+    // Clear previous timeouts
+    Object.keys(this.state.alerts).forEach(alert => {
+      clearTimeout(this[`${alert}Timeout`]);
+      this[`${alert}Timeout`] = undefined;
+    });
 
-    // if next alert
+    // If next alert
     if (toggle) {
       let alertsToHide = Object.keys(nextAlerts)
-        .map(key => {
+        .map(alert => {
+          // Hide previous alerts
           return {
-            [key]: {
-              ...nextAlerts[key],
+            [alert]: {
+              ...nextAlerts[alert],
               shown: false,
             },
           };
         })
         .reduce((result, item) => {
+          // Convert to Object
           let key = Object.keys(item)[0];
           result[key] = item[key];
           return result;
         }, {});
+
+      // AutoHide alerts
+      this[`${alertName}Timeout`] = setTimeout(() => {
+        this.toggleAlert(alertName, false);
+      }, this.alertDisplayTime);
+
       nextAlerts = alertsToHide;
-      console.log(nextAlerts);
     }
 
+    // Show next alert, as the all alerts are hidden at this point
+    if (!nextAlerts[alertName]) return;
     nextAlerts[alertName].shown = toggle;
-
-    this[`${alertName}timeout`] = setTimeout(() => {
-      console.info('toggleAlert from Timeout');
-      this.toggleAlert(alertName, false);
-      clearTimeout(this[`${alertName}timeout`]);
-    }, this.alertDisplayTime);
 
     this.setState(() => {
       return {
@@ -366,7 +399,7 @@ class App extends Component {
               <img
                 className={classes.App_logo}
                 src={wheelIcon}
-                alt='wheel-icon'
+                alt="wheel-icon"
               />Task Manager
             </h1>
           </header>
@@ -374,7 +407,7 @@ class App extends Component {
           <AddTaskModule addTaskModule={this.handleAddTaskModule} />
         </ErrorBoundary>
         <Modal
-          id='deleteModuleModal'
+          id="deleteModuleModal"
           show={this.state.modals.deleteModuleModal.shown}
           toggle={this.toggleModal}
         >
@@ -382,22 +415,22 @@ class App extends Component {
             confirmModuleDeletion={this.handleRemoveTaskModule}
             hideModal={this.toggleModal}
             moduleToDeleteId={this.state.modals.deleteModuleModal.params}
-            modalId='deleteModuleModal'
+            modalId="deleteModuleModal"
           />
         </Modal>
         <Alert
-          id='moduleInputAlert'
-          show={this.state.alerts.moduleInputAlert.shown}
+          id="addModuleInputAlert"
+          show={this.state.alerts.addModuleInputAlert.shown}
           action={this.toggleAlert}
         >
-          <p>{this.state.alerts.moduleInputAlert.text}</p>
+          <p>{this.state.alerts.addModuleInputAlert.text}</p>
         </Alert>
         <Alert
-          id='taskInputAlert'
-          show={this.state.alerts.taskInputAlert.shown}
+          id="addTaskInputAlert"
+          show={this.state.alerts.addTaskInputAlert.shown}
           action={this.toggleAlert}
         >
-          <p>{this.state.alerts.taskInputAlert.text}</p>
+          <p>{this.state.alerts.addTaskInputAlert.text}</p>
         </Alert>
       </div>
     );
