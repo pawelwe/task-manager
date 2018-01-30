@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import throttle from 'lodash.throttle';
-// import debounce from 'lodash.debounce';
 import uuid from 'uuid';
+import isEqual from 'lodash.isequal';
 import {
   findModuleToUpdateIndex,
   sortBy,
   calculateExpiration,
 } from '../../utils/utils';
-
+import { handleSaveState, handleLoadState } from '../../utils/persistState';
 import AddTaskModule from '../AddTaskModule/AddTaskModule';
 import TaskModuleList from '../TaskModuleList/TaskModuleList';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
@@ -38,44 +37,37 @@ class App extends Component {
         text: 'Please correct new module fields',
       },
     },
-    validation: {
-      taskInput: {
-        taskName: {
-          error: false,
-          msg: 'Not valid name',
-        },
-        priority: {
-          error: false,
-          msg: 'Should be a number 1-10',
-        },
-        expiration: {
-          error: false,
-          msg: 'Should be a number',
-        },
-      },
-      moduleInput: {
-        moduleName: {
-          error: false,
-          msg: 'Not valid name',
-        },
-      },
-    },
   };
 
-  expiredTasksInterval = 15000;
+  expiredTasksCheckInterval = 1000;
 
   alertDisplayTime = 4000;
 
-  componentDidMount() {
-    this.handleLoadState();
-    this.interval = setInterval(
+  componentWillMount() {
+    const savedState = handleLoadState();
+    this.setState({
+      taskModules: savedState && savedState.taskModules ? savedState.taskModules : [],
+    });
+    this.expirationInterval = setInterval(
       this.checkExpiredTasks,
-      this.expiredTasksInterval,
+      this.expiredTasksCheckInterval,
     );
   }
 
+  componentDidUpdate() {
+    console.info('App did updated!');
+  }
+
   componentWillUnmount() {
-    clearInterval(this.interval);
+    clearInterval(this.expirationInterval);
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return (
+      !isEqual(nextState.taskModules, this.state.taskModules) ||
+      nextState.alerts !== this.state.alerts ||
+      nextState.modals !== this.state.modals
+    )
   }
 
   checkExpiredTasks = () => {
@@ -89,7 +81,13 @@ class App extends Component {
                   calculateExpiration(a.creationDate, a.expirationPeriod) -
                   calculateExpiration(b.creationDate, b.expirationPeriod)
                 );
-              }),
+              }).map(task => {
+                return {
+                  ...task,
+                  expiresIn: calculateExpiration(task.creationDate, task.expirationPeriod) > 0 ? calculateExpiration(task.creationDate, task.expirationPeriod) : 0,
+                }
+              })
+
             }
           : module;
       });
@@ -100,66 +98,6 @@ class App extends Component {
         };
       });
     }
-  };
-
-  handleSaveState() {
-    const handleSavingToStorage = () => {
-      try {
-        const taskManagerApp = JSON.stringify(
-          Object.assign({}, { taskModules: this.state.taskModules }),
-        );
-        localStorage.setItem('taskManagerApp', taskManagerApp);
-        console.info('Task Manager App State saved...');
-        return taskManagerApp;
-      } catch (err) {
-        console.warn(err);
-      }
-    };
-    const throttledHandleSavingToStorage = throttle(
-      handleSavingToStorage,
-      1000,
-    );
-    return throttledHandleSavingToStorage();
-  }
-
-  handleLoadState() {
-    try {
-      const taskManagerApp = JSON.parse(localStorage.getItem('taskManagerApp'));
-      if (taskManagerApp === null) {
-        return undefined;
-      }
-      this.setState({
-        taskModules: taskManagerApp.taskModules,
-      });
-      console.info('Task Manager App State loaded...');
-      return taskManagerApp;
-    } catch (err) {
-      return undefined;
-    }
-  }
-
-  renderTaskModules = () => {
-    const taskModules = this.state.taskModules;
-    if (taskModules.length < 1) {
-      return (
-        <div className="container container_content">
-          <h5>No task modules...</h5>
-          <br />
-        </div>
-      );
-    }
-    return (
-      <TaskModuleList
-        taskModules={taskModules}
-        addNewTask={this.handleAddTask}
-        toggleTask={this.handleToggleTask}
-        removeTask={this.handleRemoveTask}
-        removeTaskModule={this.handleRemoveTaskModule}
-        sortByExpiration={this.handleSortByExpiration}
-        sortByProp={this.handleSortByProp}
-        toggleModal={this.toggleModal}
-      />
-    );
   };
 
   handleAddTask = (moduleId, newTaskName, priority, expirationPeriod) => {
@@ -180,12 +118,18 @@ class App extends Component {
       creationDate: Date.now(),
       expirationPeriod: parseInt(expirationPeriod, 10),
     };
-    updatedModules[moduleToUpdateIndex].tasks.push(newTask);
+
+    const currentModule = updatedModules[moduleToUpdateIndex];
+
     this.setState(
       {
-        taskModules: updatedModules,
+        taskModules: [
+          ...updatedModules.slice(0, moduleToUpdateIndex),
+          Object.assign({}, currentModule, { tasks: [...currentModule.tasks, newTask] }),
+          ...updatedModules.slice(moduleToUpdateIndex, 0),
+        ],
       },
-      () => this.handleSaveState(),
+      () => handleSaveState(this.state.taskModules),
     );
     return updatedModules;
   };
@@ -206,7 +150,7 @@ class App extends Component {
       {
         taskModules: updatedModules,
       },
-      () => this.handleSaveState(),
+      () => handleSaveState(this.state.taskModules),
     );
     return updatedModules;
   };
@@ -230,7 +174,7 @@ class App extends Component {
       {
         taskModules: updatedModules,
       },
-      () => this.handleSaveState(),
+      () => handleSaveState(this.state.taskModules),
     );
     return updatedModules;
   };
@@ -240,7 +184,7 @@ class App extends Component {
       this.toggleAlert('addModuleInputAlert', true);
       return;
     }
-    const taskModules = this.state.taskModules;
+    const taskModules = [...this.state.taskModules];
     const newModule = {
       title: moduleName,
       id: uuid.v4(),
@@ -253,7 +197,7 @@ class App extends Component {
       {
         taskModules: newTaskModules,
       },
-      () => this.handleSaveState(),
+      () => handleSaveState(this.state.taskModules),
     );
     return newTaskModules;
   };
@@ -330,7 +274,7 @@ class App extends Component {
       {
         taskModules: updatedModules,
       },
-      () => this.handleSaveState(),
+      () => handleSaveState(this.state.taskModules),
       cb ? cb() : false,
     );
     return updatedModules;
@@ -353,7 +297,7 @@ class App extends Component {
       {
         taskModules: updatedModules,
       },
-      () => this.handleSaveState(),
+      () => handleSaveState(this.state.taskModules),
     );
     return updatedModules;
   };
@@ -385,7 +329,7 @@ class App extends Component {
       {
         taskModules: updatedModules,
       },
-      () => this.handleSaveState(),
+      () => handleSaveState(this.state.taskModules),
     );
     return updatedModules;
   };
@@ -403,7 +347,17 @@ class App extends Component {
               />Task Manager
             </h1>
           </header>
-          {this.renderTaskModules()}
+          <TaskModuleList
+            taskModules={this.state.taskModules}
+            addNewTask={this.handleAddTask}
+            toggleTask={this.handleToggleTask}
+            removeTask={this.handleRemoveTask}
+            removeTaskModule={this.handleRemoveTaskModule}
+            sortByExpiration={this.handleSortByExpiration}
+            sortByProp={this.handleSortByProp}
+            toggleModal={this.toggleModal}
+            timer={this.state.timer}
+          />
           <AddTaskModule addTaskModule={this.handleAddTaskModule} />
         </ErrorBoundary>
         <Modal
