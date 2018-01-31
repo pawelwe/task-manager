@@ -11,7 +11,6 @@ class ModalContainer extends Component {
         params: null,
       },
     },
-    listDataFromChild: null,
   };
 
   componentDidMount() {
@@ -22,13 +21,16 @@ class ModalContainer extends Component {
   }
 
   toggleModal = (modalName, toggle = false, params) => {
-    const newModals = { ...this.state.modals };
-    newModals[modalName].shown = toggle;
-    if (params) {
-      newModals[modalName].params = params;
-    }
+    const modalParams = params ? params : null;
     this.setState({
-      modals: newModals,
+      ...this.state,
+      modals: {
+        ...this.state.modals,
+        [modalName]: {
+          shown: toggle,
+          params: modalParams,
+        },
+      },
     });
   };
 

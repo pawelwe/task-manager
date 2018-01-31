@@ -24,7 +24,7 @@ class App extends Component {
     timer: 0,
   };
 
-  expiredTasksCheckInterval = 1000;
+  expiredTasksCheckInterval = 20000;
 
   componentWillMount() {
     const savedState = handleLoadState();
