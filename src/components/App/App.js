@@ -10,9 +10,10 @@ import { handleSaveState, handleLoadState } from '../../utils/persistState';
 import AddTaskModule from '../AddTaskModule/AddTaskModule';
 import TaskModuleList from '../TaskModuleList/TaskModuleList';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
-import Modal from '../Modal/Modal';
-import Alert from '../Alerts/Alert';
-import DeleteTaskModuleDialog from '../Dialogs/DeleteTaskModuleDialog';
+import alertContainer from '../../hoc/alertContainer';
+
+import ModalContainer from '../Modal/ModalContainer';
+// import DeleteTaskModuleDialog from '../Dialogs/DeleteTaskModuleDialog';
 
 import classes from './App.scss';
 import wheelIcon from '../../images/wheel-icon.svg';
@@ -21,32 +22,15 @@ class App extends Component {
   state = {
     taskModules: [],
     timer: 0,
-    modals: {
-      deleteModuleModal: {
-        shown: false,
-        params: null,
-      },
-    },
-    alerts: {
-      addTaskInputAlert: {
-        shown: false,
-        text: 'Please correct new task fields',
-      },
-      addModuleInputAlert: {
-        shown: false,
-        text: 'Please correct new module fields',
-      },
-    },
   };
 
   expiredTasksCheckInterval = 1000;
 
-  alertDisplayTime = 4000;
-
   componentWillMount() {
     const savedState = handleLoadState();
     this.setState({
-      taskModules: savedState && savedState.taskModules ? savedState.taskModules : [],
+      taskModules:
+        savedState && savedState.taskModules ? savedState.taskModules : [],
     });
     this.expirationInterval = setInterval(
       this.checkExpiredTasks,
@@ -54,7 +38,7 @@ class App extends Component {
     );
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
     console.info('App did updated!');
   }
 
@@ -63,11 +47,7 @@ class App extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return (
-      !isEqual(nextState.taskModules, this.state.taskModules) ||
-      nextState.alerts !== this.state.alerts ||
-      nextState.modals !== this.state.modals
-    )
+    return !isEqual(nextState.taskModules, this.state.taskModules);
   }
 
   checkExpiredTasks = () => {
@@ -76,18 +56,28 @@ class App extends Component {
         return module.tasks && module.tasks.length > 0
           ? {
               ...module,
-              tasks: module.tasks.sort((a, b) => {
-                return (
-                  calculateExpiration(a.creationDate, a.expirationPeriod) -
-                  calculateExpiration(b.creationDate, b.expirationPeriod)
-                );
-              }).map(task => {
-                return {
-                  ...task,
-                  expiresIn: calculateExpiration(task.creationDate, task.expirationPeriod) > 0 ? calculateExpiration(task.creationDate, task.expirationPeriod) : 0,
-                }
-              })
-
+              tasks: module.tasks
+                .sort((a, b) => {
+                  return (
+                    calculateExpiration(a.creationDate, a.expirationPeriod) -
+                    calculateExpiration(b.creationDate, b.expirationPeriod)
+                  );
+                })
+                .map(task => {
+                  return {
+                    ...task,
+                    expiresIn:
+                      calculateExpiration(
+                        task.creationDate,
+                        task.expirationPeriod,
+                      ) > 0
+                        ? calculateExpiration(
+                            task.creationDate,
+                            task.expirationPeriod,
+                          )
+                        : 0,
+                  };
+                }),
             }
           : module;
       });
@@ -102,7 +92,7 @@ class App extends Component {
 
   handleAddTask = (moduleId, newTaskName, priority, expirationPeriod) => {
     if (!newTaskName || !priority || !expirationPeriod) {
-      this.toggleAlert('addTaskInputAlert', true);
+      this.props.toggleAlert('addTaskInputAlert', true);
       return;
     }
     const updatedModules = [...this.state.taskModules];
@@ -119,15 +109,17 @@ class App extends Component {
       expirationPeriod: parseInt(expirationPeriod, 10),
     };
 
-    const currentModule = updatedModules[moduleToUpdateIndex];
-
     this.setState(
       {
-        taskModules: [
-          ...updatedModules.slice(0, moduleToUpdateIndex),
-          Object.assign({}, currentModule, { tasks: [...currentModule.tasks, newTask] }),
-          ...updatedModules.slice(moduleToUpdateIndex, 0),
-        ],
+        taskModules: updatedModules.map((module, index) => {
+          if (index !== moduleToUpdateIndex) {
+            return module;
+          }
+          return {
+            ...module,
+            tasks: [...module.tasks, newTask],
+          };
+        }),
       },
       () => handleSaveState(this.state.taskModules),
     );
@@ -140,15 +132,20 @@ class App extends Component {
       updatedModules,
       moduleId,
     );
-    const updatedModuleTasks = updatedModules[
-      moduleToUpdateIndex
-    ].tasks.filter(task => {
-      return task.id !== taskId;
-    });
-    updatedModules[moduleToUpdateIndex].tasks = updatedModuleTasks;
+
     this.setState(
       {
-        taskModules: updatedModules,
+        taskModules: updatedModules.map((module, index) => {
+          if (index !== moduleToUpdateIndex) {
+            return module;
+          }
+          return {
+            ...module,
+            tasks: module.tasks.filter(task => {
+              return task.id !== taskId;
+            }),
+          };
+        }),
       },
       () => handleSaveState(this.state.taskModules),
     );
@@ -166,13 +163,26 @@ class App extends Component {
     ].tasks.findIndex(task => {
       return task.id === taskId;
     });
-    updatedModules[moduleToUpdateIndex].tasks[
-      taskToUpdateIndex
-    ].completed = !updatedModules[moduleToUpdateIndex].tasks[taskToUpdateIndex]
-      .completed;
+
     this.setState(
       {
-        taskModules: updatedModules,
+        taskModules: updatedModules.map((module, index) => {
+          if (index !== moduleToUpdateIndex) {
+            return module;
+          }
+          return {
+            ...module,
+            tasks: module.tasks.map((task, index) => {
+              if (index !== taskToUpdateIndex) {
+                return task;
+              }
+              return {
+                ...task,
+                completed: !task.completed,
+              };
+            }),
+          };
+        }),
       },
       () => handleSaveState(this.state.taskModules),
     );
@@ -181,7 +191,7 @@ class App extends Component {
 
   handleAddTaskModule = moduleName => {
     if (!moduleName) {
-      this.toggleAlert('addModuleInputAlert', true);
+      this.props.toggleAlert('addModuleInputAlert', true);
       return;
     }
     const taskModules = [...this.state.taskModules];
@@ -202,69 +212,6 @@ class App extends Component {
     return newTaskModules;
   };
 
-  toggleModal = (modalName, toggle = false, params) => {
-    const newModals = { ...this.state.modals };
-    newModals[modalName].shown = toggle;
-    if (params) {
-      newModals[modalName].params = params;
-    }
-    this.setState({
-      modals: newModals,
-    });
-  };
-
-  toggleAlert = (alertName, toggle) => {
-    console.info('Alert:', alertName, toggle ? 'on' : 'off');
-    if (!alertName) {
-      console.warn('No alert name!');
-      return;
-    }
-    let nextAlerts = { ...this.state.alerts };
-
-    // Clear previous timeouts
-    Object.keys(this.state.alerts).forEach(alert => {
-      clearTimeout(this[`${alert}Timeout`]);
-      this[`${alert}Timeout`] = undefined;
-    });
-
-    // If next alert
-    if (toggle) {
-      let alertsToHide = Object.keys(nextAlerts)
-        .map(alert => {
-          // Hide previous alerts
-          return {
-            [alert]: {
-              ...nextAlerts[alert],
-              shown: false,
-            },
-          };
-        })
-        .reduce((result, item) => {
-          // Convert to Object
-          let key = Object.keys(item)[0];
-          result[key] = item[key];
-          return result;
-        }, {});
-
-      // AutoHide alerts
-      this[`${alertName}Timeout`] = setTimeout(() => {
-        this.toggleAlert(alertName, false);
-      }, this.alertDisplayTime);
-
-      nextAlerts = alertsToHide;
-    }
-
-    // Show next alert, as the all alerts are hidden at this point
-    if (!nextAlerts[alertName]) return;
-    nextAlerts[alertName].shown = toggle;
-
-    this.setState(() => {
-      return {
-        alerts: nextAlerts,
-      };
-    });
-  };
-
   handleRemoveTaskModule = (moduleId, cb) => {
     let allModules = [...this.state.taskModules];
     let updatedModules = allModules.filter(module => {
@@ -280,22 +227,32 @@ class App extends Component {
     return updatedModules;
   };
 
+  handleConfirmRemoveTaskModule = id => {
+    console.warn('Module to remove: ', id);
+    this.modalContainer.toggleModal('deleteModuleModal', true, id);
+  };
+
   handleSortByProp = (moduleId, prop) => {
     const updatedModules = [...this.state.taskModules];
     const moduleToUpdateIndex = findModuleToUpdateIndex(
       updatedModules,
       moduleId,
     );
-    updatedModules[moduleToUpdateIndex].tasks.sort(
-      sortBy(prop, updatedModules[moduleToUpdateIndex].sortAsc),
-    );
-    updatedModules[moduleToUpdateIndex].sortAsc = !updatedModules[
-      moduleToUpdateIndex
-    ].sortAsc;
-    updatedModules[moduleToUpdateIndex].tasksSortedBy = prop;
     this.setState(
       {
-        taskModules: updatedModules,
+        taskModules: updatedModules.map((module, index) => {
+          if (index !== moduleToUpdateIndex) {
+            return module;
+          }
+          return {
+            ...module,
+            tasks: module.tasks.sort(
+              sortBy(prop, updatedModules[moduleToUpdateIndex].sortAsc),
+            ),
+            sortAsc: !updatedModules[moduleToUpdateIndex].sortAsc,
+            tasksSortedBy: prop,
+          };
+        }),
       },
       () => handleSaveState(this.state.taskModules),
     );
@@ -308,26 +265,31 @@ class App extends Component {
       updatedModules,
       moduleId,
     );
-    updatedModules[moduleToUpdateIndex].sortAsc = !updatedModules[
-      moduleToUpdateIndex
-    ].sortAsc;
-    updatedModules[moduleToUpdateIndex].tasksSortedBy = 'expiration';
-    updatedModules[moduleToUpdateIndex].tasks.sort((a, b) => {
-      if (updatedModules[moduleToUpdateIndex].sortAsc) {
-        return (
-          calculateExpiration(a.creationDate, a.expirationPeriod) -
-          calculateExpiration(b.creationDate, b.expirationPeriod)
-        );
-      } else {
-        return (
-          calculateExpiration(b.creationDate, b.expirationPeriod) -
-          calculateExpiration(a.creationDate, a.expirationPeriod)
-        );
-      }
-    });
     this.setState(
       {
-        taskModules: updatedModules,
+        taskModules: updatedModules.map((module, index) => {
+          if (index !== moduleToUpdateIndex) {
+            return module;
+          }
+          return {
+            ...module,
+            tasks: module.tasks.sort((a, b) => {
+              if (updatedModules[moduleToUpdateIndex].sortAsc) {
+                return (
+                  calculateExpiration(a.creationDate, a.expirationPeriod) -
+                  calculateExpiration(b.creationDate, b.expirationPeriod)
+                );
+              } else {
+                return (
+                  calculateExpiration(b.creationDate, b.expirationPeriod) -
+                  calculateExpiration(a.creationDate, a.expirationPeriod)
+                );
+              }
+            }),
+            sortAsc: !updatedModules[moduleToUpdateIndex].sortAsc,
+            tasksSortedBy: 'expiration',
+          };
+        }),
       },
       () => handleSaveState(this.state.taskModules),
     );
@@ -355,40 +317,19 @@ class App extends Component {
             removeTaskModule={this.handleRemoveTaskModule}
             sortByExpiration={this.handleSortByExpiration}
             sortByProp={this.handleSortByProp}
-            toggleModal={this.toggleModal}
+            toggleModal={this.props.toggleModal}
             timer={this.state.timer}
+            handleConfirmRemoveTaskModule={this.handleConfirmRemoveTaskModule}
           />
           <AddTaskModule addTaskModule={this.handleAddTaskModule} />
-        </ErrorBoundary>
-        <Modal
-          id="deleteModuleModal"
-          show={this.state.modals.deleteModuleModal.shown}
-          toggle={this.toggleModal}
-        >
-          <DeleteTaskModuleDialog
-            confirmModuleDeletion={this.handleRemoveTaskModule}
-            hideModal={this.toggleModal}
-            moduleToDeleteId={this.state.modals.deleteModuleModal.params}
-            modalId="deleteModuleModal"
+          <ModalContainer
+            onRef={ref => (this.modalContainer = ref)}
+            removeTaskModule={this.handleRemoveTaskModule}
           />
-        </Modal>
-        <Alert
-          id="addModuleInputAlert"
-          show={this.state.alerts.addModuleInputAlert.shown}
-          action={this.toggleAlert}
-        >
-          <p>{this.state.alerts.addModuleInputAlert.text}</p>
-        </Alert>
-        <Alert
-          id="addTaskInputAlert"
-          show={this.state.alerts.addTaskInputAlert.shown}
-          action={this.toggleAlert}
-        >
-          <p>{this.state.alerts.addTaskInputAlert.text}</p>
-        </Alert>
+        </ErrorBoundary>
       </div>
     );
   }
 }
 
-export default App;
+export default alertContainer(App);

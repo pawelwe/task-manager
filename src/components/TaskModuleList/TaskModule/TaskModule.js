@@ -40,7 +40,7 @@ class TaskModule extends Component {
       removeTask,
       sortAsc,
       tasksSortedBy,
-      toggleModal,
+      handleConfirmRemoveTaskModule
     } = this.props;
     return (
       <li className={`${classes.TaskModule} fadeIn`}>
@@ -48,7 +48,7 @@ class TaskModule extends Component {
           <h4 className={classes.TaskModule_title}>{title}</h4>
           <span
             id="removeTaskModule"
-            onClick={() => toggleModal('deleteModuleModal', true, moduleId)}
+            onClick={() => { handleConfirmRemoveTaskModule(moduleId); }}
             className="removeBtn"
           />
           <div className={classes.TaskModule_filterBox}>

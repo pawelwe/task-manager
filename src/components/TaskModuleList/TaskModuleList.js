@@ -17,6 +17,7 @@ class TaskModuleList extends Component {
       sortByProp,
       sortByExpiration,
       toggleModal,
+      handleConfirmRemoveTaskModule,
     } = this.props;
     if (taskModules.length < 1) {
       return (
@@ -41,6 +42,7 @@ class TaskModuleList extends Component {
               sortByProp={sortByProp}
               sortByExpiration={sortByExpiration}
               toggleModal={toggleModal}
+              handleConfirmRemoveTaskModule={handleConfirmRemoveTaskModule}
             />
           );
         })}
