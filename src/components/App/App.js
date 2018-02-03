@@ -326,6 +326,7 @@ class App extends Component {
             toggleModal={this.props.toggleModal}
             timer={this.state.timer}
             handleConfirmRemoveTaskModule={this.handleConfirmRemoveTaskModule}
+            toggleAlert={this.props.toggleAlert}
           />
           <AddTaskModule addTaskModule={this.handleAddTaskModule} />
           <ModalContainer

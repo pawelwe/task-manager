@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import alertContainer from '../../../../hoc/alertContainer';
 import classes from './AddTask.scss';
 import Input from '../../../Inputs/Input';
 
@@ -192,4 +191,4 @@ class AddTask extends Component {
   }
 }
 
-export default alertContainer(AddTask);
+export default AddTask;

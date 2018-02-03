@@ -22,6 +22,7 @@ class TaskModule extends Component {
       sortAsc,
       tasksSortedBy,
       handleConfirmRemoveTaskModule,
+      toggleAlert,
     } = this.props;
 
     return (
@@ -86,7 +87,7 @@ class TaskModule extends Component {
               moduleId={moduleId}
             />
           </ul>
-          <AddTask addNewTask={addNewTask} moduleId={moduleId} />
+          <AddTask toggleAlert={toggleAlert} addNewTask={addNewTask} moduleId={moduleId} />
         </section>
       </li>
     );

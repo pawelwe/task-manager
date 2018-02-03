@@ -61,13 +61,18 @@ const alertContainer = WrappedComponent => {
         nextAlerts = alertsToHide;
       }
 
-      // Show next alert, as the all alerts are hidden at this point
       if (!nextAlerts[alertName]) return;
-      nextAlerts[alertName].shown = toggle;
 
+      // Show next alert, as the all alerts are hidden at this point
       this.setState(() => {
         return {
-          alerts: nextAlerts,
+          alerts: {
+            ...nextAlerts,
+            [alertName]: {
+              ...nextAlerts[alertName],
+              shown: toggle,
+            },
+          },
         };
       });
     };
@@ -75,10 +80,7 @@ const alertContainer = WrappedComponent => {
     render() {
       return (
         <Wrapper>
-          <WrappedComponent
-            toggleAlert={this.toggleAlert}
-            {...this.props}
-          />
+          <WrappedComponent toggleAlert={this.toggleAlert} {...this.props} />
           <Alert
             id="addModuleInputAlert"
             show={this.state.alerts.addModuleInputAlert.shown}
