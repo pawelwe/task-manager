@@ -1,0 +1,9 @@
+.isInvalid {
+  background-color: lighten($invalid, 46%);
+  transition: background-color 450ms ease-out;
+}
+
+.isValid {
+  background-color: $white;
+  transition: background-color 450ms ease-out;
+}

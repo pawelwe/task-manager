@@ -20,15 +20,12 @@ class ModalContainer extends Component {
     this.props.onRef(undefined);
   }
 
-  toggleModal = (modalName, toggle = false, params) => {
-    const modalParams = params ? params : null;
+  toggleModal = (modalName, toggle = false, params = null) => {
     this.setState({
-      ...this.state,
       modals: {
-        ...this.state.modals,
         [modalName]: {
           shown: toggle,
-          params: modalParams,
+          params: params,
         },
       },
     });

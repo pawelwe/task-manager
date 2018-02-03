@@ -11,7 +11,7 @@ const DeleteTaskModuleDialog = ({
 }) => (
   <Wrapper>
     <h5>Really delete Module of id:</h5>
-    <p>{moduleToDeleteId}</p>
+    <p>{moduleToDeleteId} ?</p>
     <br />
     <Button
       action={() =>

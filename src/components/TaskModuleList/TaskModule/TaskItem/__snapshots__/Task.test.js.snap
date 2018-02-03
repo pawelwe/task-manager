@@ -1,0 +1,484 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Task Component Snapshot 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <Task
+    removeTask={[Function]}
+    toggleTask={[Function]}
+/>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <span
+          className="removeBtn removeBtn__small"
+          id="removeTask"
+          onClick={[Function]}
+/>,
+        <section
+          className="undefined tooltip"
+          data-title="Click to toggle completion..."
+          id="toggleTask"
+          onClick={[Function]}
+>
+          <h5
+                    className={undefined}
+          />
+          <p
+                    className={undefined}
+          >
+                    <strong>
+                              Created:
+                    </strong>
+                     
+                    NaN undefined NaN / NaN:NaN
+          </p>
+          <p
+                    className={undefined}
+          >
+                    <strong>
+                              Priority:
+                    </strong>
+                     
+          </p>
+          <p
+                    className={undefined}
+          >
+                    <span
+                              className=""
+                    >
+                              
+                    </span>
+          </p>
+</section>,
+      ],
+      "className": "undefined fadeIn",
+      "style": Object {
+        "textDecoration": "",
+      },
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "className": "removeBtn removeBtn__small",
+          "id": "removeTask",
+          "onClick": [Function],
+        },
+        "ref": null,
+        "rendered": null,
+        "type": "span",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <h5
+              className={undefined}
+/>,
+            <p
+              className={undefined}
+>
+              <strong>
+                            Created:
+              </strong>
+               
+              NaN undefined NaN / NaN:NaN
+</p>,
+            <p
+              className={undefined}
+>
+              <strong>
+                            Priority:
+              </strong>
+               
+</p>,
+            <p
+              className={undefined}
+>
+              <span
+                            className=""
+              >
+                            
+              </span>
+</p>,
+          ],
+          "className": "undefined tooltip",
+          "data-title": "Click to toggle completion...",
+          "id": "toggleTask",
+          "onClick": [Function],
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": undefined,
+              "className": undefined,
+            },
+            "ref": null,
+            "rendered": null,
+            "type": "h5",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <strong>
+                  Created:
+</strong>,
+                " ",
+                "NaN undefined NaN / NaN:NaN",
+              ],
+              "className": undefined,
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "Created:",
+                },
+                "ref": null,
+                "rendered": "Created:",
+                "type": "strong",
+              },
+              " ",
+              "NaN undefined NaN / NaN:NaN",
+            ],
+            "type": "p",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <strong>
+                  Priority:
+</strong>,
+                " ",
+                undefined,
+              ],
+              "className": undefined,
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "Priority:",
+                },
+                "ref": null,
+                "rendered": "Priority:",
+                "type": "strong",
+              },
+              " ",
+              undefined,
+            ],
+            "type": "p",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <span
+                className=""
+>
+                
+</span>,
+              "className": undefined,
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  false,
+                  false,
+                  false,
+                ],
+                "className": "",
+              },
+              "ref": null,
+              "rendered": Array [
+                false,
+                false,
+                false,
+              ],
+              "type": "span",
+            },
+            "type": "p",
+          },
+        ],
+        "type": "section",
+      },
+    ],
+    "type": "li",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <span
+            className="removeBtn removeBtn__small"
+            id="removeTask"
+            onClick={[Function]}
+/>,
+          <section
+            className="undefined tooltip"
+            data-title="Click to toggle completion..."
+            id="toggleTask"
+            onClick={[Function]}
+>
+            <h5
+                        className={undefined}
+            />
+            <p
+                        className={undefined}
+            >
+                        <strong>
+                                    Created:
+                        </strong>
+                         
+                        NaN undefined NaN / NaN:NaN
+            </p>
+            <p
+                        className={undefined}
+            >
+                        <strong>
+                                    Priority:
+                        </strong>
+                         
+            </p>
+            <p
+                        className={undefined}
+            >
+                        <span
+                                    className=""
+                        >
+                                    
+                        </span>
+            </p>
+</section>,
+        ],
+        "className": "undefined fadeIn",
+        "style": Object {
+          "textDecoration": "",
+        },
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "className": "removeBtn removeBtn__small",
+            "id": "removeTask",
+            "onClick": [Function],
+          },
+          "ref": null,
+          "rendered": null,
+          "type": "span",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <h5
+                className={undefined}
+/>,
+              <p
+                className={undefined}
+>
+                <strong>
+                                Created:
+                </strong>
+                 
+                NaN undefined NaN / NaN:NaN
+</p>,
+              <p
+                className={undefined}
+>
+                <strong>
+                                Priority:
+                </strong>
+                 
+</p>,
+              <p
+                className={undefined}
+>
+                <span
+                                className=""
+                >
+                                
+                </span>
+</p>,
+            ],
+            "className": "undefined tooltip",
+            "data-title": "Click to toggle completion...",
+            "id": "toggleTask",
+            "onClick": [Function],
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": undefined,
+                "className": undefined,
+              },
+              "ref": null,
+              "rendered": null,
+              "type": "h5",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <strong>
+                    Created:
+</strong>,
+                  " ",
+                  "NaN undefined NaN / NaN:NaN",
+                ],
+                "className": undefined,
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Created:",
+                  },
+                  "ref": null,
+                  "rendered": "Created:",
+                  "type": "strong",
+                },
+                " ",
+                "NaN undefined NaN / NaN:NaN",
+              ],
+              "type": "p",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <strong>
+                    Priority:
+</strong>,
+                  " ",
+                  undefined,
+                ],
+                "className": undefined,
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "Priority:",
+                  },
+                  "ref": null,
+                  "rendered": "Priority:",
+                  "type": "strong",
+                },
+                " ",
+                undefined,
+              ],
+              "type": "p",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <span
+                  className=""
+>
+                  
+</span>,
+                "className": undefined,
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": Array [
+                    false,
+                    false,
+                    false,
+                  ],
+                  "className": "",
+                },
+                "ref": null,
+                "rendered": Array [
+                  false,
+                  false,
+                  false,
+                ],
+                "type": "span",
+              },
+              "type": "p",
+            },
+          ],
+          "type": "section",
+        },
+      ],
+      "type": "li",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;

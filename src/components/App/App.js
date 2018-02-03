@@ -1,22 +1,31 @@
 import React, { Component } from 'react';
 import uuid from 'uuid';
 import isEqual from 'lodash.isequal';
+
 import {
   findModuleToUpdateIndex,
   sortBy,
   calculateExpiration,
 } from '../../utils/utils';
 import { handleSaveState, handleLoadState } from '../../utils/persistState';
-import AddTaskModule from '../AddTaskModule/AddTaskModule';
-import TaskModuleList from '../TaskModuleList/TaskModuleList';
-import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
+
+// HOC's
 import alertContainer from '../../hoc/alertContainer';
+import asyncComponent from '../../hoc/asyncComponent';
 
+// Components
+import AddTaskModule from '../AddTaskModule/AddTaskModule';
+import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 import ModalContainer from '../Modal/ModalContainer';
-// import DeleteTaskModuleDialog from '../Dialogs/DeleteTaskModuleDialog';
 
+// Styles
 import classes from './App.scss';
 import wheelIcon from '../../images/wheel-icon.svg';
+
+// Async Components
+const TaskModuleList = asyncComponent(() =>
+  import('../TaskModuleList/TaskModuleList'),
+);
 
 class App extends Component {
   state = {
@@ -56,6 +65,7 @@ class App extends Component {
         return module.tasks && module.tasks.length > 0
           ? {
               ...module,
+              tasksSortedBy: 'expiration',
               tasks: module.tasks
                 .sort((a, b) => {
                   return (
@@ -91,10 +101,6 @@ class App extends Component {
   };
 
   handleAddTask = (moduleId, newTaskName, priority, expirationPeriod) => {
-    if (!newTaskName || !priority || !expirationPeriod) {
-      this.props.toggleAlert('addTaskInputAlert', true);
-      return;
-    }
     const updatedModules = [...this.state.taskModules];
     const moduleToUpdateIndex = findModuleToUpdateIndex(
       updatedModules,

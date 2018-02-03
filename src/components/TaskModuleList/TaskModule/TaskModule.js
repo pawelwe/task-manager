@@ -5,25 +5,6 @@ import TaskItemList from './TaskItemList/TaskItemList';
 import classes from './TaskModule.scss';
 
 class TaskModule extends Component {
-  state = {
-    validation: {
-      taskInput: {
-        taskName: {
-          error: false,
-          msg: 'Not valid name',
-        },
-        priority: {
-          error: false,
-          msg: 'Should be a number 1-10',
-        },
-        expiration: {
-          error: false,
-          msg: 'Should be a number',
-        },
-      },
-    },
-  };
-
   componentDidUpdate() {
     console.info('Module updated!');
   }
@@ -40,15 +21,18 @@ class TaskModule extends Component {
       removeTask,
       sortAsc,
       tasksSortedBy,
-      handleConfirmRemoveTaskModule
+      handleConfirmRemoveTaskModule,
     } = this.props;
+
     return (
       <li className={`${classes.TaskModule} fadeIn`}>
         <section className={classes.TaskModule_content}>
           <h4 className={classes.TaskModule_title}>{title}</h4>
           <span
             id="removeTaskModule"
-            onClick={() => { handleConfirmRemoveTaskModule(moduleId); }}
+            onClick={() => {
+              handleConfirmRemoveTaskModule(moduleId);
+            }}
             className="removeBtn"
           />
           <div className={classes.TaskModule_filterBox}>

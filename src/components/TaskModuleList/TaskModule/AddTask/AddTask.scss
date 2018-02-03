@@ -18,11 +18,12 @@
     font-weight: 100;
     padding: 0.6rem 1rem;
     border: 1px solid $medium-gray-3;
-    border-bottom: 0;
+    border-top: 0;
     &::placeholder {
       color: $medium-gray;
     }
     &:first-of-type {
+      border-top: 1px solid $medium-gray-3;
       margin-top: 1rem;
     }
     &:last-of-type {
