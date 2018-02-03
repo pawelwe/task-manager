@@ -17,7 +17,7 @@ class AddTask extends Component {
           minLength: 3,
           maxLength: 15,
           required: true,
-          error: 'Not valid name',
+          errorMessage: 'Not valid name',
         },
         touched: false,
         valid: false,
@@ -31,7 +31,7 @@ class AddTask extends Component {
         value: '',
         validation: {
           required: true,
-          error: 'Should be a number 1-10',
+          errorMessage: 'Should be a number 1-10',
         },
         touched: false,
         valid: false,
@@ -45,7 +45,7 @@ class AddTask extends Component {
         value: '',
         validation: {
           required: true,
-          error: 'Should be a number',
+          errorMessage: 'Should be a number',
         },
         touched: false,
         valid: false,
@@ -174,6 +174,17 @@ class AddTask extends Component {
             }}
           />
         ))}
+        <ul className={classes.errorMessages}>
+        {newTaskForm.map(formElement => {
+          return (
+            <li className={classes.errorMessages_item} key={formElement.id}>
+              {!formElement.valid && formElement.touched &&
+                <p>☹ {formElement.validation.errorMessage}</p>
+              }
+            </li>
+          )
+        })}
+        </ul>
         <button
           id="addNewTask"
           // ref={node => (this.confirm = node)}

@@ -65,7 +65,11 @@ const Input = ({
       );
   }
 
-  return <Wrapper>{inputElement}</Wrapper>;
+  return (
+    <Wrapper>
+      {inputElement}
+    </Wrapper>
+  );
 };
 
 export default Input;
