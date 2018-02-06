@@ -11,6 +11,12 @@ describe('App Component', () => {
   let moduleId = null;
   let taskId = null;
 
+  // beforeEach(() => {
+  //
+  // });
+
+  // wrapper.setProps({})
+
   it('Snapshot', () => {
     expect(wrapper).toMatchSnapshot();
   });

@@ -175,15 +175,16 @@ class AddTask extends Component {
           />
         ))}
         <ul className={classes.errorMessages}>
-        {newTaskForm.map(formElement => {
-          return (
-            <li className={classes.errorMessages_item} key={formElement.id}>
-              {!formElement.valid && formElement.touched &&
-                <p>☹ {formElement.validation.errorMessage}</p>
-              }
-            </li>
-          )
-        })}
+          {newTaskForm.map(formElement => {
+            return (
+              <li className={classes.errorMessages_item} key={formElement.id}>
+                {!formElement.valid &&
+                  formElement.touched && (
+                    <p>☹ {formElement.validation.errorMessage}</p>
+                  )}
+              </li>
+            );
+          })}
         </ul>
         <button
           id="addNewTask"

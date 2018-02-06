@@ -196,10 +196,6 @@ class App extends Component {
   };
 
   handleAddTaskModule = moduleName => {
-    if (!moduleName) {
-      this.props.toggleAlert('addModuleInputAlert', true);
-      return;
-    }
     const taskModules = [...this.state.taskModules];
     const newModule = {
       title: moduleName,
@@ -328,7 +324,10 @@ class App extends Component {
             handleConfirmRemoveTaskModule={this.handleConfirmRemoveTaskModule}
             toggleAlert={this.props.toggleAlert}
           />
-          <AddTaskModule addTaskModule={this.handleAddTaskModule} />
+          <AddTaskModule
+            addTaskModule={this.handleAddTaskModule}
+            toggleAlert={this.props.toggleAlert}
+          />
           <ModalContainer
             onRef={ref => (this.modalContainer = ref)}
             removeTaskModule={this.handleRemoveTaskModule}
