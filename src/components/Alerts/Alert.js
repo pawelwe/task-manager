@@ -8,23 +8,23 @@ class Alert extends Component {
 
   render() {
     let { show, children, action, id } = this.props;
+
+    const cssClasses = [
+      classes.Alert,
+      show ? classes.isVisible : classes.isHidden,
+    ];
+
     return (
-      <div
-        className={classes.Alert}
-        style={{
-          left: show ? '30px' : '-320px',
-          opacity: show ? '1' : '0.2',
-        }}
-      >
-      <span
-        className={classes.Alert_removeBtn}
-        onClick={() => {
-          action(id, false);
-        }}
-      />
+      <div className={cssClasses.join(' ')}>
+        <span
+          className={classes.Alert_removeBtn}
+          onClick={() => {
+            action(id, false);
+          }}
+        />
         {children}
       </div>
-    )
+    );
   }
 }
 

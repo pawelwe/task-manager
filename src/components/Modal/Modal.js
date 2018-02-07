@@ -4,31 +4,35 @@ import Backdrop from '../Backdrop/Backdrop';
 import Wrapper from '../../hoc/Wrapper';
 
 class Modal extends Component {
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     console.info('Modal updated!');
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return nextProps.show !== this.props.show;
+    return (
+      nextProps.transitionState === 'entering' ||
+      nextProps.transitionState === 'exiting'
+    );
   }
 
   render() {
-    let { show, toggle, id, children } = this.props;
+    let { toggle, id, children, transitionState } = this.props;
+
+    const cssClasses = [
+      classes.Modal,
+      transitionState === 'entering' ? classes.isOpen : null,
+      transitionState === 'exiting' ? classes.isClosed : null,
+    ];
+
     return (
       <Wrapper>
         <Backdrop
-          show={show}
+          transitionState={transitionState}
           action={() => {
             toggle(id, false);
           }}
         />
-        <div
-          className={classes.Modal}
-          style={{
-            marginLeft: show ? '0' : '-110%',
-            opacity: show ? '1' : '0.8',
-          }}
-        >
+        <div className={cssClasses.join(' ')}>
           <span
             className={classes.Modal_removeBtn}
             onClick={() => {

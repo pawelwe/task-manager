@@ -6,10 +6,9 @@
   z-index: 100;
   left: 50%;
   top: 140px;
-  box-shadow: 5px 5px 5px rgba(0,0,0, .1);
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
   padding: 3rem 4rem;
   transform: translateX(-50%);
-  transition: all 450ms ease-out;
   background-color: $white;
 
   &_removeBtn {
@@ -38,3 +37,40 @@
   }
 }
 
+.isOpen {
+  animation: opening 0.45s ease-out forwards;
+}
+
+.isClosed {
+  animation: closing 0.45s ease-out forwards;
+}
+
+@keyframes opening {
+  0% {
+    opacity: 0;
+    margin-left: -60%;
+  }
+  70% {
+    opacity: 0.8;
+    margin-left: 140px;
+  }
+  100% {
+    opacity: 1;
+    margin-left: 0;
+  }
+}
+
+@keyframes closing {
+  0% {
+    opacity: 1;
+    margin-left: 0;
+  }
+  30% {
+    opacity: 0.8;
+    margin-left: 140px;
+  }
+  100% {
+    opacity: 0;
+    margin-left: -60%;
+  }
+}

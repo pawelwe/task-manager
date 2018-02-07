@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Transition from 'react-transition-group';
 import Modal from '../components/Modal/Modal';
 import { getDisplayName } from '../utils/getDisplayName';
 import Wrapper from './Wrapper';
@@ -27,32 +28,40 @@ const modalContainer = WrappedComponent => {
       });
     };
 
-    deleteModuleModalCb = test => {
-      console.log('hello ', test);
-    };
-
     render() {
       return (
-        <Wrapper>
-          <WrappedComponent
-            deleteModuleModalShown={this.state.modals.deleteModuleModal.shown}
-            deleteModuleModalCb={this.deleteModuleModalCb}
-            toggleModal={this.toggleModal}
-            {...this.props}
-          />
-          <Modal
-            id="deleteModuleModal"
-            show={this.state.modals.deleteModuleModal.shown}
-            toggle={this.toggleModal}
-          >
-            <DeleteTaskModuleDialog
-              confirmModuleDeletion={this.doParentToggle}
-              hideModal={this.toggleModal}
-              moduleToDeleteId={this.state.modals.deleteModuleModal.params}
-              modalId="deleteModuleModal"
-            />
-          </Modal>
-        </Wrapper>
+        <Transition
+          in={this.state.modals.deleteModuleModal.shown}
+          timeout={1450}
+          // mountOnEnter
+          // unmountOnExit
+        >
+          {state => (
+            <Wrapper>
+              <WrappedComponent
+                show={
+                  state
+                }
+                toggleModal={this.toggleModal}
+                {...this.props}
+              />
+
+              <Modal
+                id="deleteModuleModal"
+                // show={state}
+                test={}
+                toggle={this.toggleModal}
+              >
+                <DeleteTaskModuleDialog
+                  confirmModuleDeletion={this.doParentToggle}
+                  hideModal={this.toggleModal}
+                  moduleToDeleteId={this.state.modals.deleteModuleModal.params}
+                  modalId="deleteModuleModal"
+                />
+              </Modal>
+            </Wrapper>
+          )}
+        </Transition>
       );
     }
   }

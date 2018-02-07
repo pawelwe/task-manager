@@ -5,9 +5,9 @@
   z-index: 99;
   left: 30px;
   top: 30px;
-  box-shadow: 5px 5px 5px rgba(0,0,0, .1);
-  padding: 2rem 5rem;;
-  transition: all 350ms ease-out;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+  padding: 2rem 5rem;
+  transition: all 250ms ease-out;
   background-color: $white;
 
   &_removeBtn {
@@ -33,5 +33,39 @@
     &__small {
       font-size: 2.2rem;
     }
+  }
+}
+
+.isVisible {
+  animation: opening 0.4s ease-out forwards;
+}
+
+.isHidden {
+  animation: closing 0.4s ease-out forwards;
+}
+
+@keyframes opening {
+  0% {
+    opacity: 0;
+    margin-left: -20%;
+  }
+  60% {
+    opacity: 0.8;
+    margin-left: 120px;
+  }
+  100% {
+    opacity: 1;
+    margin-left: 0;
+  }
+}
+
+@keyframes closing {
+  0% {
+    opacity: 1;
+    margin-left: 0;
+  }
+  100% {
+    opacity: 0;
+    margin-left: -100%;
   }
 }

@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import CSSTransition from 'react-transition-group/CSSTransition';
+import TransitionGroup from 'react-transition-group/TransitionGroup';
+
 import TaskModule from './TaskModule/TaskModule';
 import classes from './TaskModuleList.scss';
 
@@ -29,26 +32,27 @@ class TaskModuleList extends Component {
       );
     }
     return (
-      <ul className={`${classes.TaskModuleList}`}>
+      <TransitionGroup component="ul" className={`${classes.TaskModuleList}`}>
         {taskModules.map(module => {
           return (
-            <TaskModule
-              moduleId={module.id}
-              key={module.id}
-              addNewTask={addNewTask}
-              toggleTask={toggleTask}
-              removeTask={removeTask}
-              removeTaskModule={removeTaskModule}
-              {...module}
-              sortByProp={sortByProp}
-              sortByExpiration={sortByExpiration}
-              toggleModal={toggleModal}
-              handleConfirmRemoveTaskModule={handleConfirmRemoveTaskModule}
-              toggleAlert={toggleAlert}
-            />
+            <CSSTransition key={module.id} classNames="fade" timeout={{ enter: 450, exit: 250 }}>
+              <TaskModule
+                moduleId={module.id}
+                addNewTask={addNewTask}
+                toggleTask={toggleTask}
+                removeTask={removeTask}
+                removeTaskModule={removeTaskModule}
+                {...module}
+                sortByProp={sortByProp}
+                sortByExpiration={sortByExpiration}
+                toggleModal={toggleModal}
+                handleConfirmRemoveTaskModule={handleConfirmRemoveTaskModule}
+                toggleAlert={toggleAlert}
+              />
+            </CSSTransition>
           );
         })}
-      </ul>
+      </TransitionGroup>
     );
   }
 }

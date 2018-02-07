@@ -1,15 +1,18 @@
 import React from 'react';
 import classes from './Backdrop.scss';
 
-const Backdrop = ({show, action}) => (
-  <div
-    onClick={action ? action : null}
-    className={classes.Backdrop}
-    style={{
-      opacity: show ? '1' : '0',
-      zIndex: show ? '99' : '-1',
-    }}
-  />
-);
+const Backdrop = ({ transitionState, action }) => {
+  const cssClasses = [
+    classes.Backdrop,
+    transitionState === 'entering' ? classes.isShown : null,
+    transitionState === 'exiting' ? classes.isHidden : null,
+  ];
+  return (
+    <div
+      onClick={action ? action : null}
+      className={cssClasses.join(' ')}
+    />
+  );
+};
 
 export default Backdrop;

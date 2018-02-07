@@ -26,7 +26,7 @@ class TaskModule extends Component {
     } = this.props;
 
     return (
-      <li className={`${classes.TaskModule} fadeIn`}>
+      <li className={`${classes.TaskModule}`}>
         <section className={classes.TaskModule_content}>
           <h4 className={classes.TaskModule_title}>{title}</h4>
           <span
@@ -87,7 +87,11 @@ class TaskModule extends Component {
               moduleId={moduleId}
             />
           </ul>
-          <AddTask toggleAlert={toggleAlert} addNewTask={addNewTask} moduleId={moduleId} />
+          <AddTask
+            toggleAlert={toggleAlert}
+            addNewTask={addNewTask}
+            moduleId={moduleId}
+          />
         </section>
       </li>
     );
