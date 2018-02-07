@@ -47,11 +47,11 @@
 @keyframes opening {
   0% {
     opacity: 0;
-    margin-left: -20%;
+    margin-left: -330px;
   }
-  60% {
+  50% {
     opacity: 0.8;
-    margin-left: 120px;
+    margin-left: 150px;
   }
   100% {
     opacity: 1;
@@ -66,6 +66,6 @@
   }
   100% {
     opacity: 0;
-    margin-left: -100%;
+    margin-left: -330px;
   }
 }
