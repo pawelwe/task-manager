@@ -22,6 +22,7 @@ class TaskModuleList extends Component {
       toggleModal,
       handleConfirmRemoveTaskModule,
       toggleAlert,
+      editModuleTitle
     } = this.props;
     if (taskModules.length < 1) {
       return (
@@ -48,6 +49,7 @@ class TaskModuleList extends Component {
                 toggleModal={toggleModal}
                 handleConfirmRemoveTaskModule={handleConfirmRemoveTaskModule}
                 toggleAlert={toggleAlert}
+                editModuleTitle={editModuleTitle}
               />
             </CSSTransition>
           );

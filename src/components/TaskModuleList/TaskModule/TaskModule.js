@@ -2,12 +2,52 @@ import React, { Component } from 'react';
 import AddTask from './AddTask/AddTask';
 import Filter from './Filter/Filter';
 import TaskItemList from './TaskItemList/TaskItemList';
+import Input from '../../Inputs/Input';
 import classes from './TaskModule.scss';
 
 class TaskModule extends Component {
+  cachedModuleTitle = null;
+
   componentDidUpdate() {
     console.info('Module updated!');
   }
+
+  handleTitleInputChange = e => {
+    this.cachedModuleTitle = e.target.value;
+    if (e.key === 'Enter') {
+      this.confirmNewModuleTitle(e.target.value);
+    }
+  };
+
+  handleEditModuleTitle = () => {
+    this.titleHeader.style = 'display: none';
+    this.editHeader.style = 'display: flex';
+    this.titleInput.focus();
+  };
+
+  handleConfirmViaButton = () => {
+    const newTitle = this.cachedModuleTitle
+      ? this.cachedModuleTitle
+      : this.titleInput.value;
+    this.props.editModuleTitle(this.props.moduleId, newTitle);
+    this.titleHeader.style = 'display: flex';
+    this.editHeader.style = 'display: none';
+  };
+
+  confirmNewModuleTitle = newTitle => {
+    this.props.editModuleTitle(this.props.moduleId, newTitle);
+    this.titleHeader.style = 'display: flex';
+    this.editHeader.style = 'display: none';
+  };
+
+  handleResetTitle = () => {
+    setTimeout(() => {
+      this.titleInput.value = this.props.title;
+      this.cachedModuleTitle = null;
+      this.titleHeader.style = 'display: flex';
+      this.editHeader.style = 'display: none';
+    }, 200);
+  };
 
   render() {
     let {
@@ -28,14 +68,43 @@ class TaskModule extends Component {
     return (
       <li className={`${classes.TaskModule}`}>
         <section className={classes.TaskModule_content}>
-          <h4 className={classes.TaskModule_title}>{title}</h4>
-          <span
-            id="removeTaskModule"
-            onClick={() => {
-              handleConfirmRemoveTaskModule(moduleId);
-            }}
-            className="removeBtn"
-          />
+          <header
+            ref={node => (this.titleHeader = node)}
+            onClick={this.handleEditModuleTitle}
+            className={classes.TaskModule_header}
+          >
+            <h4 className={classes.TaskModule_title}>{title}</h4>
+            <span className={classes.editIcon}>✏</span>
+            <span
+              id="removeTaskModule"
+              onClick={e => {
+                e.stopPropagation();
+                handleConfirmRemoveTaskModule(moduleId);
+              }}
+              className="removeBtn"
+            />
+          </header>
+          <header
+            ref={node => (this.editHeader = node)}
+            className={classes.TaskModule_header__edit}
+          >
+            <Input
+              elementType="text"
+              defaultValue={title}
+              onKeyUp={e => {
+                this.handleTitleInputChange(e);
+              }}
+              onBlur={this.handleResetTitle}
+              inputref={node => (this.titleInput = node)}
+              className={classes.TaskModule_title_edit}
+            />
+            <span
+              onClick={this.handleConfirmViaButton}
+              className={classes.confirmIcon}
+            >
+              ✓
+            </span>
+          </header>
           <div className={classes.TaskModule_filterBox}>
             <strong>Sort tasks by:</strong>
             <div className={classes.TaskModule_filters}>

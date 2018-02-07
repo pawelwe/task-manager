@@ -22,7 +22,7 @@ import ModalContainer from '../Modal/ModalContainer';
 import classes from './App.scss';
 import wheelIcon from '../../images/wheel-icon.svg';
 
-// Async Components
+// Async Components (test)
 const TaskModuleList = asyncComponent(() =>
   import('../TaskModuleList/TaskModuleList'),
 );
@@ -99,6 +99,35 @@ class App extends Component {
       });
     }
   };
+
+  handleEditModuleTitle = (moduleId, newTaskModuleTitle) => {
+
+    // debugger
+
+    const updatedModules = [...this.state.taskModules];
+    const moduleToUpdateIndex = findModuleToUpdateIndex(
+      updatedModules,
+      moduleId,
+    );
+    this.setState(
+      {
+        taskModules: updatedModules.map((module, index) => {
+          if (index !== moduleToUpdateIndex) {
+            return module;
+          }
+          return {
+            ...module,
+            tasks: [...module.tasks],
+            title: newTaskModuleTitle
+          };
+        }),
+      },
+      () => handleSaveState(this.state.taskModules),
+    );
+    return updatedModules;
+  };
+
+  handleEditTask = (moduleId, taskId) => {};
 
   handleAddTask = (moduleId, newTaskName, priority, expirationPeriod) => {
     const updatedModules = [...this.state.taskModules];
@@ -323,6 +352,7 @@ class App extends Component {
             timer={this.state.timer}
             handleConfirmRemoveTaskModule={this.handleConfirmRemoveTaskModule}
             toggleAlert={this.props.toggleAlert}
+            editModuleTitle={this.handleEditModuleTitle}
           />
           <AddTaskModule
             addTaskModule={this.handleAddTaskModule}

@@ -7,7 +7,7 @@ const Input = ({
   value,
   config,
   className,
-  // inputref,
+  inputref,
   valid,
   shouldValidate,
   touched,
@@ -23,22 +23,24 @@ const Input = ({
     case 'text':
       inputElement = (
         <input
+          type="text"
           value={value}
           className={inputClasses.join(' ')}
           {...config}
           {...rest}
-          // ref={inputref}
+          ref={inputref}
         />
       );
       break;
     case 'number':
       inputElement = (
         <input
+          type="number"
           value={value}
           className={inputClasses.join(' ')}
           {...config}
           {...rest}
-          // ref={inputref}
+          ref={inputref}
         />
       );
       break;
@@ -49,7 +51,7 @@ const Input = ({
           className={inputClasses.join(' ')}
           {...config}
           {...rest}
-          // ref={inputref}
+          ref={inputref}
         />
       );
       break;
@@ -60,7 +62,7 @@ const Input = ({
           className={inputClasses.join(' ')}
           {...config}
           {...rest}
-          // ref={inputref}
+          ref={inputref}
         />
       );
   }

@@ -7,12 +7,34 @@
     position: relative;
   }
 
+  &_header {
+    display: flex;
+    justify-content: space-between;
+    max-width: calc(100% - 25px);
+  }
+
+  &_header__edit {
+    justify-content: space-between;
+    display: none;
+  }
+
+
+
   &_title {
     font-size: 2rem;
     font-weight: bold;
-    display: inline-block;
-    max-width: 80%;
     word-wrap: break-word;
+    line-height: 1.25;
+
+    &_edit {
+      max-width: 90%;
+      background: transparent;
+      font-size: 2rem;
+      font-weight: bold;
+      padding: 0;
+      margin-bottom: 1.4rem;
+      line-height: 1;
+    }
   }
 
   &_filterBox {
@@ -36,6 +58,11 @@
     font-size: 1.4rem;
     margin-right: 3px;
   }
+}
+
+.editIcon, .confirmIcon {
+  color: $accent;
+  cursor: pointer;
 }
 
 @media (min-width: $tablet) {
