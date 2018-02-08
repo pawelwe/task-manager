@@ -14,6 +14,7 @@ const Task = ({
   expirationPeriod,
   removeTask,
   toggleTaskEditMode,
+  editMode,
 }) => {
   const expiration = calculateExpiration(creationDate, expirationPeriod);
   const getCreationDate = new Date(creationDate);
@@ -40,17 +41,26 @@ const Task = ({
   return (
     <li className={`${classes.TaskItemList_item} fadeIn`}>
       <div className={classes.TaskItemList_item_toolbar}>
-        <span
-          onClick={() => toggleTaskEditMode(moduleId, id, true)}
-          className={classes.editIcon}
-        >
-          ✏
-        </span>
-        <span
-          id="removeTask"
-          onClick={() => removeTask(moduleId, id)}
-          className={classes.TaskItemList_item_removeBtn}
-        />
+        {!editMode && (
+          <span
+            onClick={() => toggleTaskEditMode(moduleId, id, true)}
+            className={classes.editIcon}
+          >
+            ✏
+          </span>
+        )}
+
+        {editMode && (
+          <span className={`${classes.TaskItemList_item_editMode} tooltip`} data-title="Task in edit mode">♺</span>
+        )}
+
+        {!editMode && (
+          <span
+            id="removeTask"
+            onClick={() => removeTask(moduleId, id)}
+            className={classes.TaskItemList_item_removeBtn}
+          />
+        )}
       </div>
       <section
         id="toggleTask"

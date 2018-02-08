@@ -41,7 +41,7 @@ class App extends Component {
     this.setState({
       taskModules:
         savedState && savedState.taskModules
-          ? this.initModules(savedState.taskModules)
+          ? this.initModules(savedState.taskModules, true)
           : [],
     });
 
@@ -63,7 +63,7 @@ class App extends Component {
     return !isEqual(nextState.taskModules, this.state.taskModules);
   }
 
-  initModules(modules) {
+  initModules(modules, resetEditMode) {
     return modules.map(module => {
       return module.tasks && module.tasks.length > 0
         ? {
@@ -79,6 +79,7 @@ class App extends Component {
               .map(task => {
                 return {
                   ...task,
+                  editMode: !resetEditMode ? task.editMode : false,
                   expiresIn:
                     calculateExpiration(
                       task.creationDate,
@@ -98,7 +99,7 @@ class App extends Component {
 
   checkExpiredTasks = () => {
     if (this.state.taskModules.length > 0) {
-      const sortedModules = this.initModules(this.state.taskModules);
+      const sortedModules = this.initModules(this.state.taskModules, false);
       this.setState((prevState, props) => {
         return {
           timer: prevState.timer + this.expiredTasksInterval / 1000,
@@ -182,7 +183,7 @@ class App extends Component {
     );
   };
 
-  handleEditTask = (
+  handleUpdateTask = (
     moduleId,
     taskId,
     newTaskName,
@@ -310,7 +311,7 @@ class App extends Component {
     return newTaskModules;
   };
 
-  handleEditModuleTitle = (moduleId, newTaskModuleTitle) => {
+  handleUpdateModuleTitle = (moduleId, newTaskModuleTitle) => {
     const updatedModules = [...this.state.taskModules];
     const moduleToUpdateIndex = findModuleToUpdateIndex(
       updatedModules,
@@ -443,8 +444,8 @@ class App extends Component {
             timer={this.state.timer}
             handleConfirmRemoveTaskModule={this.handleConfirmRemoveTaskModule}
             toggleAlert={this.props.toggleAlert}
-            editModuleTitle={this.handleEditModuleTitle}
-            editTask={this.handleEditTask}
+            editModuleTitle={this.handleUpdateModuleTitle}
+            editTask={this.handleUpdateTask}
             toggleTaskEditMode={this.toggleTaskEditMode}
           />
           <AddTaskModule

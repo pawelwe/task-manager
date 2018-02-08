@@ -65,15 +65,16 @@
       transition: opacity 450ms;
       text-align: right;
       opacity: 0;
+      min-width: 100px;
       max-width: 45%;
       color: #333;
       position: absolute;
-      right: -30px;
+      right: 0;
       bottom: 0;
       z-index: +1;
       box-shadow: 0;
-      font-size: .9rem;
-      background-color: $light-gray;
+      font-size: 0.9rem;
+      background-color: transparent;
     }
     &:hover:after {
       opacity: 1;
@@ -86,7 +87,11 @@
         margin: 0 3rem;
       }
     }
+
+    .tooltip {
+      &:after {
+        background-color: $light-gray;
+      }
+    }
   }
-
 }
-
