@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import classes from './AddTask.scss';
 import Input from '../../../Inputs/Input';
+import isEqual from 'lodash.isequal';
 
 class AddTask extends Component {
   state = {
-    isValid: false,
+    editMode: false,
+    formIsValid: false,
+    editedTaskId: null,
     newTaskForm: {
       taskName: {
         elementType: 'text',
@@ -53,6 +56,53 @@ class AddTask extends Component {
     },
   };
 
+  checkIfEditMode() {
+    let editMode = false;
+    let updatedForm, editedTaskId;
+
+    this.props.tasks.forEach(formElement => {
+      if (formElement.editMode && formElement.editMode === true) {
+        editMode = true;
+      }
+    });
+
+    if (editMode) {
+      this.props.tasks.forEach(task => {
+        if (task.editMode === true) {
+          updatedForm = {
+            ...this.state.newTaskForm,
+            taskName: {
+              ...this.state.newTaskForm.taskName,
+              value: task.name,
+            },
+            priority: {
+              ...this.state.newTaskForm.priority,
+              value: task.priority,
+            },
+            expiration: {
+              ...this.state.newTaskForm.expiration,
+              value: task.expirationPeriod,
+            },
+          };
+          editedTaskId = task.id;
+        }
+      });
+
+      this.setState({
+        editMode: true,
+        newTaskForm: updatedForm,
+        editedTaskId: editedTaskId,
+      });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (!isEqual(prevProps.tasks, this.props.tasks)) {
+      this.checkIfEditMode();
+    }
+    console.info('Add task did update');
+  }
+
   checkValidity(value, rules) {
     let isValid = true;
 
@@ -95,7 +145,7 @@ class AddTask extends Component {
 
     this.setState({
       newTaskForm: updatedForm,
-      isValid: formIsValid,
+      formIsValid: formIsValid,
     });
   };
 
@@ -105,10 +155,30 @@ class AddTask extends Component {
     }
   };
 
+  handleClearForm = form => {
+    return Object.keys(form)
+      .map(input => {
+        return {
+          [input]: {
+            ...form[input],
+            value: '',
+            valid: false,
+            touched: false,
+          },
+        };
+      })
+      .reduce((result, item) => {
+        // Convert to Object
+        let key = Object.keys(item)[0];
+        result[key] = item[key];
+        return result;
+      }, {});
+  };
+
   handleAddNewTask = e => {
     e.preventDefault();
 
-    if (!this.state.isValid) {
+    if (!this.state.formIsValid) {
       this.props.toggleAlert('addTaskInputAlert', true);
       return;
     }
@@ -122,27 +192,53 @@ class AddTask extends Component {
 
     const formCopy = { ...this.state.newTaskForm };
 
-    const clearedForm = Object.keys(formCopy)
-      .map(input => {
-        return {
-          [input]: {
-            ...formCopy[input],
-            value: '',
-            valid: false,
-            touched: false,
-          },
-        };
-      })
-      .reduce((result, item) => {
-        // Convert to Object
-        let key = Object.keys(item)[0];
-        result[key] = item[key];
-        return result;
-      }, {});
+    this.setState({
+      formIsValid: false,
+      newTaskForm: this.handleClearForm(formCopy),
+    });
+  };
+
+  handleSaveEditedTask = e => {
+    e.preventDefault();
+    console.info('Saving edited task...');
+
+    const formCopy = { ...this.state.newTaskForm };
+
+    this.props.toggleTaskEditMode(
+      this.props.moduleId,
+      this.state.editedTaskId,
+      false,
+    );
+
+    this.props.editTask(
+      this.props.moduleId,
+      this.state.editedTaskId,
+      this.state.newTaskForm.taskName.value,
+      this.state.newTaskForm.priority.value,
+      this.state.newTaskForm.expiration.value,
+    );
+    this.setState({
+      editMode: false,
+      editedTaskId: null,
+      newTaskForm: this.handleClearForm(formCopy),
+    });
+  };
+
+  handleExitEditMode = e => {
+    console.log('Exit edit mode...');
+    e.preventDefault();
+    const formCopy = { ...this.state.newTaskForm };
+
+    this.props.toggleTaskEditMode(
+      this.props.moduleId,
+      this.state.editedTaskId,
+      false,
+    );
 
     this.setState({
-      isValid: false,
-      newTaskForm: clearedForm,
+      editMode: false,
+      editedTaskId: null,
+      newTaskForm: this.handleClearForm(formCopy),
     });
   };
 
@@ -153,6 +249,41 @@ class AddTask extends Component {
         ...this.state.newTaskForm[inputKey],
       };
     });
+
+    const renderConfirmButton = () => {
+      if (!this.state.editMode) {
+        return (
+          <button
+            id="addNewTask"
+            // ref={node => (this.confirm = node)}
+            onClick={this.handleAddNewTask}
+            className={classes.AddTask_btn}
+          >
+            + Add New Task
+          </button>
+        );
+      } else {
+        return (
+          <div>
+            <button
+              id="addNewTask"
+              onClick={this.handleSaveEditedTask}
+              className={classes.AddTask_btn}
+            >
+              Save Task
+            </button>
+            <button
+              id="addNewTask"
+              onClick={this.handleExitEditMode}
+              className={classes.AddTask_btn}
+            >
+              Cancel
+            </button>
+          </div>
+        );
+      }
+    };
+
     return (
       <form>
         {newTaskForm.map(formElement => (
@@ -165,9 +296,6 @@ class AddTask extends Component {
             valid={formElement.valid}
             shouldValidate={formElement.validation}
             touched={formElement.touched}
-            // inputref={node => {
-            //   this[formElement.id] = node;
-            // }}
             onChange={e => {
               this.handleInputChange(e, formElement.id);
               this.handleEnter(e);
@@ -186,14 +314,7 @@ class AddTask extends Component {
             );
           })}
         </ul>
-        <button
-          id="addNewTask"
-          // ref={node => (this.confirm = node)}
-          onClick={this.handleAddNewTask}
-          className={classes.AddTask_btn}
-        >
-          + Add New Task
-        </button>
+        {renderConfirmButton()}
       </form>
     );
   }

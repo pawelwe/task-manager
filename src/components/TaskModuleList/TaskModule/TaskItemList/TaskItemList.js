@@ -4,7 +4,7 @@ import TransitionGroup from 'react-transition-group/TransitionGroup';
 import Task from './TaskItem/Task';
 import classes from './TaskItemList.scss';
 
-const TaskItemList = ({ tasks, toggleTask, removeTask, moduleId }) => {
+const TaskItemList = ({ tasks, toggleTask, removeTask, moduleId, toggleTaskEditMode }) => {
   return (
     <TransitionGroup component="ul" className={`${classes.TaskItemList}`}>
       {tasks.map(task => {
@@ -20,6 +20,7 @@ const TaskItemList = ({ tasks, toggleTask, removeTask, moduleId }) => {
               toggleTask={toggleTask}
               removeTask={removeTask}
               moduleId={moduleId}
+              toggleTaskEditMode={toggleTaskEditMode}
             />
           </CSSTransition>
         );

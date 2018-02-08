@@ -37,10 +37,14 @@ class App extends Component {
 
   componentWillMount() {
     const savedState = handleLoadState();
+
     this.setState({
       taskModules:
-        savedState && savedState.taskModules ? savedState.taskModules : [],
+        savedState && savedState.taskModules
+          ? this.initModules(savedState.taskModules)
+          : [],
     });
+
     this.expirationInterval = setInterval(
       this.checkExpiredTasks,
       this.expiredTasksCheckInterval,
@@ -59,38 +63,42 @@ class App extends Component {
     return !isEqual(nextState.taskModules, this.state.taskModules);
   }
 
+  initModules(modules) {
+    return modules.map(module => {
+      return module.tasks && module.tasks.length > 0
+        ? {
+            ...module,
+            tasksSortedBy: 'expiration',
+            tasks: module.tasks
+              .sort((a, b) => {
+                return (
+                  calculateExpiration(a.creationDate, a.expirationPeriod) -
+                  calculateExpiration(b.creationDate, b.expirationPeriod)
+                );
+              })
+              .map(task => {
+                return {
+                  ...task,
+                  expiresIn:
+                    calculateExpiration(
+                      task.creationDate,
+                      task.expirationPeriod,
+                    ) > 0
+                      ? calculateExpiration(
+                          task.creationDate,
+                          task.expirationPeriod,
+                        )
+                      : 0,
+                };
+              }),
+          }
+        : module;
+    });
+  }
+
   checkExpiredTasks = () => {
     if (this.state.taskModules.length > 0) {
-      const sortedModules = this.state.taskModules.map(module => {
-        return module.tasks && module.tasks.length > 0
-          ? {
-              ...module,
-              tasksSortedBy: 'expiration',
-              tasks: module.tasks
-                .sort((a, b) => {
-                  return (
-                    calculateExpiration(a.creationDate, a.expirationPeriod) -
-                    calculateExpiration(b.creationDate, b.expirationPeriod)
-                  );
-                })
-                .map(task => {
-                  return {
-                    ...task,
-                    expiresIn:
-                      calculateExpiration(
-                        task.creationDate,
-                        task.expirationPeriod,
-                      ) > 0
-                        ? calculateExpiration(
-                            task.creationDate,
-                            task.expirationPeriod,
-                          )
-                        : 0,
-                  };
-                }),
-            }
-          : module;
-      });
+      const sortedModules = this.initModules(this.state.taskModules);
       this.setState((prevState, props) => {
         return {
           timer: prevState.timer + this.expiredTasksInterval / 1000,
@@ -99,35 +107,6 @@ class App extends Component {
       });
     }
   };
-
-  handleEditModuleTitle = (moduleId, newTaskModuleTitle) => {
-
-    // debugger
-
-    const updatedModules = [...this.state.taskModules];
-    const moduleToUpdateIndex = findModuleToUpdateIndex(
-      updatedModules,
-      moduleId,
-    );
-    this.setState(
-      {
-        taskModules: updatedModules.map((module, index) => {
-          if (index !== moduleToUpdateIndex) {
-            return module;
-          }
-          return {
-            ...module,
-            tasks: [...module.tasks],
-            title: newTaskModuleTitle
-          };
-        }),
-      },
-      () => handleSaveState(this.state.taskModules),
-    );
-    return updatedModules;
-  };
-
-  handleEditTask = (moduleId, taskId) => {};
 
   handleAddTask = (moduleId, newTaskName, priority, expirationPeriod) => {
     const updatedModules = [...this.state.taskModules];
@@ -142,6 +121,7 @@ class App extends Component {
       priority: parseInt(priority, 10),
       creationDate: Date.now(),
       expirationPeriod: parseInt(expirationPeriod, 10),
+      editMode: false,
     };
 
     this.setState(
@@ -159,6 +139,93 @@ class App extends Component {
       () => handleSaveState(this.state.taskModules),
     );
     return updatedModules;
+  };
+
+  toggleTaskEditMode = (moduleId, taskId, toggle) => {
+    console.log('toggleTaskEditMode', moduleId, taskId);
+    const updatedModules = [...this.state.taskModules];
+    const moduleToUpdateIndex = findModuleToUpdateIndex(
+      updatedModules,
+      moduleId,
+    );
+
+    const taskToUpdateIndex = updatedModules[
+      moduleToUpdateIndex
+    ].tasks.findIndex(task => {
+      return task.id === taskId;
+    });
+
+    this.setState(
+      {
+        taskModules: updatedModules.map((module, index) => {
+          if (index !== moduleToUpdateIndex) {
+            return module;
+          }
+          return {
+            ...module,
+            tasks: module.tasks.map((task, index) => {
+              if (index !== taskToUpdateIndex) {
+                return {
+                  ...task,
+                  editMode: false,
+                };
+              }
+              return {
+                ...task,
+                editMode: toggle,
+              };
+            }),
+          };
+        }),
+      },
+      () => handleSaveState(this.state.taskModules),
+    );
+  };
+
+  handleEditTask = (
+    moduleId,
+    taskId,
+    newTaskName,
+    newPriority,
+    newExpirationPeriod,
+  ) => {
+    const updatedModules = [...this.state.taskModules];
+    const moduleToUpdateIndex = findModuleToUpdateIndex(
+      updatedModules,
+      moduleId,
+    );
+
+    const taskToUpdateIndex = updatedModules[
+      moduleToUpdateIndex
+    ].tasks.findIndex(task => {
+      return task.id === taskId;
+    });
+
+    this.setState(
+      {
+        taskModules: updatedModules.map((module, index) => {
+          if (index !== moduleToUpdateIndex) {
+            return module;
+          }
+          return {
+            ...module,
+            tasks: module.tasks.map((task, index) => {
+              if (index !== taskToUpdateIndex) {
+                return task;
+              }
+              return {
+                ...task,
+                name: newTaskName,
+                priority: parseInt(newPriority, 10),
+                expirationPeriod: parseInt(newExpirationPeriod, 10),
+                editMode: false,
+              };
+            }),
+          };
+        }),
+      },
+      () => handleSaveState(this.state.taskModules),
+    );
   };
 
   handleRemoveTask = (moduleId, taskId) => {
@@ -241,6 +308,30 @@ class App extends Component {
       () => handleSaveState(this.state.taskModules),
     );
     return newTaskModules;
+  };
+
+  handleEditModuleTitle = (moduleId, newTaskModuleTitle) => {
+    const updatedModules = [...this.state.taskModules];
+    const moduleToUpdateIndex = findModuleToUpdateIndex(
+      updatedModules,
+      moduleId,
+    );
+    this.setState(
+      {
+        taskModules: updatedModules.map((module, index) => {
+          if (index !== moduleToUpdateIndex) {
+            return module;
+          }
+          return {
+            ...module,
+            tasks: [...module.tasks],
+            title: newTaskModuleTitle,
+          };
+        }),
+      },
+      () => handleSaveState(this.state.taskModules),
+    );
+    return updatedModules;
   };
 
   handleRemoveTaskModule = (moduleId, cb) => {
@@ -353,6 +444,8 @@ class App extends Component {
             handleConfirmRemoveTaskModule={this.handleConfirmRemoveTaskModule}
             toggleAlert={this.props.toggleAlert}
             editModuleTitle={this.handleEditModuleTitle}
+            editTask={this.handleEditTask}
+            toggleTaskEditMode={this.toggleTaskEditMode}
           />
           <AddTaskModule
             addTaskModule={this.handleAddTaskModule}

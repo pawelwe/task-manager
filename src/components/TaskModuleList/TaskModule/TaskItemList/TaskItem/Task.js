@@ -13,6 +13,7 @@ const Task = ({
   creationDate,
   expirationPeriod,
   removeTask,
+  toggleTaskEditMode,
 }) => {
   const expiration = calculateExpiration(creationDate, expirationPeriod);
   const getCreationDate = new Date(creationDate);
@@ -37,20 +38,26 @@ const Task = ({
   const min = getCreationDate.getMinutes();
 
   return (
-    <li
-      className={`${classes.TaskItemList_item} fadeIn`}
-      style={{ textDecoration: completed ? 'line-through' : '' }}
-    >
-      <span
-        id='removeTask'
-        onClick={() => removeTask(moduleId, id)}
-        className={`removeBtn removeBtn__small`}
-      />
+    <li className={`${classes.TaskItemList_item} fadeIn`}>
+      <div className={classes.TaskItemList_item_toolbar}>
+        <span
+          onClick={() => toggleTaskEditMode(moduleId, id, true)}
+          className={classes.editIcon}
+        >
+          ✏
+        </span>
+        <span
+          id="removeTask"
+          onClick={() => removeTask(moduleId, id)}
+          className={classes.TaskItemList_item_removeBtn}
+        />
+      </div>
       <section
-        id='toggleTask'
+        id="toggleTask"
         className={`${classes.TaskItemList_item_content} tooltip`}
         onClick={() => toggleTask(moduleId, id)}
-        data-title='Click to toggle completion...'
+        style={{ textDecoration: completed ? 'line-through' : '' }}
+        data-title="Click to toggle completion..."
       >
         <h5 className={classes.TaskItemList_item_header}>{name}</h5>
         <p className={classes.TaskItemList_item_info}>
@@ -71,9 +78,9 @@ const Task = ({
               expiration > 0 && (
                 <span>
                   <img
-                    className='expirationIcon'
+                    className="expirationIcon"
                     src={clockIcon}
-                    alt='expiration-icon'
+                    alt="expiration-icon"
                   />
                   Expires in: {expiration} minutes
                 </span>
@@ -81,9 +88,9 @@ const Task = ({
             {expiration <= 0 && (
               <span>
                 <img
-                  className='expirationIcon'
+                  className="expirationIcon"
                   src={clockIcon}
-                  alt='expiration-icon'
+                  alt="expiration-icon"
                 />
                 <strong>Expired!</strong>
               </span>
