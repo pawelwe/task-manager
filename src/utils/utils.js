@@ -25,8 +25,28 @@ export const sortBy = (key, asc) => {
   };
 };
 
-export const calculateExpiration = (creationDate, expirationPeriod) => {
-  // Calculate diff in minutes
-  let diff = (creationDate + Math.ceil(expirationPeriod * 60 * 1000)) - new Date().getTime();
-  return Math.ceil(diff / 1000 / 60);
+export const calculateExpiration = (creationDate, expirationPeriod, timeFrame = 'minutes') => {
+  switch (timeFrame.toLowerCase()) {
+    case 'seconds': {
+      let diff1 = (creationDate + Math.ceil(expirationPeriod * 1000)) - new Date().getTime();
+      return Math.ceil(diff1 / 1000);
+    }
+    case 'minutes': {
+      let diff2 = (creationDate + Math.ceil(expirationPeriod * 60 * 1000)) - new Date().getTime();
+      return Math.ceil(diff2 / 1000 / 60);
+    }
+    case 'hours': {
+      let diff2 = (creationDate + Math.ceil(expirationPeriod * 60 * 60 * 1000)) - new Date().getTime();
+      return Math.ceil(diff2 / 1000 / 60 / 60);
+    }
+    case 'days': {
+      let diff3 = (creationDate + Math.ceil(expirationPeriod * 60 * 60 * 24 * 1000)) - new Date().getTime();
+      return Math.ceil(diff3 / 1000 / 60 / 60 / 24);
+    }
+    default:
+      // Minutes
+      let diff4 = (creationDate + Math.ceil(expirationPeriod * 60 * 1000)) - new Date().getTime();
+      return Math.ceil(diff4 / 1000 / 60);
+  }
+
 };

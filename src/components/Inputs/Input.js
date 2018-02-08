@@ -11,6 +11,8 @@ const Input = ({
   valid,
   shouldValidate,
   touched,
+  options,
+  width,
   ...rest
 }) => {
   let inputElement = null;
@@ -24,6 +26,7 @@ const Input = ({
       inputElement = (
         <input
           type="text"
+          style={{ width: `${width}%` }}
           value={value}
           className={inputClasses.join(' ')}
           {...config}
@@ -36,6 +39,7 @@ const Input = ({
       inputElement = (
         <input
           type="number"
+          style={{ width: `${width}%` }}
           value={value}
           className={inputClasses.join(' ')}
           {...config}
@@ -48,11 +52,30 @@ const Input = ({
       inputElement = (
         <textarea
           value={value}
+          style={{ width: `${width}%` }}
           className={inputClasses.join(' ')}
           {...config}
           {...rest}
           ref={inputref}
         />
+      );
+      break;
+    case 'select':
+      inputElement = (
+        <select
+          value={value}
+          style={{ width: `${width}%` }}
+          className={inputClasses.join(' ')}
+          {...config}
+          {...rest}
+          ref={inputref}
+        >
+          {options.map(option => (
+            <option key={option.value} value={option.value}>
+              {option.display}
+            </option>
+          ))}
+        </select>
       );
       break;
     default:
@@ -67,11 +90,7 @@ const Input = ({
       );
   }
 
-  return (
-    <Wrapper>
-      {inputElement}
-    </Wrapper>
-  );
+  return <Wrapper>{inputElement}</Wrapper>;
 };
 
 export default Input;

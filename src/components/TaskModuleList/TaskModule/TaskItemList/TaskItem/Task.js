@@ -12,11 +12,12 @@ const Task = ({
   priority,
   creationDate,
   expirationPeriod,
+  timeFrame,
   removeTask,
   toggleTaskEditMode,
   editMode,
 }) => {
-  const expiration = calculateExpiration(creationDate, expirationPeriod);
+  const expiration = calculateExpiration(creationDate, expirationPeriod, timeFrame);
   const getCreationDate = new Date(creationDate);
   const months = [
     'Jan',
@@ -51,7 +52,12 @@ const Task = ({
         )}
 
         {editMode && (
-          <span className={`${classes.TaskItemList_item_editMode} tooltip`} data-title="Task in edit mode">♺</span>
+          <span
+            className={`${classes.TaskItemList_item_editMode} tooltip`}
+            data-title="Task in edit mode"
+          >
+            ♺
+          </span>
         )}
 
         {!editMode && (
@@ -81,7 +87,7 @@ const Task = ({
           <span className={expiration < 31 ? 'isExpiring' : ''}>
             {expiration >= 31 && (
               <span>
-                <strong>Expires in:</strong> {expiration} minutes
+                <strong>Expires in:</strong> {expiration} {timeFrame}
               </span>
             )}
             {expiration < 31 &&
@@ -92,7 +98,7 @@ const Task = ({
                     src={clockIcon}
                     alt="expiration-icon"
                   />
-                  Expires in: {expiration} minutes
+                  Expires in: {expiration} {timeFrame}
                 </span>
               )}
             {expiration <= 0 && (

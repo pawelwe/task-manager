@@ -43,7 +43,7 @@ class AddTask extends Component {
         elementType: 'number',
         config: {
           type: 'number',
-          placeholder: 'Expiration time (minutes)',
+          placeholder: 'Expiration',
         },
         value: '',
         validation: {
@@ -52,6 +52,24 @@ class AddTask extends Component {
         },
         touched: false,
         valid: false,
+        width: 50,
+      },
+      timeFrame: {
+        elementType: 'select',
+        config: {
+          type: 'select',
+        },
+        validation: {},
+        options: [
+          { value: 'seconds', display: 'Seconds' },
+          { value: 'minutes', display: 'Minutes' },
+          { value: 'hours', display: 'Hours' },
+          { value: 'days', display: 'Days' },
+        ],
+        value: 'minutes',
+        touched: true,
+        valid: true,
+        width: 50,
       },
     },
   };
@@ -69,6 +87,7 @@ class AddTask extends Component {
     if (editMode) {
       this.props.tasks.forEach(task => {
         if (task.editMode === true) {
+          // TODO update to more generic one
           updatedForm = {
             ...this.state.newTaskForm,
             taskName: {
@@ -82,6 +101,10 @@ class AddTask extends Component {
             expiration: {
               ...this.state.newTaskForm.expiration,
               value: task.expirationPeriod,
+            },
+            timeFrame: {
+              ...this.state.newTaskForm.timeFrame,
+              value: task.timeFrame,
             },
           };
           editedTaskId = task.id;
@@ -117,7 +140,6 @@ class AddTask extends Component {
     if (rules.maxLength) {
       isValid = value.length <= rules.maxLength && isValid;
     }
-
     return isValid;
   }
 
@@ -140,8 +162,11 @@ class AddTask extends Component {
     let formIsValid = true;
 
     for (let inputId in updatedForm) {
+      console.log(updatedForm[inputId], updatedForm[inputId].valid);
       formIsValid = updatedForm[inputId].valid && formIsValid;
     }
+
+    console.log('All valid?', formIsValid);
 
     this.setState({
       newTaskForm: updatedForm,
@@ -161,8 +186,9 @@ class AddTask extends Component {
         return {
           [input]: {
             ...form[input],
-            value: '',
-            valid: false,
+            value:
+              form[input].elementType !== 'select' ? '' : form[input].value,
+            valid: form[input].elementType !== 'select' ? false : true,
             touched: false,
           },
         };
@@ -188,6 +214,7 @@ class AddTask extends Component {
       this.state.newTaskForm.taskName.value,
       this.state.newTaskForm.priority.value,
       this.state.newTaskForm.expiration.value,
+      this.state.newTaskForm.timeFrame.value,
     );
 
     const formCopy = { ...this.state.newTaskForm };
@@ -216,6 +243,7 @@ class AddTask extends Component {
       this.state.newTaskForm.taskName.value,
       this.state.newTaskForm.priority.value,
       this.state.newTaskForm.expiration.value,
+      this.state.newTaskForm.timeFrame.value,
     );
     this.setState({
       editMode: false,
@@ -273,7 +301,7 @@ class AddTask extends Component {
               <span>✓ </span>
               Save Task
             </button>
-            <span className={classes.AddTask_toolBar_separator}></span>
+            <span className={classes.AddTask_toolBar_separator} />
             <button
               id="addNewTask"
               onClick={this.handleExitEditMode}
@@ -292,13 +320,15 @@ class AddTask extends Component {
         {newTaskForm.map(formElement => (
           <Input
             key={formElement.id}
-            className={classes.AddTask_input}
+            className={classes['AddTask_' + formElement.elementType]}
             elementType={formElement.elementType}
             value={formElement.value}
             config={formElement.config}
             valid={formElement.valid}
             shouldValidate={formElement.validation}
+            options={formElement.options}
             touched={formElement.touched}
+            width={formElement.width ? formElement.width : 100}
             onChange={e => {
               this.handleInputChange(e, formElement.id);
               this.handleEnter(e);

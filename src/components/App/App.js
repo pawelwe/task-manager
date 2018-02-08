@@ -33,7 +33,7 @@ class App extends Component {
     timer: 0,
   };
 
-  expiredTasksCheckInterval = 20000;
+  expiredTasksCheckInterval = 10000;
 
   componentWillMount() {
     const savedState = handleLoadState();
@@ -72,8 +72,16 @@ class App extends Component {
             tasks: module.tasks
               .sort((a, b) => {
                 return (
-                  calculateExpiration(a.creationDate, a.expirationPeriod) -
-                  calculateExpiration(b.creationDate, b.expirationPeriod)
+                  calculateExpiration(
+                    a.creationDate,
+                    a.expirationPeriod,
+                    a.timeFrame,
+                  ) -
+                  calculateExpiration(
+                    b.creationDate,
+                    b.expirationPeriod,
+                    b.timeFrame,
+                  )
                 );
               })
               .map(task => {
@@ -84,10 +92,12 @@ class App extends Component {
                     calculateExpiration(
                       task.creationDate,
                       task.expirationPeriod,
+                      task.timeFrame,
                     ) > 0
                       ? calculateExpiration(
                           task.creationDate,
                           task.expirationPeriod,
+                          task.timeFrame,
                         )
                       : 0,
                 };
@@ -109,7 +119,13 @@ class App extends Component {
     }
   };
 
-  handleAddTask = (moduleId, newTaskName, priority, expirationPeriod) => {
+  handleAddTask = (
+    moduleId,
+    newTaskName,
+    priority,
+    expirationPeriod,
+    timeFrame,
+  ) => {
     const updatedModules = [...this.state.taskModules];
     const moduleToUpdateIndex = findModuleToUpdateIndex(
       updatedModules,
@@ -122,6 +138,7 @@ class App extends Component {
       priority: parseInt(priority, 10),
       creationDate: Date.now(),
       expirationPeriod: parseInt(expirationPeriod, 10),
+      timeFrame: timeFrame,
       editMode: false,
     };
 
@@ -189,6 +206,7 @@ class App extends Component {
     newTaskName,
     newPriority,
     newExpirationPeriod,
+    newTimeFrame,
   ) => {
     const updatedModules = [...this.state.taskModules];
     const moduleToUpdateIndex = findModuleToUpdateIndex(
@@ -219,6 +237,7 @@ class App extends Component {
                 name: newTaskName,
                 priority: parseInt(newPriority, 10),
                 expirationPeriod: parseInt(newExpirationPeriod, 10),
+                timeFrame: newTimeFrame,
                 editMode: false,
               };
             }),
@@ -399,13 +418,29 @@ class App extends Component {
             tasks: module.tasks.sort((a, b) => {
               if (updatedModules[moduleToUpdateIndex].sortAsc) {
                 return (
-                  calculateExpiration(a.creationDate, a.expirationPeriod) -
-                  calculateExpiration(b.creationDate, b.expirationPeriod)
+                  calculateExpiration(
+                    a.creationDate,
+                    a.expirationPeriod,
+                    a.timeFrame,
+                  ) -
+                  calculateExpiration(
+                    b.creationDate,
+                    b.expirationPeriod,
+                    b.timeFrame,
+                  )
                 );
               } else {
                 return (
-                  calculateExpiration(b.creationDate, b.expirationPeriod) -
-                  calculateExpiration(a.creationDate, a.expirationPeriod)
+                  calculateExpiration(
+                    b.creationDate,
+                    b.expirationPeriod,
+                    b.timeFrame,
+                  ) -
+                  calculateExpiration(
+                    a.creationDate,
+                    a.expirationPeriod,
+                    a.timeFrame,
+                  )
                 );
               }
             }),
