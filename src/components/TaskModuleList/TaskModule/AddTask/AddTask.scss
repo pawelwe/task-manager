@@ -2,6 +2,17 @@
   padding-top: 1.2rem;
   border-top: 1px solid $medium-gray-3;
 
+  &_toolBar {
+    display: flex;
+    justify-content: space-around;
+
+    &_separator {
+      display: block;
+      width: 1px;
+      border-right: 1px dashed $medium-gray-4;
+    }
+  }
+
   &_btn {
     font-size: 1.4rem;
     font-weight: bold;

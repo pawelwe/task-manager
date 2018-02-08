@@ -264,19 +264,22 @@ class AddTask extends Component {
         );
       } else {
         return (
-          <div>
+          <div className={classes.AddTask_toolBar}>
             <button
               id="addNewTask"
               onClick={this.handleSaveEditedTask}
               className={classes.AddTask_btn}
             >
+              <span>✓ </span>
               Save Task
             </button>
+            <span className={classes.AddTask_toolBar_separator}></span>
             <button
               id="addNewTask"
               onClick={this.handleExitEditMode}
               className={classes.AddTask_btn}
             >
+              <span>✗ </span>
               Cancel
             </button>
           </div>
