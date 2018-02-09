@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import classes from './AddTask.scss';
 import Input from '../../../Inputs/Input';
-import isEqual from 'lodash.isequal';
+import {
+  isEqual,
+} from '../../../../utils/utils';
 
 class AddTask extends Component {
   state = {
