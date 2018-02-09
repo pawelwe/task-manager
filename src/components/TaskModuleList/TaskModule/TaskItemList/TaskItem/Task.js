@@ -1,5 +1,6 @@
 import React from 'react';
 import clockIcon from '../../../../../images/clock-icon.svg';
+import eyeIcon from '../../../../../images/view-icon.svg';
 import {
   calculateExpiration,
   calculateAlert,
@@ -58,7 +59,7 @@ const Task = ({
             className={`${classes.TaskItemList_item_editMode} tooltip`}
             data-title="Task in edit mode"
           >
-            ♺
+            <img src={eyeIcon} alt="eye icon" />
           </span>
         )}
 

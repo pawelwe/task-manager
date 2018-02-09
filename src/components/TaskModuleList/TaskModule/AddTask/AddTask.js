@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import CSSTransition from 'react-transition-group/CSSTransition';
+// import TransitionGroup from 'react-transition-group/TransitionGroup';
 import classes from './AddTask.scss';
 import Input from '../../../Inputs/Input';
-import {
-  isEqual,
-} from '../../../../utils/utils';
+import { isEqual } from '../../../../utils/utils';
 
 class AddTask extends Component {
   state = {
@@ -272,7 +272,7 @@ class AddTask extends Component {
   };
 
   handleUpdateCreationDate = () => {
-    console.log('Creation updateted...');
+    console.info('Creation date updated...');
     this.props.editTask(
       this.props.moduleId,
       this.state.editedTaskId,
@@ -293,45 +293,63 @@ class AddTask extends Component {
     });
 
     const renderConfirmButton = () => {
-      if (!this.state.editMode) {
-        return (
-          <button
-            id="addNewTask"
-            // ref={node => (this.confirm = node)}
-            onClick={this.handleAddNewTask}
-            className={classes.AddTask_btn}
+      return (
+        <div className={classes.AddTask_editButtonsContainer}>
+          <CSSTransition
+            timeout={{ enter: 450, exit: 450 }}
+            mountOnEnter
+            unmountOnExit
+            classNames="fade"
+            in={!this.state.editMode}
           >
-            + Add New Task
-          </button>
-        );
-      } else {
-        return (
-          <div className={classes.AddTask_toolBar}>
             <button
               id="addNewTask"
-              onClick={this.handleSaveEditedTask}
+              onClick={this.handleAddNewTask}
               className={classes.AddTask_btn}
             >
-              <span>✓ </span>
-              Save Task
+              + Add New Task
             </button>
-            <span className={classes.AddTask_toolBar_separator} />
-            <button
-              id="addNewTask"
-              onClick={this.handleExitEditMode}
-              className={classes.AddTask_btn}
-            >
-              <span>✗ </span>
-              Cancel
-            </button>
-          </div>
-        );
-      }
+          </CSSTransition>
+          <CSSTransition
+            timeout={{ enter: 450, exit: 450 }}
+            mountOnEnter
+            unmountOnExit
+            classNames="fade"
+            in={this.state.editMode}
+          >
+            <div className={classes.AddTask_toolBar}>
+              <button
+                id="addNewTask"
+                onClick={this.handleSaveEditedTask}
+                className={classes.AddTask_btn}
+              >
+                <span>✓ </span>
+                Save Task
+              </button>
+              <span className={classes.AddTask_toolBar_separator} />
+              <button
+                id="addNewTask"
+                onClick={this.handleExitEditMode}
+                className={classes.AddTask_btn}
+              >
+                <span>✗ </span>
+                Cancel
+              </button>
+            </div>
+          </CSSTransition>
+        </div>
+      );
     };
 
     return (
       <form>
-        {this.state.editMode && (
+        <CSSTransition
+          timeout={{ enter: 450, exit: 450 }}
+          mountOnEnter
+          unmountOnExit
+          classNames="fadeH"
+          in={this.state.editMode}
+        >
           <div
             data-title="Update creation date to current time"
             className={`${classes.AddTask_updateTime} tooltip`}
@@ -339,7 +357,7 @@ class AddTask extends Component {
           >
             <span className="cursorPointer">♼</span>
           </div>
-        )}
+        </CSSTransition>
         {newTaskForm.map(formElement => (
           <Input
             key={formElement.id}

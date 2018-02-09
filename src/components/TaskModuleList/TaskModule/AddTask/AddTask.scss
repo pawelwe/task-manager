@@ -13,15 +13,27 @@
     }
   }
 
+  &_editButtonsContainer {
+    position: relative;
+    height: 20px;
+  }
+
   &_btn {
     width: 50%;
     font-size: 1.4rem;
     font-weight: bold;
     color: $accent;
     background-color: transparent;
+    position: absolute;
+    left: 0;
+    top: 0;
     &:only-of-type {
       width: 100%;
       text-align: left;
+    }
+    &:nth-of-type(2) {
+      left: auto;
+      right: 0;
     }
   }
 

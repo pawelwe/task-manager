@@ -27,6 +27,68 @@
     transition: opacity 250ms ease-out;
     opacity: 0;
   }
+
+  // CSSTransition classes x4
+  .fadeH-enter {
+    opacity: 0;
+    overflow: hidden;
+    max-height: 0;
+  }
+
+  .fadeH-enter-active {
+    opacity: 1;
+    overflow: hidden;
+    max-height: 60px;
+    transition: all 450ms ease-out;
+  }
+
+  .fadeH-exit {
+    opacityh: 1;
+    overflow: hidden;
+    max-height: 60px;
+  }
+
+  .fadeH-exit-active {
+    transition: all 450ms ease-out;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+  }
+
+  // CSSTransition classes x4
+  .fadeW-enter {
+    opacity: 0;
+    overflow: hidden;
+    width: 0;
+  }
+
+  .fadeW-enter-active {
+    opacity: 1;
+    overflow: hidden;
+    height: 100%;
+    transition: all 450ms ease-out;
+  }
+
+  .fadeW-exit {
+    opacityh: 1;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .fadeW-exit-active {
+    transition: all 450ms ease-out;
+    overflow: hidden;
+    width: 0;
+    opacity: 0;
+  }
+
+  // CSSTransition classes animations v2
+  .fade2-enter-active {
+    animation: fadeIn 450ms ease-out forwards;
+  }
+  .fade2-exit-active {
+    animation: fadeOut 450ms ease-out forwards;
+  }
 }
 
 @keyframes fadeIn {

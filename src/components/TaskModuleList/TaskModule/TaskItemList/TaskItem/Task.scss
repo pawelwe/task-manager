@@ -37,9 +37,8 @@
   }
 
   &_editMode {
-    font-size: 1.15rem;
-    color: $black;
     cursor: help;
+    max-width: 20px;
   }
 
   &_removeBtn {
