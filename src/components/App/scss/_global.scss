@@ -80,6 +80,14 @@
     }
   }
 
+  .cursorPointer {
+    cursor: pointer;
+  }
+
+  .cursorInfo {
+    cursor: help;
+  }
+
   @media (min-width: $tablet) {
     .container {
       &_content {

@@ -14,13 +14,20 @@
   }
 
   &_btn {
+    width: 50%;
     font-size: 1.4rem;
     font-weight: bold;
     color: $accent;
     background-color: transparent;
+    &:only-of-type {
+      width: 100%;
+      text-align: left;
+    }
   }
 
-  &_text, &_input, &_number {
+  &_text,
+  &_input,
+  &_number {
     display: inline-block;
     width: 100%;
     background-color: $white;
@@ -36,7 +43,6 @@
       border-top: 1px solid $medium-gray-3;
       margin-top: 1rem;
     }
-
   }
 
   &_select {
@@ -57,6 +63,12 @@
     cursor: pointer;
     text-align: center;
     text-align-last: center;
+  }
+
+  &_updateTime {
+    position: relative;
+    color: $accent;
+    font-size: 1.7rem;
   }
 }
 

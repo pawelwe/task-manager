@@ -66,7 +66,10 @@ const Task = ({
           <span
             id="removeTask"
             data-title="Remove task"
-            onClick={() => removeTask(moduleId, id)}
+            onClick={() => {
+              toggleTaskEditMode(moduleId, id, false);
+              removeTask(moduleId, id);
+            }}
             className={`${classes.TaskItemList_item_removeBtn} tooltip`}
           >
             ✗

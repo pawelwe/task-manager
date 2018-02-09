@@ -269,6 +269,19 @@ class AddTask extends Component {
     });
   };
 
+  handleUpdateCreationDate = () => {
+    console.log('Creation updateted...');
+    this.props.editTask(
+      this.props.moduleId,
+      this.state.editedTaskId,
+      this.state.newTaskForm.taskName.value,
+      this.state.newTaskForm.priority.value,
+      this.state.newTaskForm.expiration.value,
+      this.state.newTaskForm.timeFrame.value,
+      true,
+    );
+  };
+
   renderAddTaskForm() {
     let newTaskForm = Object.keys(this.state.newTaskForm).map(inputKey => {
       return {
@@ -316,6 +329,15 @@ class AddTask extends Component {
 
     return (
       <form>
+        {this.state.editMode && (
+          <div
+            data-title="Update creation date to current time"
+            className={`${classes.AddTask_updateTime} tooltip`}
+            onClick={this.handleUpdateCreationDate}
+          >
+            <span className="cursorPointer">♼</span>
+          </div>
+        )}
         {newTaskForm.map(formElement => (
           <Input
             key={formElement.id}

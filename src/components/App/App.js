@@ -209,6 +209,7 @@ class App extends Component {
     newPriority,
     newExpirationPeriod,
     newTimeFrame,
+    setCreationDateToCurrent = false,
   ) => {
     const updatedModules = [...this.state.taskModules];
     const moduleToUpdateIndex = findModuleToUpdateIndex(
@@ -240,7 +241,10 @@ class App extends Component {
                 priority: parseInt(newPriority, 10),
                 expirationPeriod: parseInt(newExpirationPeriod, 10),
                 timeFrame: newTimeFrame,
-                editMode: false,
+                editMode: setCreationDateToCurrent ? true : false,
+                creationDate: setCreationDateToCurrent
+                  ? Date.now()
+                  : task.creationDate,
               };
             }),
           };
