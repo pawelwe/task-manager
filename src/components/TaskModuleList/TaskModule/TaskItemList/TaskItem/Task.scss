@@ -2,8 +2,6 @@
   display: flex;
   justify-content: space-between;
   position: relative;
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
   border-bottom: 1px dashed $medium-gray-4;
 
   user-select: none;
@@ -12,9 +10,11 @@
   }
 
   &_content {
-    //max-width: calc(100% - 5rem);
+    box-sizing: border-box;
+    display: inline-block;
     flex-basis: 100%;
     cursor: pointer;
+    padding: 1rem 0;
   }
 
   &_header {
@@ -34,6 +34,7 @@
   &_toolbar {
     display: flex;
     order: 1;
+    margin: 1rem 0;
   }
 
   &_editMode {

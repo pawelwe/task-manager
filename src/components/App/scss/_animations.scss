@@ -83,11 +83,40 @@
   }
 
   // CSSTransition classes animations v2
-  .fade2-enter-active {
+  .fadeInH-enter-active {
     animation: fadeIn 450ms ease-out forwards;
+    overflow: hidden;
   }
-  .fade2-exit-active {
-    animation: fadeOut 450ms ease-out forwards;
+  .fadeInH-exit-active {
+    animation: fadeOutH 900ms ease-out forwards;
+    transform-origin: 0 100%;
+    overflow: hidden;
+  }
+}
+
+@keyframes :global(fadeInH) {
+  0% {
+    opacity: 0;
+    max-height: 0;
+  }
+  100% {
+    opacity: 1;
+    max-height: 150px;
+  }
+}
+
+@keyframes :global(fadeOutH) {
+  0% {
+    opacity: 1;
+    max-height: 150px;
+  }
+  50% {
+    opacity: 0;
+    max-height: 150px;
+  }
+  100% {
+    opacity: 0;
+    max-height: 0;
   }
 }
 

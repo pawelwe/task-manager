@@ -11,8 +11,8 @@ const TaskItemList = ({ tasks, toggleTask, removeTask, moduleId, toggleTaskEditM
         return (
           <CSSTransition
             key={task.id}
-            classNames="fade"
-            timeout={{ enter: 450, exit: 250 }}
+            classNames="fadeInH"
+            timeout={{ enter: 450, exit: 900 }}
           >
             <Task
               id={task.id}
