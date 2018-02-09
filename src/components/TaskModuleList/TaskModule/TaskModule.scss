@@ -10,7 +10,7 @@
   &_header {
     display: flex;
     justify-content: space-between;
-    max-width: calc(100% - 25px);
+    position: relative;
   }
 
   &_header__edit {
@@ -18,7 +18,16 @@
     display: none;
   }
 
+  &_toolbar {
+    display: flex;
+    flex-basis: 34px;
+    justify-content: space-between;
+  }
 
+  &_removeBtn {
+    cursor: pointer;
+    color: $accent;
+  }
 
   &_title {
     font-size: 2rem;
@@ -60,7 +69,8 @@
   }
 }
 
-.editIcon, .confirmIcon {
+.editIcon,
+.confirmIcon {
   color: $accent;
   cursor: pointer;
 }

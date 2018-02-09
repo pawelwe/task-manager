@@ -1,6 +1,10 @@
 import React from 'react';
 import clockIcon from '../../../../../images/clock-icon.svg';
-import { calculateExpiration } from '../../../../../utils/utils';
+import {
+  calculateExpiration,
+  calculateAlert,
+  months,
+} from '../../../../../utils/utils';
 import classes from './Task.scss';
 
 const Task = ({
@@ -17,22 +21,19 @@ const Task = ({
   toggleTaskEditMode,
   editMode,
 }) => {
-  const expiration = calculateExpiration(creationDate, expirationPeriod, timeFrame);
+  const expiration = calculateExpiration(
+    creationDate,
+    expirationPeriod,
+    timeFrame,
+  ).value;
+  const expirationAlertMinutesTimeout = 30;
+  const timeToTurnOnAlert = calculateAlert(
+    expiration,
+    timeFrame,
+    expirationAlertMinutesTimeout,
+  );
+
   const getCreationDate = new Date(creationDate);
-  const months = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec',
-  ];
   const year = getCreationDate.getFullYear();
   const month = months[getCreationDate.getMonth()];
   const date = getCreationDate.getDate();
@@ -45,7 +46,8 @@ const Task = ({
         {!editMode && (
           <span
             onClick={() => toggleTaskEditMode(moduleId, id, true)}
-            className={classes.editIcon}
+            data-title="Edit task"
+            className={`${classes.editIcon} tooltip`}
           >
             ✏
           </span>
@@ -63,9 +65,12 @@ const Task = ({
         {!editMode && (
           <span
             id="removeTask"
+            data-title="Remove task"
             onClick={() => removeTask(moduleId, id)}
-            className={classes.TaskItemList_item_removeBtn}
-          />
+            className={`${classes.TaskItemList_item_removeBtn} tooltip`}
+          >
+            ✗
+          </span>
         )}
       </div>
       <section
@@ -84,13 +89,14 @@ const Task = ({
           <strong>Priority:</strong> {priority}
         </p>
         <p className={classes.TaskItemList_item_info}>
-          <span className={expiration < 31 ? 'isExpiring' : ''}>
-            {expiration >= 31 && (
-              <span>
-                <strong>Expires in:</strong> {expiration} {timeFrame}
-              </span>
-            )}
-            {expiration < 31 &&
+          <span className={timeToTurnOnAlert ? 'isExpiring' : ''}>
+            {!timeToTurnOnAlert &&
+              expiration > 0 && (
+                <span>
+                  <strong>Expires in:</strong> {expiration} {timeFrame}
+                </span>
+              )}
+            {timeToTurnOnAlert &&
               expiration > 0 && (
                 <span>
                   <img

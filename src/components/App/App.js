@@ -64,6 +64,8 @@ class App extends Component {
   }
 
   initModules(modules, resetEditMode) {
+    console.log('Init');
+
     return modules.map(module => {
       return module.tasks && module.tasks.length > 0
         ? {
@@ -76,12 +78,12 @@ class App extends Component {
                     a.creationDate,
                     a.expirationPeriod,
                     a.timeFrame,
-                  ) -
+                  ).unifiedValue -
                   calculateExpiration(
                     b.creationDate,
                     b.expirationPeriod,
                     b.timeFrame,
-                  )
+                  ).unifiedValue
                 );
               })
               .map(task => {
@@ -93,12 +95,12 @@ class App extends Component {
                       task.creationDate,
                       task.expirationPeriod,
                       task.timeFrame,
-                    ) > 0
+                    ).unifiedValue > 0
                       ? calculateExpiration(
                           task.creationDate,
                           task.expirationPeriod,
                           task.timeFrame,
-                        )
+                        ).unifiedValue
                       : 0,
                 };
               }),
@@ -422,25 +424,25 @@ class App extends Component {
                     a.creationDate,
                     a.expirationPeriod,
                     a.timeFrame,
-                  ) -
+                  ).unifiedValue +
                   calculateExpiration(
                     b.creationDate,
                     b.expirationPeriod,
                     b.timeFrame,
-                  )
+                  ).unifiedValue
                 );
               } else {
                 return (
                   calculateExpiration(
-                    b.creationDate,
-                    b.expirationPeriod,
-                    b.timeFrame,
-                  ) -
-                  calculateExpiration(
                     a.creationDate,
                     a.expirationPeriod,
                     a.timeFrame,
-                  )
+                  ).unifiedValue -
+                  calculateExpiration(
+                    b.creationDate,
+                    b.expirationPeriod,
+                    b.timeFrame,
+                  ).unifiedValue
                 );
               }
             }),

@@ -68,7 +68,7 @@ class TaskModule extends Component {
     } = this.props;
 
     return (
-      <li className={`${classes.TaskModule}`}>
+      <li className={classes.TaskModule}>
         <section className={classes.TaskModule_content}>
           <header
             ref={node => (this.titleHeader = node)}
@@ -76,15 +76,25 @@ class TaskModule extends Component {
             className={classes.TaskModule_header}
           >
             <h4 className={classes.TaskModule_title}>{title}</h4>
-            <span className={classes.editIcon}>✏</span>
-            <span
-              id="removeTaskModule"
-              onClick={e => {
-                e.stopPropagation();
-                handleConfirmRemoveTaskModule(moduleId);
-              }}
-              className="removeBtn"
-            />
+            <div className={classes.TaskModule_toolbar}>
+              <span
+                data-title="Edit module title"
+                className={`${classes.editIcon} tooltip`}
+              >
+                ✏
+              </span>
+              <span
+                data-title="Remove module"
+                id="removeTaskModule"
+                onClick={e => {
+                  e.stopPropagation();
+                  handleConfirmRemoveTaskModule(moduleId);
+                }}
+                className={`${classes.TaskModule_removeBtn} tooltip`}
+              >
+                ✗
+              </span>
+            </div>
           </header>
           <header
             ref={node => (this.editHeader = node)}
