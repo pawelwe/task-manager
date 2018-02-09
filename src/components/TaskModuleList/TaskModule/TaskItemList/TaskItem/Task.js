@@ -41,7 +41,7 @@ const Task = ({
   const min = getCreationDate.getMinutes();
 
   return (
-    <li className={`${classes.TaskItemList_item} fadeIn`}>
+    <li className={classes.TaskItemList_item}>
       <div className={classes.TaskItemList_item_toolbar}>
         {!editMode && (
           <span
