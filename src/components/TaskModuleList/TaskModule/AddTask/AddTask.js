@@ -162,7 +162,6 @@ class AddTask extends Component {
     let formIsValid = true;
 
     for (let inputId in updatedForm) {
-      console.log(updatedForm[inputId], updatedForm[inputId].valid);
       formIsValid = updatedForm[inputId].valid && formIsValid;
     }
 

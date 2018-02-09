@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import uuid from 'uuid';
-import isEqual from 'lodash.isequal';
 
 import {
   findModuleToUpdateIndex,
   sortBy,
   calculateExpiration,
+  isEqual,
 } from '../../utils/utils';
 import { handleSaveState, handleLoadState } from '../../utils/persistState';
 
@@ -95,12 +95,12 @@ class App extends Component {
                       task.creationDate,
                       task.expirationPeriod,
                       task.timeFrame,
-                    ).unifiedValue > 0
+                    ).value > 0
                       ? calculateExpiration(
                           task.creationDate,
                           task.expirationPeriod,
                           task.timeFrame,
-                        ).unifiedValue
+                        ).value
                       : 0,
                 };
               }),
