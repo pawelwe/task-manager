@@ -5,7 +5,9 @@
   }
 
   .isExpiring {
+    display: block;
     color: $red;
+    margin-top: 1rem;
   }
 
   .expirationIcon {

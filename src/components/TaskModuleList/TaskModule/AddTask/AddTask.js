@@ -50,7 +50,8 @@ class AddTask extends Component {
         value: '',
         validation: {
           required: true,
-          errorMessage: 'Should be a number',
+          positiveNumber: true,
+          errorMessage: 'Should be a positive value',
         },
         touched: false,
         valid: false,
@@ -133,6 +134,10 @@ class AddTask extends Component {
 
     if (rules.required) {
       isValid = value.trim() !== '' && isValid;
+    }
+
+    if (rules.positiveNumber) {
+      isValid = value > 0 && isValid;
     }
 
     if (rules.minLength) {

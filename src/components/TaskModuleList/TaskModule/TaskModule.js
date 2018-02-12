@@ -150,7 +150,7 @@ class TaskModule extends Component {
               />
             </div>
             <span className={classes.TaskModule_filterDirArrow}>
-              {sortAsc ? '↑' : '↓'}
+              {sortAsc ? '↥' : '↧'}
             </span>
           </div>
           <ul className={classes.TaskList}>

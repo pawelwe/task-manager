@@ -27,6 +27,11 @@ const Task = ({
     expirationPeriod,
     timeFrame,
   ).value;
+  const expirationEpoch = calculateExpiration(
+    creationDate,
+    expirationPeriod,
+    timeFrame,
+  ).unifiedValue;
   const expirationAlertMinutesTimeout = 30;
   const timeToTurnOnAlert = calculateAlert(
     expiration,
@@ -41,8 +46,20 @@ const Task = ({
   const hour = getCreationDate.getHours();
   const min = getCreationDate.getMinutes();
 
+  const getExpirationDate = new Date(expirationEpoch);
+  const expirationYear = getExpirationDate.getFullYear();
+  const expirationMonth = months[getExpirationDate.getMonth()];
+  const expirationDate = getExpirationDate.getDate();
+  const expirationHour = getExpirationDate.getHours();
+  const expirationMin = getExpirationDate.getMinutes();
+
   return (
-    <li className={classes.TaskItemList_item}>
+    <li
+      className={[
+        classes.TaskItemList_item,
+        editMode ? classes.TaskItemList_item__edited : null,
+      ].join(' ')}
+    >
       <div className={classes.TaskItemList_item_toolbar}>
         {!editMode && (
           <span
@@ -86,18 +103,22 @@ const Task = ({
       >
         <h5 className={classes.TaskItemList_item_header}>{name}</h5>
         <p className={classes.TaskItemList_item_info}>
-          <strong>Created:</strong>{' '}
-          {`${date} ${month} ${year} / ${hour}:${min}`}
+          <strong>Priority:</strong> {priority}
         </p>
         <p className={classes.TaskItemList_item_info}>
-          <strong>Priority:</strong> {priority}
+          <strong>Created:</strong>{' '}
+          {`${date} ${month} ${year} / ${hour}:${min}`}
         </p>
         <p className={classes.TaskItemList_item_info}>
           <span className={timeToTurnOnAlert ? 'isExpiring' : ''}>
             {!timeToTurnOnAlert &&
               expiration > 0 && (
                 <span>
-                  <strong>Expires in:</strong> {expiration} {timeFrame}
+                  <strong>Expiration:</strong>
+                  <span>
+                    {' '}
+                    {`${expirationDate} ${expirationMonth} ${expirationYear} / ${expirationHour}:${expirationMin}`}
+                  </span>
                 </span>
               )}
             {timeToTurnOnAlert &&
@@ -108,7 +129,7 @@ const Task = ({
                     src={clockIcon}
                     alt="expiration-icon"
                   />
-                  Expires in: {expiration} {timeFrame}
+                  Expiration: {expiration} {timeFrame}
                 </span>
               )}
             {expiration <= 0 && (
