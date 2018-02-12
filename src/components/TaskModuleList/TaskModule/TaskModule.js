@@ -4,6 +4,7 @@ import Filter from './Filter/Filter';
 import TaskItemList from './TaskItemList/TaskItemList';
 import Input from '../../Inputs/Input';
 import classes from './TaskModule.scss';
+import filterIcon from '../../../images/filter-icon.svg';
 
 class TaskModule extends Component {
   cachedModuleTitle = null;
@@ -49,6 +50,19 @@ class TaskModule extends Component {
     }, 200);
   };
 
+  toggleFilter = () => {
+    if (this.filterInput.style.width === '100%') {
+      this.filterInput.style.width = 0;
+    } else {
+      this.filterInput.style.width = '100%';
+      this.filterInput.focus();
+    }
+  };
+
+  handleDoSearch = (e, moduleId) => {
+    this.props.doSearch(moduleId, e.target.value);
+  };
+
   render() {
     let {
       title,
@@ -65,6 +79,7 @@ class TaskModule extends Component {
       toggleAlert,
       editTask,
       toggleTaskEditMode,
+      searchTerm,
     } = this.props;
 
     return (
@@ -117,9 +132,9 @@ class TaskModule extends Component {
               ✓
             </span>
           </header>
-          <div className={classes.TaskModule_filterBox}>
+          <div className={classes.TaskModule_sortBox}>
             <strong>Sort tasks by:</strong>
-            <div className={classes.TaskModule_filters}>
+            <div className={classes.TaskModule_sorters}>
               <Filter
                 sortBy={sortByProp}
                 text="Priority"
@@ -153,11 +168,41 @@ class TaskModule extends Component {
               {sortAsc ? '↥' : '↧'}
             </span>
           </div>
+          <div className={classes.TaskModule_filterBox}>
+            <div className={classes.TaskModule_filter}>
+              <input
+                className={classes.TaskModule_filterInput}
+                style={{ width: 0 }}
+                type="text"
+                onChange={e => this.handleDoSearch(e, moduleId)}
+                ref={node => (this.filterInput = node)}
+              />
+            </div>
+            <span
+              onClick={this.toggleFilter}
+              className={`${classes.filterIcon} tooltip`}
+              data-title="Toggle Filter"
+            >
+              <img src={filterIcon} alt="filter-icon" />
+            </span>
+          </div>
           <ul className={classes.TaskList}>
             {tasks &&
-              tasks.length < 1 && (
+              tasks.length < 1 &&
+              !searchTerm && (
                 <li>
-                  <p>No tasks in current module...</p>
+                  <p className={classes.TaskModule_noTasks}>
+                    No tasks in current module...
+                  </p>
+                  <br />
+                </li>
+              )}
+            {searchTerm &&
+              !tasks.length && (
+                <li>
+                  <p className={classes.TaskModule_noTasks}>
+                    No tasks found...
+                  </p>
                   <br />
                 </li>
               )}

@@ -114,7 +114,7 @@ const Task = ({
             {!timeToTurnOnAlert &&
               expiration > 0 && (
                 <span>
-                  <strong>Expiration:</strong>
+                  <strong>Expires:</strong>
                   <span>
                     {' '}
                     {`${expirationDate} ${expirationMonth} ${expirationYear} / ${expirationHour}:${expirationMin}`}
@@ -129,7 +129,7 @@ const Task = ({
                     src={clockIcon}
                     alt="expiration-icon"
                   />
-                  Expiration: {expiration} {timeFrame}
+                  Expires: {expiration} {timeFrame}
                 </span>
               )}
             {expiration <= 0 && (

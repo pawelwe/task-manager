@@ -25,6 +25,7 @@ class TaskModuleList extends Component {
       editModuleTitle,
       editTask,
       toggleTaskEditMode,
+      doSearch,
     } = this.props;
     if (taskModules.length < 1) {
       return (
@@ -34,18 +35,26 @@ class TaskModuleList extends Component {
         </div>
       );
     }
+
     return (
       <TransitionGroup component="ul" className={`${classes.TaskModuleList}`}>
         {taskModules.map(module => {
           return (
-            <CSSTransition key={module.id} classNames="fade" timeout={{ enter: 450, exit: 250 }}>
+            <CSSTransition
+              key={module.id}
+              classNames="fade"
+              timeout={{ enter: 450, exit: 250 }}
+            >
               <TaskModule
+                {...module}
                 moduleId={module.id}
+                tasks={module.tasks.filter(task =>
+                  task.name.includes(module.searchTerm),
+                )}
                 addNewTask={addNewTask}
                 toggleTask={toggleTask}
                 removeTask={removeTask}
                 removeTaskModule={removeTaskModule}
-                {...module}
                 sortByProp={sortByProp}
                 sortByExpiration={sortByExpiration}
                 toggleModal={toggleModal}
@@ -54,6 +63,8 @@ class TaskModuleList extends Component {
                 editModuleTitle={editModuleTitle}
                 editTask={editTask}
                 toggleTaskEditMode={toggleTaskEditMode}
+                searchTerm={module.searchTerm}
+                doSearch={doSearch}
               />
             </CSSTransition>
           );

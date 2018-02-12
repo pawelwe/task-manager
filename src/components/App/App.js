@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import uuid from 'uuid';
+import debounce from 'lodash.debounce';
 
 import {
   findModuleToUpdateIndex,
   sortBy,
   calculateExpiration,
   isEqual,
+  copyArray,
 } from '../../utils/utils';
 import { handleSaveState, handleLoadState } from '../../utils/persistState';
 
@@ -30,6 +32,7 @@ const TaskModuleList = asyncComponent(() =>
 class App extends Component {
   state = {
     taskModules: [],
+    unfilteredModules: [],
     timer: 0,
   };
 
@@ -325,6 +328,7 @@ class App extends Component {
       tasks: [],
       sortAsc: true,
       tasksSortedBy: 'creationDate',
+      searchTerm: '',
     };
     const newTaskModules = [...taskModules, newModule];
     this.setState(
@@ -460,6 +464,34 @@ class App extends Component {
     return updatedModules;
   };
 
+  doSearch = debounce((moduleId, searchTerm) => {
+    this.handleSearchModule(moduleId, searchTerm);
+  }, 300);
+
+  handleSearchModule = (moduleId, searchTerm) => {
+    const updatedModules = [...this.state.taskModules];
+    const moduleToUpdateIndex = findModuleToUpdateIndex(
+      updatedModules,
+      moduleId,
+    );
+
+    this.setState((prevState, props) => {
+      return {
+        taskModules: updatedModules.map((module, index) => {
+          if (index !== moduleToUpdateIndex) {
+            return module;
+          }
+          return {
+            ...module,
+            searchTerm: searchTerm.trim(),
+            tasks: [...module.tasks],
+          };
+        }),
+      };
+    });
+    return updatedModules;
+  };
+
   render() {
     return (
       <div className={`${classes.App} container`}>
@@ -488,6 +520,7 @@ class App extends Component {
             editModuleTitle={this.handleUpdateModuleTitle}
             editTask={this.handleUpdateTask}
             toggleTaskEditMode={this.toggleTaskEditMode}
+            doSearch={this.doSearch}
           />
           <AddTaskModule
             addTaskModule={this.handleAddTaskModule}

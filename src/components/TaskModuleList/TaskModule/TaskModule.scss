@@ -47,16 +47,41 @@
   }
 
   &_filterBox {
+    display: flex;
+    padding: 0.2rem 0 1.8rem;
     position: relative;
-    margin: 1rem 0 2rem;
+  }
+
+  &_filter {
+    display: block;
+    flex-basis: 100%;
+  }
+
+  &_filterInput {
+    display: block;
+    width: 100%;
+    padding: 0 0 0.5rem;
+    line-height: 1;
+    background: transparent;
+    border-bottom: 1px solid $accent;
+    transition: all 350ms ease-out;
+    max-width: calc(100% - 15px);
+  }
+
+  &_noTasks {
+    margin-top: 1rem;
+  }
+
+  &_sortBox {
+    position: relative;
     font-size: 1.2rem;
   }
 
-  &_filters {
+  &_sorters {
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
-    margin: 0.6rem 0;
+    margin: 0.6rem 0 0.3rem;
   }
 
   &_filterDirArrow {
@@ -72,6 +97,12 @@
 .editIcon,
 .confirmIcon {
   color: $accent;
+  cursor: pointer;
+}
+
+.filterIcon {
+  flex-basis: 20px;
+  display: block;
   cursor: pointer;
 }
 
